@@ -48,27 +48,27 @@ export default function ProductModal({ product, onClose }) {
     return (
         <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
             <div
-                className="relative bg-[#120F24] rounded-2xl max-w-3xl w-full overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.9)] border border-purple-500/40 grid grid-cols-1 md:grid-cols-12 animate-in zoom-in-95 duration-200 text-slate-200"
+                className="relative bg-[#07080D] rounded-2xl max-w-3xl w-full overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.9)] border border-[#C5A059]/40 grid grid-cols-1 md:grid-cols-12 animate-in zoom-in-95 duration-200 text-slate-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-purple-950/70 hover:bg-purple-900/70 border border-purple-800/40 rounded-full transition shadow-sm"
+                    className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-[#1A1F30]/80 hover:bg-[#252C42] border border-[#2A314A] rounded-full transition shadow-sm"
                 >
                     <X className="w-5 h-5" />
                 </button>
 
                 {/* Left: Product Images (Gallery) */}
-                <div className="md:col-span-6 bg-[#0B0916] p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-purple-950/60">
-                    <div className="relative aspect-square rounded-xl overflow-hidden bg-[#131024] p-6 flex items-center justify-center border border-purple-900/40 shadow-inner">
+                <div className="md:col-span-6 bg-[#090B12] p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#202538]">
+                    <div className="relative aspect-square rounded-xl overflow-hidden bg-[#07080D] p-6 flex items-center justify-center border border-[#202538] shadow-inner">
                         <img
                             src={currentImg}
                             alt={product.name}
                             className="w-full h-full object-contain max-h-[300px] transition-all duration-300 drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
                         />
                         {hasDiscount && (
-                            <div className="absolute top-3 left-3 px-2.5 py-1 bg-gradient-to-r from-pink-600 to-rose-600 text-white text-xs font-bold rounded-md shadow-sm">
+                            <div className="absolute top-3 left-3 px-2.5 py-1 bg-gradient-to-r from-[#AA771C] to-[#C5A059] text-slate-950 text-xs font-bold rounded-md shadow-sm">
                                 {discountPercent}% OFF
                             </div>
                         )}
@@ -76,8 +76,8 @@ export default function ProductModal({ product, onClose }) {
                             onClick={() => toggleWishlist(product)}
                             className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md border transition ${
                                 isWishlisted
-                                    ? "bg-purple-950 text-rose-400 border-purple-500/60 shadow-[0_0_10px_rgba(244,63,94,0.4)]"
-                                    : "bg-[#1A1633]/80 text-slate-400 hover:text-purple-400 border-purple-900/40"
+                                    ? "bg-[#1C2133] text-rose-400 border-[#C5A059]/60 shadow-[0_0_10px_rgba(244,63,94,0.4)]"
+                                    : "bg-[#161B2B]/80 text-slate-400 hover:text-[#E5C158] border-[#2A314A]"
                             }`}
                         >
                             <Heart className={`w-4 h-4 ${isWishlisted ? "fill-rose-500 text-rose-500" : ""}`} />
@@ -91,10 +91,10 @@ export default function ProductModal({ product, onClose }) {
                                 <button
                                     key={idx}
                                     onClick={() => setActiveImgIndex(idx)}
-                                    className={`w-14 h-14 rounded-lg p-1 bg-[#131024] border shrink-0 transition ${
+                                    className={`w-14 h-14 rounded-lg p-1 bg-[#07080D] border shrink-0 transition ${
                                         activeImgIndex === idx
-                                            ? "border-purple-500 ring-2 ring-purple-500/40"
-                                            : "border-purple-950/60 opacity-60 hover:opacity-100"
+                                            ? "border-[#C5A059] ring-2 ring-[#C5A059]/40"
+                                            : "border-[#202538] opacity-60 hover:opacity-100"
                                     }`}
                                 >
                                     <img src={img.url} alt="thumbnail" className="w-full h-full object-contain" />
@@ -105,15 +105,15 @@ export default function ProductModal({ product, onClose }) {
                 </div>
 
                 {/* Right: Product Details & Actions */}
-                <div className="md:col-span-6 p-6 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[82vh] bg-[#120F24]">
+                <div className="md:col-span-6 p-6 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[82vh] bg-[#07080D]">
                     <div>
                         {/* Category & Rating */}
                         <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-bold uppercase tracking-wider text-purple-400 bg-purple-950/60 border border-purple-800/40 px-2.5 py-0.5 rounded-md">
+                            <span className="text-xs font-bold uppercase tracking-wider text-[#E5C158] bg-[#1C2133] border border-[#C5A059]/40 px-2.5 py-0.5 rounded-md">
                                 {product.category}
                             </span>
-                            <div className="flex items-center gap-1.5 text-purple-400">
-                                <Star className="w-4 h-4 fill-purple-400 text-purple-400" />
+                            <div className="flex items-center gap-1.5 text-[#E5C158]">
+                                <Star className="w-4 h-4 fill-[#E5C158] text-[#E5C158]" />
                                 <span className="text-white font-bold text-xs">
                                     {product.ratings?.average ? product.ratings.average.toFixed(1) : "4.8"}
                                 </span>
@@ -124,7 +124,7 @@ export default function ProductModal({ product, onClose }) {
                         </div>
 
                         {/* Title */}
-                        <h2 className="text-xl sm:text-2xl font-black text-white leading-snug mb-1">
+                        <h2 className="text-xl sm:text-2xl font-black text-white leading-snug mb-1 font-serif">
                             {product.name}
                         </h2>
 
@@ -139,7 +139,7 @@ export default function ProductModal({ product, onClose }) {
                                 </span>
                             )}
                             <span className="text-xs font-bold text-emerald-400 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-800/40">
-                                In Stock ({product.stock || 25})
+                                Atelier Reserve ({product.stock || 12})
                             </span>
                         </div>
 
@@ -151,8 +151,8 @@ export default function ProductModal({ product, onClose }) {
                         {/* Size/Spec Selection */}
                         {product.sizes && product.sizes.length > 0 && (
                             <div className="mb-3">
-                                <label className="block text-[11px] font-bold uppercase tracking-wider text-purple-400 mb-1.5">
-                                    Select Edition / Size:
+                                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#E5C158] mb-1.5">
+                                    Case Diameter / Edition:
                                 </label>
                                 <div className="flex flex-wrap gap-2">
                                     {product.sizes.map((size) => (
@@ -162,8 +162,8 @@ export default function ProductModal({ product, onClose }) {
                                             onClick={() => setSelectedSize(size)}
                                             className={`px-3 py-1 text-xs font-semibold rounded-lg border transition ${
                                                 selectedSize === size
-                                                    ? "border-purple-500 bg-purple-600 text-white shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-                                                    : "border-purple-950 bg-[#1A1633] text-slate-300 hover:bg-[#251F45]"
+                                                    ? "border-[#C5A059] bg-gradient-to-r from-[#C5A059] to-[#E5C158] text-slate-950 shadow-[0_0_10px_rgba(212,175,55,0.4)]"
+                                                    : "border-[#252B3E] bg-[#161B2B] text-slate-300 hover:bg-[#1E243A]"
                                             }`}
                                         >
                                             {size}
@@ -176,8 +176,8 @@ export default function ProductModal({ product, onClose }) {
                         {/* Color Selection */}
                         {product.colors && product.colors.length > 0 && (
                             <div className="mb-4">
-                                <label className="block text-[11px] font-bold uppercase tracking-wider text-purple-400 mb-1.5">
-                                    Select Colorway:
+                                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#E5C158] mb-1.5">
+                                    Dial &amp; Strap Finish:
                                 </label>
                                 <div className="flex flex-wrap gap-2">
                                     {product.colors.map((color) => (
@@ -187,8 +187,8 @@ export default function ProductModal({ product, onClose }) {
                                             onClick={() => setSelectedColor(color)}
                                             className={`px-3 py-1 text-xs font-medium rounded-lg border transition ${
                                                 selectedColor === color
-                                                    ? "border-purple-500 bg-purple-950/80 text-white font-bold ring-1 ring-purple-400 shadow-[0_0_8px_rgba(168,85,247,0.4)]"
-                                                    : "border-purple-950 bg-[#1A1633] text-slate-300 hover:bg-[#251F45]"
+                                                    ? "border-[#C5A059] bg-[#1C2133] text-[#F3E5AB] font-bold ring-1 ring-[#C5A059] shadow-[0_0_8px_rgba(212,175,55,0.3)]"
+                                                    : "border-[#252B3E] bg-[#161B2B] text-slate-300 hover:bg-[#1E243A]"
                                             }`}
                                         >
                                             {color}
@@ -201,11 +201,11 @@ export default function ProductModal({ product, onClose }) {
 
                     <div>
                         {/* Quantity & Add to Cart button */}
-                        <div className="flex items-center gap-3 pt-3 border-t border-purple-950/60">
-                            <div className="flex items-center border border-purple-900/50 rounded-lg overflow-hidden bg-[#1A1633]">
+                        <div className="flex items-center gap-3 pt-3 border-t border-[#202538]">
+                            <div className="flex items-center border border-[#252B3E] rounded-lg overflow-hidden bg-[#161B2B]">
                                 <button
                                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                    className="px-3 py-2 text-slate-300 hover:text-white hover:bg-purple-950/60 text-xs font-bold"
+                                    className="px-3 py-2 text-slate-300 hover:text-white hover:bg-[#1C2133] text-xs font-bold"
                                 >
                                     -
                                 </button>
@@ -214,7 +214,7 @@ export default function ProductModal({ product, onClose }) {
                                 </span>
                                 <button
                                     onClick={() => setQuantity(quantity + 1)}
-                                    className="px-3 py-2 text-slate-300 hover:text-white hover:bg-purple-950/60 text-xs font-bold"
+                                    className="px-3 py-2 text-slate-300 hover:text-white hover:bg-[#1C2133] text-xs font-bold"
                                 >
                                     +
                                 </button>
@@ -226,20 +226,20 @@ export default function ProductModal({ product, onClose }) {
                                 className={`flex-1 py-2.5 px-5 rounded-lg font-bold text-xs flex items-center justify-center gap-2 transition-all ${
                                     added
                                         ? "bg-emerald-600 text-white shadow-[0_0_15px_rgba(16,185,129,0.5)]"
-                                        : "bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white font-black shadow-[0_0_20px_rgba(168,85,247,0.5)] hover:shadow-[0_0_30px_rgba(168,85,247,0.7)]"
+                                        : "bg-gradient-to-r from-[#C5A059] via-[#E5C158] to-[#AA771C] hover:from-[#E5C158] hover:to-[#D4AF37] text-slate-950 font-black shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.6)]"
                                 }`}
                             >
                                 {added ? (
                                     <>
                                         <Check className="w-4 h-4" />
-                                        Added to Cart!
+                                        Acquisition Recorded!
                                     </>
                                 ) : adding ? (
-                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <>
                                         <ShoppingBag className="w-4 h-4" />
-                                        <span>Add to Cart</span>
+                                        <span>Acquire Timepiece</span>
                                     </>
                                 )}
                             </button>
@@ -250,26 +250,26 @@ export default function ProductModal({ product, onClose }) {
                             <Link
                                 to={`/product/${product._id}`}
                                 onClick={onClose}
-                                className="inline-flex items-center gap-1.5 text-xs text-purple-400 hover:text-purple-300 font-bold transition"
+                                className="inline-flex items-center gap-1.5 text-xs text-[#E5C158] hover:text-[#F3E5AB] font-bold transition"
                             >
-                                <span>View Full Product Page &amp; Tech Specs</span>
+                                <span>Inspect Full Movement Calibre &amp; Specs</span>
                                 <ExternalLink className="w-3.5 h-3.5" />
                             </Link>
                         </div>
 
                         {/* Extra perks */}
-                        <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-purple-950/60 text-center text-[10px] text-slate-400">
+                        <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-[#202538] text-center text-[10px] text-slate-400">
                             <div className="flex flex-col items-center gap-1">
-                                <Truck className="w-3.5 h-3.5 text-purple-400" />
-                                <span>Express Air</span>
+                                <Truck className="w-3.5 h-3.5 text-[#E5C158]" />
+                                <span>Armored Express</span>
                             </div>
                             <div className="flex flex-col items-center gap-1">
-                                <RefreshCw className="w-3.5 h-3.5 text-purple-400" />
-                                <span>7-Day Return</span>
+                                <RefreshCw className="w-3.5 h-3.5 text-[#E5C158]" />
+                                <span>7-Day Vault Return</span>
                             </div>
                             <div className="flex flex-col items-center gap-1">
-                                <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
-                                <span>100% Genuine</span>
+                                <ShieldCheck className="w-3.5 h-3.5 text-[#E5C158]" />
+                                <span>5-Yr Warranty</span>
                             </div>
                         </div>
                     </div>

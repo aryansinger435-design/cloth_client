@@ -34,16 +34,16 @@ export default function WishlistDrawer() {
             />
 
             <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-                <div className="w-screen max-w-md bg-[#0D0A1C] border-l border-purple-900/40 text-slate-100 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300">
+                <div className="w-screen max-w-md bg-[#0D0F18] border-l border-[#252B3E] text-slate-100 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300">
                     {/* Header */}
-                    <div className="p-5 border-b border-purple-950/80 flex items-center justify-between bg-[#0B0916]">
+                    <div className="p-5 border-b border-[#202538] flex items-center justify-between bg-[#090B12]">
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-rose-400">
-                                <Heart className="w-5 h-5 fill-rose-500 text-rose-500" />
+                            <div className="w-9 h-9 rounded-xl bg-[#1A1F30] border border-[#C5A059]/40 flex items-center justify-center text-[#E5C158]">
+                                <Heart className="w-5 h-5 fill-[#E5C158] text-[#E5C158]" />
                             </div>
                             <div>
-                                <h2 className="text-base font-bold text-white tracking-tight">Your Saved Wishlist</h2>
-                                <p className="text-xs text-purple-400 font-semibold">{wishlistCount} saved {wishlistCount === 1 ? "item" : "items"}</p>
+                                <h2 className="text-base font-bold text-white tracking-tight font-serif">Collector's Vault</h2>
+                                <p className="text-xs text-[#E5C158] font-semibold">{wishlistCount} curated {wishlistCount === 1 ? "timepiece" : "timepieces"}</p>
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@ export default function WishlistDrawer() {
                             )}
                             <button
                                 onClick={() => setIsDrawerOpen(false)}
-                                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-purple-950/50 transition"
+                                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-[#1A1F30] transition"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -66,15 +66,15 @@ export default function WishlistDrawer() {
                     </div>
 
                     {/* Content List */}
-                    <div className="flex-1 overflow-y-auto p-5 divide-y divide-purple-950/60 scrollbar-none">
+                    <div className="flex-1 overflow-y-auto p-5 divide-y divide-[#202538] scrollbar-none">
                         {wishlistCount === 0 ? (
                             <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4">
-                                <div className="w-16 h-16 rounded-2xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.3)]">
+                                <div className="w-16 h-16 rounded-2xl bg-[#1A1F30] border border-[#C5A059]/40 flex items-center justify-center text-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.25)]">
                                     <Heart className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-base font-bold text-white">Your wishlist is empty</h3>
+                                <h3 className="text-base font-bold text-white font-serif">Your vault is empty</h3>
                                 <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
-                                    Browse our futuristic catalog and click the heart icon on any device to save it for later.
+                                    Browse our 100-piece luxury horology catalog and click the vault icon on any timepiece to curate your private collection.
                                 </p>
                                 <button
                                     onClick={() => {
@@ -83,16 +83,16 @@ export default function WishlistDrawer() {
                                         if (el) el.scrollIntoView({ behavior: "smooth" });
                                         else navigate("/");
                                     }}
-                                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white text-xs font-black shadow-[0_0_15px_rgba(168,85,247,0.4)] transition"
+                                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#E5C158] hover:from-[#E5C158] hover:to-[#D4AF37] text-slate-950 text-xs font-black shadow-[0_0_15px_rgba(212,175,55,0.4)] transition"
                                 >
-                                    Explore Products
+                                    Explore Timepieces
                                 </button>
                             </div>
                         ) : (
                             wishlist.map((item) => {
                                 const hasDiscount = item.discount_price > 0 && item.discount_price < item.price;
                                 const finalPrice = hasDiscount ? item.discount_price : item.price;
-                                const img = item.images?.[0]?.url || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300";
+                                const img = item.images?.[0]?.url || "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300";
 
                                 return (
                                     <div key={item._id} className="py-4 first:pt-0 last:pb-0 flex items-center gap-4 group">
@@ -101,7 +101,7 @@ export default function WishlistDrawer() {
                                                 setIsDrawerOpen(false);
                                                 navigate(`/product/${item._id}`);
                                             }}
-                                            className="w-18 h-18 sm:w-20 sm:h-20 bg-[#131024] rounded-xl overflow-hidden p-2 shrink-0 border border-purple-900/40 flex items-center justify-center cursor-pointer hover:border-purple-500/60 transition"
+                                            className="w-18 h-18 sm:w-20 sm:h-20 bg-[#07080D] rounded-xl overflow-hidden p-2 shrink-0 border border-[#252B3E] flex items-center justify-center cursor-pointer hover:border-[#C5A059]/60 transition"
                                         >
                                             <img
                                                 src={img}
@@ -111,7 +111,7 @@ export default function WishlistDrawer() {
                                         </div>
 
                                         <div className="flex-1 min-w-0">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 block">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#E5C158] block">
                                                 {item.category}
                                             </span>
                                             <h4
@@ -119,7 +119,7 @@ export default function WishlistDrawer() {
                                                     setIsDrawerOpen(false);
                                                     navigate(`/product/${item._id}`);
                                                 }}
-                                                className="text-sm font-bold text-white hover:text-purple-300 transition truncate cursor-pointer"
+                                                className="text-sm font-bold text-white hover:text-[#E5C158] transition truncate cursor-pointer font-serif"
                                             >
                                                 {item.name}
                                             </h4>
@@ -138,7 +138,7 @@ export default function WishlistDrawer() {
                                             <div className="flex items-center gap-2 mt-2">
                                                 <button
                                                     onClick={() => handleMoveToCart(item)}
-                                                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white rounded-lg text-xs font-bold shadow-[0_0_10px_rgba(168,85,247,0.4)] transition"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-[#C5A059] to-[#E5C158] hover:from-[#E5C158] hover:to-[#D4AF37] text-slate-950 rounded-lg text-xs font-bold shadow-[0_0_10px_rgba(212,175,55,0.35)] transition"
                                                 >
                                                     <ShoppingBag className="w-3.5 h-3.5" />
                                                     <span>Move to Cart</span>
@@ -147,7 +147,7 @@ export default function WishlistDrawer() {
                                                 <button
                                                     onClick={() => removeFromWishlist(item._id)}
                                                     className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-rose-950/30 transition"
-                                                    title="Remove from Wishlist"
+                                                    title="Remove from Vault"
                                                 >
                                                     <Trash2 className="w-3.5 h-3.5" />
                                                 </button>
@@ -161,7 +161,7 @@ export default function WishlistDrawer() {
 
                     {/* Footer actions */}
                     {wishlistCount > 0 && (
-                        <div className="p-5 border-t border-purple-950/80 bg-[#0B0916] space-y-3">
+                        <div className="p-5 border-t border-[#202538] bg-[#090B12] space-y-3">
                             <button
                                 onClick={async () => {
                                     for (const item of wishlist) {
@@ -170,10 +170,10 @@ export default function WishlistDrawer() {
                                     setIsDrawerOpen(false);
                                     navigate("/cart");
                                 }}
-                                className="w-full py-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white font-black text-sm rounded-xl transition shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center gap-2"
+                                className="w-full py-3 bg-gradient-to-r from-[#C5A059] via-[#E5C158] to-[#AA771C] hover:from-[#E5C158] hover:to-[#D4AF37] text-slate-950 font-black text-sm rounded-xl transition shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2"
                             >
-                                <ShoppingBag className="w-4 h-4 text-white" />
-                                <span>Move All Items to Cart</span>
+                                <ShoppingBag className="w-4 h-4 text-slate-950" />
+                                <span>Move All Timepieces to Acquisition Cart</span>
                             </button>
                         </div>
                     )}

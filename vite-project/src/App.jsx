@@ -31,7 +31,7 @@ import AdminOrders from "./pages/admin/AdminOrders";
 
 function StoreLayout({ children }) {
     return (
-        <div className="flex flex-col min-h-screen bg-[#08070E] text-slate-100 selection:bg-purple-600 selection:text-white">
+        <div className="flex flex-col min-h-screen bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
             <Navbar />
             <div className="flex-1">{children}</div>
             <Footer />

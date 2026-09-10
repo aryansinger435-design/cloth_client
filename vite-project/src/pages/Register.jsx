@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingBag, ArrowRight, User, Mail, Lock, MapPin, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { Crown, ArrowRight, User, Mail, Lock, AlertCircle, ShieldCheck } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
@@ -42,7 +42,6 @@ export default function Register() {
             setLoading(true);
             const res = await register(formData);
             if (res.success) {
-                // Navigate to OTP page passing email
                 navigate(`/verify-otp?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.first_name)}`);
             } else {
                 setError(res.message || "Registration failed");
@@ -56,34 +55,34 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#08070E] text-slate-100 selection:bg-purple-600 selection:text-white">
-            <div className="max-w-md w-full space-y-8 bg-[#131024] p-8 sm:p-10 rounded-3xl border border-purple-500/40 shadow-2xl shadow-purple-950/60">
+        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
+            <div className="max-w-md w-full space-y-6 bg-[#07080D] p-8 sm:p-10 rounded-3xl border border-[#D4AF37]/40 shadow-2xl shadow-black">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto w-12 h-12 rounded-2xl bg-purple-950/80 border border-purple-500/50 flex items-center justify-center text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.3)] mb-4">
-                        <ShoppingBag className="w-6 h-6" />
+                    <div className="mx-auto w-12 h-12 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.25)] mb-4">
+                        <Crown className="w-6 h-6" />
                     </div>
-                    <h2 className="text-3xl font-black text-white tracking-tight">
-                        Create your account
+                    <h2 className="text-3xl font-bold text-white tracking-tight font-serif">
+                        Register Provenance
                     </h2>
-                    <p className="mt-2 text-sm text-slate-400">
-                        Join <span className="text-purple-400 font-bold">Shopnix</span> to explore authentic electronics &amp; offers
+                    <p className="mt-2 text-xs text-slate-400">
+                        Join <span className="text-[#E5C158] font-bold">Chrononix Haute Horlogerie</span> for bespoke allocations &amp; VIP debuts
                     </p>
                 </div>
 
                 {/* Error Banner */}
                 {error && (
-                    <div className="p-4 bg-rose-950/60 border border-rose-800/40 text-rose-300 text-sm rounded-xl flex items-start gap-2.5 animate-shake">
-                        <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                    <div className="p-3.5 bg-rose-950/60 border border-rose-800/40 text-rose-300 text-xs rounded-xl flex items-start gap-2.5">
+                        <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <span>{error}</span>
                     </div>
                 )}
 
                 {/* Form */}
-                <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-4">
+                <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-2 gap-3">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                                 First Name *
                             </label>
                             <div className="relative">
@@ -93,15 +92,15 @@ export default function Register() {
                                     required
                                     value={formData.first_name}
                                     onChange={handleChange}
-                                    placeholder="Aman"
-                                    className="w-full pl-10 pr-3 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition placeholder-slate-500"
+                                    placeholder="Vikram"
+                                    className="w-full pl-9 pr-3 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
                                 />
-                                <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                <User className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
                                 Last Name *
                             </label>
                             <input
@@ -110,15 +109,15 @@ export default function Register() {
                                 required
                                 value={formData.last_name}
                                 onChange={handleChange}
-                                placeholder="Verma"
-                                className="w-full px-3.5 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition placeholder-slate-500"
+                                placeholder="Singhania"
+                                className="w-full px-3 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                            Email address *
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                            Collector Email *
                         </label>
                         <div className="relative">
                             <input
@@ -127,16 +126,16 @@ export default function Register() {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                placeholder="you@example.com"
-                                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition placeholder-slate-500"
+                                placeholder="collector@domain.com"
+                                className="w-full pl-9 pr-3.5 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
                             />
-                            <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                            <Mail className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                            Password *
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                            Vault Passphrase *
                         </label>
                         <div className="relative">
                             <input
@@ -145,73 +144,68 @@ export default function Register() {
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                placeholder="Minimum 6 characters"
-                                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition placeholder-slate-500"
+                                placeholder="Min. 6 characters"
+                                className="w-full pl-9 pr-3.5 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
                             />
-                            <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                            <Lock className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3">
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                                Gender
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                                Salutation
                             </label>
                             <select
                                 name="gender"
                                 value={formData.gender}
                                 onChange={handleChange}
-                                className="w-full px-3 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition cursor-pointer"
+                                className="w-full px-3 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition cursor-pointer"
                             >
-                                <option value="male" className="bg-[#131024]">Male</option>
-                                <option value="female" className="bg-[#131024]">Female</option>
-                                <option value="other" className="bg-[#131024]">Other</option>
+                                <option value="male" className="bg-[#07080D]">Mr.</option>
+                                <option value="female" className="bg-[#07080D]">Ms. / Mrs.</option>
+                                <option value="other" className="bg-[#07080D]">Dr. / Royal</option>
                             </select>
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                                Pincode
+                            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                                City Pincode
                             </label>
-                            <div className="relative">
-                                <input
-                                    name="pincode"
-                                    type="text"
-                                    value={formData.pincode}
-                                    onChange={handleChange}
-                                    placeholder="136027"
-                                    className="w-full pl-9 pr-3 py-2.5 text-sm bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 outline-none transition placeholder-slate-500"
-                                />
-                                <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                            </div>
+                            <input
+                                name="pincode"
+                                type="text"
+                                value={formData.pincode}
+                                onChange={handleChange}
+                                placeholder="122002"
+                                className="w-full px-3 py-2 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
+                            />
                         </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white text-sm font-black rounded-xl transition shadow-[0_0_20px_rgba(168,85,247,0.4)] flex items-center justify-center gap-2 group disabled:opacity-70"
+                        className="w-full py-3 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black text-xs font-extrabold uppercase tracking-wider rounded-xl transition shadow-[0_0_15px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2 mt-4"
                     >
                         {loading ? (
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                         ) : (
                             <>
-                                <span>Create Account &amp; Verify OTP</span>
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                                <span>Create Collector Profile</span>
+                                <ArrowRight className="w-4 h-4 text-black" />
                             </>
                         )}
                     </button>
                 </form>
 
-                {/* Footer link */}
-                <div className="text-center pt-2 text-sm text-slate-400">
-                    Already have an account?{" "}
-                    <Link to="/login" className="font-bold text-purple-400 hover:text-purple-300 underline">
-                        Log in
+                <p className="text-center text-xs text-slate-400">
+                    Already registered?{" "}
+                    <Link to="/login" className="text-[#D4AF37] hover:text-[#F9E7B9] font-bold underline">
+                        Sign In Here
                     </Link>
-                </div>
+                </p>
             </div>
         </div>
     );
 }
-

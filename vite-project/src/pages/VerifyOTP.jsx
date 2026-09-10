@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { KeyRound, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, Mail, Sparkles } from "lucide-react";
+import { KeyRound, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, Crown } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 
@@ -10,7 +10,7 @@ export default function VerifyOTP() {
     const { showToast } = useToast();
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState(searchParams.get("email") || "customer@shopnix.in");
+    const [email, setEmail] = useState(searchParams.get("email") || "customer@chrononix.in");
     const [otp, setOtp] = useState("123456");
     const [loading, setLoading] = useState(false);
     const [resending, setResending] = useState(false);
@@ -32,7 +32,7 @@ export default function VerifyOTP() {
         setSuccessMsg("");
 
         if (!email.trim() || !otp.trim()) {
-            setError("Email and OTP are required");
+            setError("Email and authentication code are required");
             return;
         }
 
@@ -40,16 +40,16 @@ export default function VerifyOTP() {
             setLoading(true);
             const res = await verifyOTP(email.trim(), otp.trim());
             if (res.success) {
-                setSuccessMsg("Account verified successfully! Redirecting to storefront...");
-                showToast("Account verified successfully! Welcome to Shopnix.", "success");
+                setSuccessMsg("Provenance credentials verified! Entering the salon...");
+                showToast("Account authenticated! Welcome to Chrononix Haute Horlogerie.", "success");
                 setTimeout(() => {
                     navigate(`/?verified=true`);
                 }, 1200);
             } else {
-                setError(res.message || "OTP verification failed");
+                setError(res.message || "Code verification failed");
             }
         } catch (err) {
-            setError(err.message || "Invalid or expired OTP");
+            setError(err.message || "Invalid or expired code");
         } finally {
             setLoading(false);
         }
@@ -74,116 +74,102 @@ export default function VerifyOTP() {
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#08070E] text-slate-100 selection:bg-purple-600 selection:text-white relative overflow-hidden">
-            {/* Ambient Background Glows */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="max-w-md w-full space-y-6 bg-[#131024] p-8 sm:p-10 rounded-2xl border border-purple-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl relative z-10">
+        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
+            <div className="max-w-md w-full space-y-6 bg-[#07080D] p-8 sm:p-10 rounded-3xl border border-[#D4AF37]/40 shadow-2xl shadow-black">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto w-12 h-12 rounded-2xl bg-purple-950/80 border border-purple-500/50 flex items-center justify-center text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.25)] mb-4">
                         <KeyRound className="w-6 h-6" />
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                        Verify Your Account
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif">
+                        Verify Provenance
                     </h2>
-                    <p className="mt-2 text-xs text-purple-300/70">
-                        Enter the 6-digit one-time code sent to your registered email
+                    <p className="mt-2 text-xs text-slate-400">
+                        Enter the 6-digit authentication key transmitted to your email
                     </p>
                 </div>
 
                 {/* Instant Test OTP Hint Box */}
-                <div className="p-3 bg-purple-950/50 rounded-xl border border-purple-800/40 text-xs text-purple-300 flex items-center justify-between">
+                <div className="p-3 bg-[#030406] rounded-xl border border-[#151722] text-xs text-[#E5C158] flex items-center justify-between">
                     <div className="flex items-center gap-2 font-medium">
-                        <Sparkles className="w-4 h-4 text-purple-400" />
-                        <span>Demo Verification Code:</span>
+                        <Crown className="w-4 h-4 text-[#D4AF37]" />
+                        <span>Demo Master Key:</span>
                     </div>
-                    <span className="font-mono font-black text-purple-200 bg-purple-900/60 px-2.5 py-0.5 rounded border border-purple-500/40 shadow-sm">
+                    <span className="font-mono font-black text-white bg-[#0A0C13] px-2 py-0.5 rounded border border-[#D4AF37]/40 tracking-widest">
                         123456
                     </span>
                 </div>
 
-                {/* Error Banner */}
-                {error && (
-                    <div className="p-3.5 bg-rose-950/50 border border-rose-800/50 text-rose-300 text-xs rounded-xl flex items-start gap-2.5 animate-shake font-medium">
-                        <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-                        <span>{error}</span>
+                {/* Status Messages */}
+                {successMsg && (
+                    <div className="p-3 bg-emerald-950/60 border border-emerald-800/40 text-emerald-300 text-xs rounded-xl flex items-start gap-2.5 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>{successMsg}</span>
                     </div>
                 )}
 
-                {/* Success Banner */}
-                {successMsg && (
-                    <div className="p-3.5 bg-emerald-950/50 border border-emerald-800/50 text-emerald-300 text-xs rounded-xl flex items-start gap-2.5 font-medium">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                        <span>{successMsg}</span>
+                {error && (
+                    <div className="p-3.5 bg-rose-950/60 border border-rose-800/40 text-rose-300 text-xs rounded-xl flex items-start gap-2.5 font-medium">
+                        <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                        <span>{error}</span>
                     </div>
                 )}
 
                 {/* Form */}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-[11px] font-bold text-purple-300/80 uppercase tracking-wider mb-1.5">
-                            Email Address
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                            Collector Email
                         </label>
-                        <div className="relative">
-                            <input
-                                type="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-3.5 py-2.5 text-xs bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 outline-none transition"
-                            />
-                            <Mail className="w-4 h-4 text-purple-400/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                        </div>
+                        <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-3.5 py-2.5 text-xs bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition placeholder-slate-500"
+                        />
                     </div>
 
                     <div>
-                        <label className="block text-[11px] font-bold text-purple-300/80 uppercase tracking-wider mb-1.5">
-                            6-Digit Verification Code
+                        <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                            6-Digit Authentication Code
                         </label>
                         <input
                             type="text"
                             maxLength={6}
                             required
                             value={otp}
-                            onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                            placeholder="1 2 3 4 5 6"
-                            className="w-full text-center text-2xl tracking-[0.5em] font-mono py-2.5 bg-[#0D0B18] text-purple-300 border border-[#2E2452] rounded-xl focus:border-purple-500 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] outline-none transition"
-                            autoFocus
+                            onChange={(e) => setOtp(e.target.value)}
+                            placeholder="123456"
+                            className="w-full px-3.5 py-3 text-center text-lg font-mono font-bold tracking-[0.4em] bg-[#030406] text-white border border-[#151722] rounded-xl focus:border-[#D4AF37] outline-none transition"
                         />
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition flex items-center justify-center gap-2 border border-purple-400/40"
+                        className="w-full py-3 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black text-xs font-extrabold uppercase tracking-wider rounded-xl transition shadow-[0_0_15px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2"
                     >
                         {loading ? (
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                         ) : (
                             <>
-                                <span>Verify &amp; Activate Account</span>
-                                <ArrowRight className="w-4 h-4" />
+                                <span>Verify Provenance Key</span>
+                                <ArrowRight className="w-4 h-4 text-black" />
                             </>
                         )}
                     </button>
                 </form>
 
-                <div className="text-center pt-2 text-xs">
-                    {cooldown > 0 ? (
-                        <p className="text-slate-400">
-                            Resend code in <span className="font-mono text-purple-400 font-bold">{cooldown}s</span>
-                        </p>
-                    ) : (
-                        <button
-                            onClick={handleResend}
-                            disabled={resending}
-                            className="text-purple-400 hover:text-purple-300 font-semibold underline"
-                        >
-                            {resending ? "Sending..." : "Resend Verification Code"}
-                        </button>
-                    )}
+                <div className="text-center pt-2">
+                    <button
+                        onClick={handleResend}
+                        disabled={cooldown > 0 || resending}
+                        className="text-xs text-[#D4AF37] hover:text-[#F9E7B9] font-bold underline disabled:opacity-50 inline-flex items-center gap-1.5"
+                    >
+                        <RefreshCw className={`w-3.5 h-3.5 ${resending ? "animate-spin" : ""}`} />
+                        <span>{cooldown > 0 ? `Resend Code in (${cooldown}s)` : "Resend Authentication Code"}</span>
+                    </button>
                 </div>
             </div>
         </div>

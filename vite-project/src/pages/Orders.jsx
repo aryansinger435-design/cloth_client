@@ -14,7 +14,9 @@ import {
     MapPin,
     ExternalLink,
     ChevronRight,
-    X
+    X,
+    Crown,
+    Watch
 } from "lucide-react";
 import { getStoredOrders, cancelLocalOrder } from "../api/shopnixStore";
 import { useCart } from "../context/CartContext";
@@ -43,14 +45,14 @@ export default function Orders() {
     const handleCancelOrder = (orderId) => {
         cancelLocalOrder(orderId);
         loadOrders();
-        showToast(`Order #${orderId} has been cancelled`, "info");
+        showToast(`Acquisition #${orderId} has been revoked`, "info");
     };
 
     const handleReorder = async (order) => {
         for (const item of order.items || []) {
             await addToCart(item.product, item.quantity, item.size, item.color);
         }
-        showToast("Items added back to your cart!", "success");
+        showToast("Timepieces reserved back into your portfolio!", "success");
         navigate("/cart");
     };
 
@@ -64,14 +66,14 @@ export default function Orders() {
             case "delivered":
                 return "bg-emerald-950/60 text-emerald-400 border-emerald-800/40 font-bold";
             case "shipped":
-                return "bg-purple-950/60 text-purple-300 border-purple-700/50 font-bold";
+                return "bg-[#0A0C13] text-[#E5C158] border-[#D4AF37]/50 font-bold";
             case "processing":
             case "pending":
-                return "bg-indigo-950/60 text-indigo-300 border-indigo-700/50 font-bold";
+                return "bg-[#1A1F30] text-[#D4AF37] border-[#D4AF37]/40 font-bold";
             case "cancelled":
                 return "bg-rose-950/60 text-rose-400 border-rose-800/40 font-bold";
             default:
-                return "bg-[#1A162F] text-slate-300 border-[#241D3F] font-bold";
+                return "bg-[#07080D] text-slate-300 border-[#151722] font-bold";
         }
     };
 
@@ -86,28 +88,28 @@ export default function Orders() {
     };
 
     return (
-        <div className="min-h-screen bg-[#08070E] text-slate-100 py-10 selection:bg-purple-600 selection:text-white">
+        <div className="min-h-screen bg-[#040406] text-slate-100 py-10 selection:bg-[#D4AF37] selection:text-black">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#1E1736]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#151722]">
                     <div>
-                        <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                            My Orders &amp; Shipments
+                        <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif">
+                            Vault Acquisitions &amp; Provenance Registry
                         </h1>
                         <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                            Live tracking, package routes, invoices, and past deliveries
+                            Live armored tracking, tamper-proof seals, official tax invoices, and past timepiece acquisitions
                         </p>
                     </div>
 
                     {/* Filter Tabs */}
-                    <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#131024] border border-[#241D3F] text-xs shadow-sm">
+                    <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#07080D] border border-[#151722] text-xs shadow-sm">
                         {["All", "Processing", "Shipped", "Delivered", "Cancelled"].map((f) => (
                             <button
                                 key={f}
                                 onClick={() => setSelectedFilter(f)}
                                 className={`px-3 py-1.5 rounded-lg font-bold transition ${
                                     selectedFilter === f
-                                        ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]"
+                                        ? "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black shadow-[0_0_12px_rgba(212,175,55,0.3)]"
                                         : "text-slate-400 hover:text-white"
                                 }`}
                             >
@@ -118,21 +120,21 @@ export default function Orders() {
                 </div>
 
                 {filteredOrders.length === 0 ? (
-                    <div className="bg-[#131024] p-12 rounded-3xl border border-[#241D3F] text-center max-w-md mx-auto space-y-5 shadow-xl">
-                        <div className="w-16 h-16 bg-purple-950/60 border border-purple-500/40 text-purple-400 rounded-2xl flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(168,85,247,0.3)]">
-                            <Package className="w-8 h-8" />
+                    <div className="bg-[#07080D] p-12 rounded-3xl border border-[#151722] text-center max-w-md mx-auto space-y-5 shadow-xl">
+                        <div className="w-16 h-16 bg-[#0A0C13] border border-[#D4AF37]/40 text-[#D4AF37] rounded-2xl flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                            <Crown className="w-8 h-8" />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-white">No {selectedFilter !== "All" ? selectedFilter : ""} orders found</h2>
+                            <h2 className="text-xl font-bold text-white font-serif">No {selectedFilter !== "All" ? selectedFilter : ""} Acquisitions Found</h2>
                             <p className="text-xs text-slate-400 mt-1">
-                                Discover next-gen tech devices and place your order today with fast delivery.
+                                Discover certified horological automatics and reserve your next heirloom timepiece today.
                             </p>
                         </div>
                         <Link
                             to="/"
-                            className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl text-xs font-black transition shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#E5C158] text-black rounded-xl text-xs font-extrabold uppercase tracking-wider transition shadow-[0_0_15px_rgba(212,175,55,0.3)]"
                         >
-                            <span>Start Shopping</span>
+                            <span>Explore The Vault</span>
                             <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
@@ -145,17 +147,17 @@ export default function Orders() {
                             return (
                                 <div
                                     key={order._id}
-                                    className="bg-[#131024] rounded-3xl border border-[#241D3F] shadow-xl overflow-hidden"
+                                    className="bg-[#07080D] rounded-3xl border border-[#151722] shadow-xl overflow-hidden"
                                 >
                                     {/* Order Meta Header */}
-                                    <div className="p-5 sm:px-6 bg-[#0D0B18] border-b border-[#1E1736] flex flex-wrap items-center justify-between gap-4 text-xs">
+                                    <div className="p-5 sm:px-6 bg-[#030406] border-b border-[#151722] flex flex-wrap items-center justify-between gap-4 text-xs">
                                         <div className="flex flex-wrap items-center gap-4 sm:gap-8">
                                             <div>
-                                                <span className="text-slate-400 block font-medium">Order Number</span>
+                                                <span className="text-slate-400 block font-medium">Acquisition ID</span>
                                                 <span className="font-mono font-bold text-white text-sm">{order._id}</span>
                                             </div>
                                             <div>
-                                                <span className="text-slate-400 block font-medium">Placed On</span>
+                                                <span className="text-slate-400 block font-medium">Registered Date</span>
                                                 <span className="font-semibold text-slate-300">
                                                     {new Date(order.created_at).toLocaleDateString("en-IN", {
                                                         day: "numeric",
@@ -165,8 +167,8 @@ export default function Orders() {
                                                 </span>
                                             </div>
                                             <div>
-                                                <span className="text-slate-400 block font-medium">Grand Total</span>
-                                                <span className="font-black text-purple-300 text-sm">
+                                                <span className="text-slate-400 block font-medium">Settlement Total</span>
+                                                <span className="font-black text-[#E5C158] text-sm font-serif">
                                                     ₹{order.total_amount?.toLocaleString("en-IN")}
                                                 </span>
                                             </div>
@@ -181,48 +183,48 @@ export default function Orders() {
 
                                     {/* Shipment Tracker Stepper */}
                                     {!isCancelled && (
-                                        <div className="p-5 sm:px-6 border-b border-[#1E1736] bg-[#0A0814]">
+                                        <div className="p-5 sm:px-6 border-b border-[#151722] bg-[#030406]/60">
                                             <div className="max-w-2xl mx-auto">
                                                 <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-2">
-                                                    <span className={step >= 1 ? "text-purple-400" : ""}>Order Placed</span>
-                                                    <span className={step >= 2 ? "text-purple-400" : ""}>Hub Processing</span>
-                                                    <span className={step >= 3 ? "text-purple-400" : ""}>Air Express In-Transit</span>
+                                                    <span className={step >= 1 ? "text-[#E5C158]" : ""}>Acquisition Verified</span>
+                                                    <span className={step >= 2 ? "text-[#E5C158]" : ""}>Horologist Calibration</span>
+                                                    <span className={step >= 3 ? "text-[#E5C158]" : ""}>Armored Air Transit</span>
                                                     <span className={step >= 4 ? "text-emerald-400" : ""}>Delivered</span>
                                                 </div>
 
                                                 {/* Stepper bar */}
-                                                <div className="relative h-2 bg-[#1E1736] rounded-full overflow-hidden">
+                                                <div className="relative h-2 bg-[#0A0C13] rounded-full overflow-hidden">
                                                     <div
-                                                        className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-purple-600 via-pink-600 to-emerald-500 rounded-full transition-all duration-500"
+                                                        className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-emerald-400 rounded-full transition-all duration-500"
                                                         style={{ width: `${(step / 4) * 100}%` }}
                                                     ></div>
                                                 </div>
 
                                                 <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400">
-                                                    <span>Partner: <strong className="text-purple-300">{order.shipping_partner || "Delhivery FastTrack"}</strong></span>
-                                                    <span>AWB: <strong className="text-white font-mono font-bold">{order.tracking_number}</strong></span>
+                                                    <span>Courier: <strong className="text-[#E5C158]">{order.shipping_partner || "Chrononix Armored Logistics"}</strong></span>
+                                                    <span>Waybill: <strong className="text-white font-mono font-bold">{order.tracking_number}</strong></span>
                                                 </div>
                                             </div>
                                         </div>
                                     )}
 
                                     {/* Items List */}
-                                    <div className="p-5 sm:p-6 divide-y divide-[#1E1736]">
+                                    <div className="p-5 sm:p-6 divide-y divide-[#23293D]">
                                         {order.items?.map((item, idx) => (
                                             <div key={idx} className="py-3.5 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-16 h-16 bg-[#0D0B18] rounded-2xl overflow-hidden shrink-0 border border-[#241D3F] flex items-center justify-center p-2">
+                                                    <div className="w-16 h-16 bg-[#030406] rounded-2xl overflow-hidden shrink-0 border border-[#151722] flex items-center justify-center p-1">
                                                         <img
-                                                            src={item.image || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=200"}
+                                                            src={item.image || "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=200"}
                                                             alt={item.name}
-                                                            className="w-full h-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                                                            className="w-full h-full object-cover rounded-xl drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-bold text-white text-sm">{item.name}</h4>
+                                                        <h4 className="font-bold text-white text-sm font-serif">{item.name}</h4>
                                                         <p className="text-xs text-slate-400 mt-0.5">
-                                                            Edition: <span className="text-slate-200 font-semibold">{item.size}</span>
-                                                            {item.color && item.color !== "Standard" && <span> • {item.color}</span>}
+                                                            Case: <span className="text-slate-200 font-semibold">{item.size}</span>
+                                                            {item.color && item.color !== "Standard" && <span> • Finish: {item.color}</span>}
                                                             <span> • Qty: {item.quantity}</span>
                                                         </p>
                                                     </div>
@@ -238,37 +240,37 @@ export default function Orders() {
                                     </div>
 
                                     {/* Action Buttons Bar */}
-                                    <div className="p-4 sm:px-6 bg-[#0D0B18] border-t border-[#1E1736] flex flex-wrap items-center justify-between gap-3 text-xs">
+                                    <div className="p-4 sm:px-6 bg-[#030406] border-t border-[#151722] flex flex-wrap items-center justify-between gap-3 text-xs">
                                         <div className="text-slate-400">
-                                            Delivery to: <strong className="text-white">{order.shipping_address?.city}, {order.shipping_address?.state}</strong>
+                                            Destination: <strong className="text-white">{order.shipping_address?.city}, {order.shipping_address?.state}</strong>
                                         </div>
 
                                         <div className="flex items-center gap-2.5">
                                             {/* Track Package Modal */}
                                             <button
                                                 onClick={() => setTrackingModalOrder(order)}
-                                                className="px-3.5 py-1.5 rounded-lg bg-[#1A1532] hover:bg-[#251E45] text-purple-200 hover:text-white font-bold border border-purple-500/40 flex items-center gap-1.5 transition shadow-sm"
+                                                className="px-3.5 py-1.5 rounded-lg bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] hover:text-white font-bold border border-[#D4AF37]/40 flex items-center gap-1.5 transition shadow-sm"
                                             >
-                                                <Truck className="w-3.5 h-3.5 text-purple-400" />
-                                                <span>Track Package</span>
+                                                <Truck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                                <span>Track Armored Parcel</span>
                                             </button>
 
                                             {/* Download / Print Invoice */}
                                             <button
                                                 onClick={() => setSelectedInvoiceOrder(order)}
-                                                className="px-3.5 py-1.5 rounded-lg bg-[#1A1532] hover:bg-[#251E45] text-purple-200 font-semibold border border-purple-500/40 flex items-center gap-1.5 transition shadow-sm"
+                                                className="px-3.5 py-1.5 rounded-lg bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] font-semibold border border-[#D4AF37]/40 flex items-center gap-1.5 transition shadow-sm"
                                             >
-                                                <FileText className="w-3.5 h-3.5 text-purple-400" />
-                                                <span>Invoice</span>
+                                                <FileText className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                                <span>Tax Invoice</span>
                                             </button>
 
                                             {/* Reorder Button */}
                                             <button
                                                 onClick={() => handleReorder(order)}
-                                                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold flex items-center gap-1.5 transition shadow-[0_0_12px_rgba(168,85,247,0.3)]"
+                                                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold uppercase tracking-wider flex items-center gap-1.5 transition shadow-[0_0_12px_rgba(212,175,55,0.3)]"
                                             >
-                                                <RotateCcw className="w-3.5 h-3.5" />
-                                                <span>Buy Again</span>
+                                                <RotateCcw className="w-3.5 h-3.5 text-black" />
+                                                <span>Acquire Again</span>
                                             </button>
 
                                             {/* Cancel Button if eligible */}
@@ -277,7 +279,7 @@ export default function Orders() {
                                                     onClick={() => handleCancelOrder(order._id)}
                                                     className="px-3 py-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 font-semibold transition"
                                                 >
-                                                    Cancel Order
+                                                    Cancel Acquisition
                                                 </button>
                                             )}
                                         </div>
@@ -301,47 +303,47 @@ export default function Orders() {
             {/* Tracking Modal */}
             {trackingModalOrder && (
                 <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-[#131024] rounded-3xl max-w-md w-full p-6 border border-purple-500/40 space-y-5 shadow-2xl text-slate-200">
-                        <div className="flex items-center justify-between pb-3 border-b border-[#1E1736]">
+                    <div className="bg-[#07080D] rounded-3xl max-w-md w-full p-6 border border-[#D4AF37]/40 space-y-5 shadow-2xl text-slate-200">
+                        <div className="flex items-center justify-between pb-3 border-b border-[#151722]">
                             <div className="flex items-center gap-2">
-                                <Truck className="w-5 h-5 text-purple-400" />
-                                <h3 className="font-bold text-white text-sm">Package Tracking Status</h3>
+                                <Truck className="w-5 h-5 text-[#D4AF37]" />
+                                <h3 className="font-bold text-white text-sm font-serif">Armored Courier Tracking</h3>
                             </div>
                             <button onClick={() => setTrackingModalOrder(null)} className="text-slate-400 hover:text-white">
                                 <X className="w-4 h-4" />
                             </button>
                         </div>
 
-                        <div className="p-3 bg-[#0D0B18] rounded-2xl border border-[#241D3F] text-xs space-y-1">
-                            <p className="text-slate-400">Tracking AWB: <strong className="text-white font-mono">{trackingModalOrder.tracking_number}</strong></p>
-                            <p className="text-slate-400">Carrier: <strong className="text-purple-300">{trackingModalOrder.shipping_partner || "Delhivery Air"}</strong></p>
-                            <p className="text-slate-400">Estimated Delivery: <strong className="text-emerald-400">{trackingModalOrder.estimated_delivery || "In 2 Days"}</strong></p>
+                        <div className="p-3 bg-[#030406] rounded-2xl border border-[#151722] text-xs space-y-1">
+                            <p className="text-slate-400">Vault Waybill: <strong className="text-white font-mono">{trackingModalOrder.tracking_number}</strong></p>
+                            <p className="text-slate-400">Armored Logistics: <strong className="text-[#E5C158]">{trackingModalOrder.shipping_partner || "Chrononix Secured Transit"}</strong></p>
+                            <p className="text-slate-400">Estimated Delivery: <strong className="text-emerald-400">{trackingModalOrder.estimated_delivery || "Within 48 Hours"}</strong></p>
                         </div>
 
                         {/* Tracking Milestones */}
-                        <div className="space-y-3 text-xs pl-2 border-l-2 border-purple-500 ml-2">
+                        <div className="space-y-3 text-xs pl-2 border-l-2 border-[#D4AF37] ml-2">
                             <div className="relative pl-4">
                                 <div className="absolute -left-[21px] top-0.5 w-3 h-3 rounded-full bg-emerald-400 ring-4 ring-emerald-950"></div>
-                                <p className="font-bold text-white">Out for Delivery / In-Transit</p>
-                                <p className="text-[11px] text-slate-400">Package departed local logistics sorting center</p>
+                                <p className="font-bold text-white">Armored Vehicle In-Transit</p>
+                                <p className="text-[11px] text-slate-400">Package departed secured regional vault sorting station</p>
                             </div>
                             <div className="relative pl-4">
-                                <div className="absolute -left-[21px] top-0.5 w-3 h-3 rounded-full bg-purple-500"></div>
-                                <p className="font-bold text-slate-200">Hub Dispatch Completed</p>
-                                <p className="text-[11px] text-slate-400">Haryana Fulfillment Facility</p>
+                                <div className="absolute -left-[21px] top-0.5 w-3 h-3 rounded-full bg-[#D4AF37]"></div>
+                                <p className="font-bold text-slate-200">Quality Inspection &amp; Seal Affixed</p>
+                                <p className="text-[11px] text-slate-400">Chrononix Central Ateliers &amp; Vaults</p>
                             </div>
                             <div className="relative pl-4">
-                                <div className="absolute -left-[21px] top-0.5 w-3 h-3 rounded-full bg-purple-500"></div>
-                                <p className="font-bold text-slate-200">Electronic Shipping Info Received</p>
-                                <p className="text-[11px] text-slate-400">Order verification completed</p>
+                                <div className="absolute -left-[21px] top-0.5 w-3 h-3 rounded-full bg-[#D4AF37]"></div>
+                                <p className="font-bold text-slate-200">COSC Paperwork &amp; Provenance Certificate Attached</p>
+                                <p className="text-[11px] text-slate-400">Official authentication registry completed</p>
                             </div>
                         </div>
 
                         <button
                             onClick={() => setTrackingModalOrder(null)}
-                            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-[0_0_15px_rgba(168,85,247,0.4)] transition"
+                            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.4)] transition"
                         >
-                            Close Tracker
+                            Close Armored Tracker
                         </button>
                     </div>
                 </div>

@@ -48,23 +48,23 @@ export const AuthProvider = ({ children }) => {
         const normalizedEmail = email.toLowerCase().trim();
 
         // Check if matching demo accounts first for instant resilience
-        if (normalizedEmail === "admin@shopnix.in" || normalizedEmail === "admin@clothstore.com") {
+        if (normalizedEmail === "admin@chrononix.in" || normalizedEmail === "admin@shopnix.in" || normalizedEmail === "admin@clothstore.com") {
             const adminUser = DEMO_USERS.admin;
             setUser(adminUser);
             setToken("shopnix-admin-token");
             localStorage.setItem("cloth_user", JSON.stringify(adminUser));
             localStorage.setItem("cloth_token", "shopnix-admin-token");
-            showToast("Logged in successfully as Store Admin!", "success");
+            showToast("Authenticated as Chrononix Master Horologist (Admin)!", "success");
             return adminUser;
         }
 
-        if (normalizedEmail === "customer@shopnix.in") {
+        if (normalizedEmail === "customer@chrononix.in" || normalizedEmail === "customer@shopnix.in") {
             const custUser = DEMO_USERS.customer;
             setUser(custUser);
             setToken("shopnix-customer-token");
             localStorage.setItem("cloth_user", JSON.stringify(custUser));
             localStorage.setItem("cloth_token", "shopnix-customer-token");
-            showToast("Logged in successfully as Customer!", "success");
+            showToast("Authenticated as Chrononix VIP Collector!", "success");
             return custUser;
         }
 

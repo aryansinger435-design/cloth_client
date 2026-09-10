@@ -9,18 +9,12 @@ import {
     Truck,
     ShieldCheck,
     RefreshCw,
-    Headphones,
-    Monitor,
     Watch,
-    Gamepad2,
-    Camera,
-    Cpu,
-    Star,
     Clock,
     CheckCircle2,
     Flame,
-    Zap,
-    Shirt
+    Crown,
+    Award
 } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 import ProductModal from "../components/ProductModal";
@@ -30,14 +24,13 @@ import { useToast } from "../context/ToastContext";
 
 const CATEGORIES = [
     { name: "All", icon: Sparkles },
-    { name: "Smart Devices", icon: Watch },
-    { name: "Audio", icon: Headphones },
-    { name: "Gaming", icon: Gamepad2 },
-    { name: "Cameras", icon: Camera },
-    { name: "AI Devices", icon: Cpu },
-    { name: "Accessories", icon: Zap },
-    { name: "Apparel", icon: Shirt },
-    { name: "Electronics", icon: Monitor }
+    { name: "Luxury Automatics", icon: Crown },
+    { name: "Chronographs", icon: Clock },
+    { name: "Tourbillon & Complications", icon: Award },
+    { name: "Skeleton & Mechanical", icon: Watch },
+    { name: "Dive & Sports Heritage", icon: ShieldCheck },
+    { name: "Minimalist Dress Watches", icon: Sparkles },
+    { name: "Smart Luxury", icon: Watch }
 ];
 
 export default function Home() {
@@ -56,8 +49,8 @@ export default function Home() {
     const [videoModalOpen, setVideoModalOpen] = useState(false);
     const [newsletterEmail, setNewsletterEmail] = useState("");
 
-    // Live Flash Sale Timer (Hours:Minutes:Seconds)
-    const [countdown, setCountdown] = useState({ hours: 14, minutes: 28, seconds: 45 });
+    // Live Vault Allocation Timer (Hours:Minutes:Seconds)
+    const [countdown, setCountdown] = useState({ hours: 18, minutes: 42, seconds: 19 });
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -87,7 +80,8 @@ export default function Home() {
                 (p) =>
                     p.name.toLowerCase().includes(q) ||
                     p.category.toLowerCase().includes(q) ||
-                    p.description.toLowerCase().includes(q)
+                    p.description.toLowerCase().includes(q) ||
+                    (p.brand && p.brand.toLowerCase().includes(q))
             );
         }
 
@@ -148,7 +142,7 @@ export default function Home() {
             showToast("Please enter a valid email address", "warning");
             return;
         }
-        showToast("Subscribed successfully! You will receive VIP launch deals.", "success");
+        showToast("Welcome to the Chrononix Private Salon. Your VIP welcome invitation is dispatched.", "success");
         setNewsletterEmail("");
     };
 
@@ -156,67 +150,67 @@ export default function Home() {
     const flashSaleProducts = allProducts.filter((p) => p.discount_price > 0).slice(0, 4);
 
     return (
-        <div className="min-h-screen bg-[#08070E] text-slate-100 selection:bg-purple-600 selection:text-white">
+        <div className="min-h-screen bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
             {/* ================= HERO SECTION ================= */}
-            <section className="relative bg-gradient-to-b from-[#0B0916] via-[#08070E] to-[#08070E] text-white pt-12 pb-20 overflow-hidden border-b border-[#1E1736]">
+            <section className="relative bg-gradient-to-b from-[#07080E] via-[#040406] to-[#040406] text-white pt-10 pb-20 overflow-hidden border-b border-[#151722]">
                 {/* Background Ambient Glows */}
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[450px] bg-purple-600/15 rounded-full blur-[140px] pointer-events-none"></div>
-                <div className="absolute top-10 right-10 w-96 h-96 bg-violet-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-                <div className="absolute bottom-10 left-10 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-[#D4AF37]/10 rounded-full blur-[150px] pointer-events-none"></div>
+                <div className="absolute top-10 right-10 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-[130px] pointer-events-none"></div>
+                <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#E5C158]/5 rounded-full blur-[120px] pointer-events-none"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         {/* Left Hero Content */}
                         <div className="lg:col-span-6 space-y-6 text-center lg:text-left">
-                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-950/60 border border-purple-500/30 text-[11px] font-extrabold tracking-widest text-purple-400 uppercase shadow-[0_0_15px_rgba(168,85,247,0.2)]">
-                                <Sparkles className="w-3.5 h-3.5 text-purple-400 animate-pulse" />
-                                <span>ORIGINAL BRAND ELECTRONICS • 2026 FLAGSHIP EDITION</span>
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0A0C13] border border-[#D4AF37]/40 text-[11px] font-bold tracking-[0.2em] text-[#E5C158] uppercase shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+                                <Crown className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                <span>HAUTE HORLOGERIE • 2026 MANUFACTURE COLLECTION</span>
                             </div>
 
-                            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08] text-white">
-                                Next-Gen <br className="hidden sm:inline" />
-                                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
-                                    Smart Devices
+                            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-white font-serif">
+                                Mastering Time, <br className="hidden sm:inline" />
+                                <span className="bg-gradient-to-r from-[#F9E7B9] via-[#D4AF37] to-[#AA7C1E] bg-clip-text text-transparent">
+                                    Defining Legacy
                                 </span>
                             </h1>
 
                             <p className="text-slate-300 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
-                                Discover India's curated destination for authentic wearables, spatial audio, 4K action cameras, and gaming hardware with manufacturer warranty &amp; express shipping.
+                                Explore India's most prestigious horological vault. Featuring 100 masterfully engineered Swiss automatics, celestial tourbillons, skeleton calibres, and limited edition sports chronographs.
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                                 <a
                                     href="#products-section"
-                                    className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm transition-all shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(168,85,247,0.6)] hover:scale-105 flex items-center gap-2 group"
+                                    className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-sm tracking-wider uppercase transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:scale-105 flex items-center gap-2 group"
                                 >
-                                    <span>Explore Catalog</span>
-                                    <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition" />
+                                    <span>Explore The Vault (100)</span>
+                                    <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition" />
                                 </a>
 
                                 <button
                                     onClick={() => setVideoModalOpen(true)}
-                                    className="px-6 py-3.5 rounded-xl bg-[#131024]/90 hover:bg-[#1C1736] text-purple-200 hover:text-white font-bold text-sm transition border border-purple-500/30 flex items-center gap-2.5 shadow-lg shadow-purple-950/40 hover:border-purple-500/60"
+                                    className="px-6 py-3.5 rounded-xl bg-[#07080D] hover:bg-[#0A0C13] text-[#E5C158] hover:text-white font-bold text-sm tracking-wide transition border border-[#D4AF37]/30 flex items-center gap-2.5 shadow-lg shadow-black/50 hover:border-[#D4AF37]/60"
                                 >
-                                    <div className="w-7 h-7 rounded-full bg-purple-600/30 flex items-center justify-center text-purple-300">
-                                        <Play className="w-3.5 h-3.5 fill-purple-300 ml-0.5" />
+                                    <div className="w-7 h-7 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+                                        <Play className="w-3.5 h-3.5 fill-[#D4AF37] ml-0.5" />
                                     </div>
-                                    <span>Watch Showcase</span>
+                                    <span>Watch Calibre Film</span>
                                 </button>
                             </div>
 
                             {/* Trust metrics bar */}
-                            <div className="pt-4 grid grid-cols-3 gap-4 border-t border-[#1E1736] max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                            <div className="pt-4 grid grid-cols-3 gap-4 border-t border-[#151722] max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                                 <div>
-                                    <p className="text-xl font-black text-white">25k+</p>
-                                    <p className="text-xs text-slate-400">Happy Shoppers</p>
+                                    <p className="text-xl font-bold text-white font-serif">100</p>
+                                    <p className="text-xs text-slate-400">Exclusive Timepieces</p>
                                 </div>
                                 <div>
-                                    <p className="text-xl font-black text-purple-400 glow-purple-text">100%</p>
-                                    <p className="text-xs text-slate-400">Genuine Devices</p>
+                                    <p className="text-xl font-bold text-[#E5C158] font-serif">COSC</p>
+                                    <p className="text-xs text-slate-400">Certified Chronometer</p>
                                 </div>
                                 <div>
-                                    <p className="text-xl font-black text-white">4.9 ★</p>
-                                    <p className="text-xs text-slate-400">Verified Rating</p>
+                                    <p className="text-xl font-bold text-white font-serif">5-Year</p>
+                                    <p className="text-xs text-slate-400">Global Warranty</p>
                                 </div>
                             </div>
                         </div>
@@ -225,52 +219,52 @@ export default function Home() {
                         <div className="lg:col-span-6 relative flex items-center justify-center min-h-[440px]">
                             <div className="relative w-full max-w-[460px] aspect-square flex items-center justify-center">
                                 {/* Subtle pedestal glow */}
-                                <div className="absolute inset-6 rounded-full bg-purple-600/15 blur-3xl pointer-events-none"></div>
-                                <div className="absolute inset-10 rounded-full bg-purple-950/40 border border-purple-500/30 flex items-center justify-center animate-pulse-glow">
-                                    <div className="w-64 h-64 rounded-full border border-purple-400/20"></div>
+                                <div className="absolute inset-6 rounded-full bg-[#D4AF37]/15 blur-3xl pointer-events-none"></div>
+                                <div className="absolute inset-10 rounded-full bg-[#07080D] border border-[#D4AF37]/30 flex items-center justify-center animate-pulse">
+                                    <div className="w-64 h-64 rounded-full border border-[#D4AF37]/20"></div>
                                 </div>
 
                                 {/* Centerpiece Product */}
                                 <img
-                                    src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80"
-                                    alt="Shopnix Audio Headset"
-                                    className="relative z-20 w-72 h-72 object-contain drop-shadow-[0_20px_40px_rgba(168,85,247,0.35)] animate-float"
+                                    src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80"
+                                    alt="Chrononix Royal Tourbillon"
+                                    className="relative z-20 w-80 h-80 object-cover rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-2 border-[#D4AF37]/50"
                                 />
 
-                                {/* Floating Card 1: Spatial Audio */}
+                                {/* Floating Card 1: Tourbillon Calibre */}
                                 <div
-                                    onClick={() => setQuickViewProduct(allProducts[2] || allProducts[0])}
-                                    className="absolute -top-2 left-2 z-30 bg-[#131024]/95 backdrop-blur-md p-3.5 rounded-2xl border border-purple-500/40 shadow-2xl shadow-purple-950/70 cursor-pointer hover:scale-105 transition hover:border-purple-400"
+                                    onClick={() => setQuickViewProduct(allProducts[0] || null)}
+                                    className="absolute -top-2 left-2 z-30 bg-[#07080D]/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37]"
                                 >
-                                    <p className="text-[10px] text-purple-400 font-bold mb-1">Spatial Audio 7.1</p>
+                                    <p className="text-[10px] text-[#D4AF37] font-bold tracking-wider uppercase mb-1">Flying Tourbillon</p>
                                     <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 rounded-lg bg-purple-950/80 border border-purple-700/50 flex items-center justify-center text-purple-300">
-                                            <Headphones className="w-4 h-4" />
+                                        <div className="w-8 h-8 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+                                            <Award className="w-4 h-4" />
                                         </div>
                                         <div>
-                                            <p className="text-xs font-bold text-white">Lossless LDAC</p>
-                                            <p className="text-[10px] text-purple-400 font-medium">Quick Preview</p>
+                                            <p className="text-xs font-bold text-white">Calibre CH-901</p>
+                                            <p className="text-[10px] text-[#E5C158] font-medium">28,800 vph • Quick View</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Floating Card 2: Titanium Smart Watch */}
+                                {/* Floating Card 2: Titanium & Sapphire */}
                                 <div
-                                    onClick={() => setQuickViewProduct(allProducts[0])}
-                                    className="absolute -bottom-3 left-4 z-30 bg-[#131024]/95 backdrop-blur-md p-3.5 rounded-2xl border border-purple-500/40 shadow-2xl shadow-purple-950/70 flex items-center gap-3 cursor-pointer hover:scale-105 transition hover:border-purple-400"
+                                    onClick={() => setQuickViewProduct(allProducts[1] || allProducts[0])}
+                                    className="absolute -bottom-3 left-4 z-30 bg-[#07080D]/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 flex items-center gap-3 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37]"
                                 >
-                                    <div className="w-9 h-9 rounded-lg bg-purple-950/80 border border-purple-700/50 p-1 flex items-center justify-center text-purple-300">
+                                    <div className="w-9 h-9 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 p-1 flex items-center justify-center text-[#D4AF37]">
                                         <Watch className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-white">Quantum Ultra</p>
-                                        <p className="text-[10px] text-slate-300">ECG &amp; SpO2 Sensor</p>
+                                        <p className="text-xs font-bold text-white">Grade 5 Titanium</p>
+                                        <p className="text-[10px] text-slate-300">Curved Sapphire • 300m WR</p>
                                     </div>
                                 </div>
 
-                                {/* Floating Card 3: Flash Discount */}
-                                <div className="absolute top-1/3 -right-2 z-30 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white px-4 py-1.5 rounded-full text-xs font-black shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                                    UP TO 35% OFF
+                                {/* Floating Card 3: Vault Allocation */}
+                                <div className="absolute top-1/3 -right-2 z-30 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] text-black px-4 py-1.5 rounded-full text-xs font-black shadow-[0_0_20px_rgba(212,175,55,0.4)] tracking-wider uppercase">
+                                    VAULT RESERVE DROP
                                 </div>
                             </div>
                         </div>
@@ -278,34 +272,34 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= FLASH DEALS SECTION ================= */}
-            <section id="flash-deals-section" className="py-12 bg-[#0B0916] border-b border-[#1E1736]">
+            {/* ================= FLASH DEALS / VAULT RESERVES ================= */}
+            <section id="flash-deals-section" className="py-12 bg-[#05060A] border-b border-[#151722]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
                         <div>
-                            <div className="flex items-center gap-2 text-purple-400 text-xs font-extrabold uppercase tracking-widest mb-1">
-                                <Flame className="w-4 h-4 fill-purple-500 text-purple-500 animate-pulse" />
-                                <span>LIMITED TIME LIGHTNING DEALS</span>
+                            <div className="flex items-center gap-2 text-[#E5C158] text-xs font-bold uppercase tracking-widest mb-1">
+                                <Flame className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37] animate-pulse" />
+                                <span>COLLECTOR'S VAULT RESERVES • LIMITED ALLOCATIONS</span>
                             </div>
-                            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                                Flash Deals of the Day
+                            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif">
+                                Timepiece Allocations of the Day
                             </h2>
                         </div>
 
                         {/* Countdown Timer Box */}
-                        <div className="flex items-center gap-2.5 bg-[#131024] px-4 py-2.5 rounded-xl border border-purple-500/30 shadow-lg shadow-purple-950/50">
-                            <Clock className="w-4 h-4 text-purple-400" />
-                            <span className="text-xs font-semibold text-slate-300">Ends in:</span>
+                        <div className="flex items-center gap-2.5 bg-[#07080D] px-4 py-2.5 rounded-xl border border-[#D4AF37]/30 shadow-lg shadow-black/60">
+                            <Clock className="w-4 h-4 text-[#D4AF37]" />
+                            <span className="text-xs font-semibold text-slate-300">Allocation Closes:</span>
                             <div className="flex items-center gap-1.5 font-mono font-bold text-xs text-white">
-                                <span className="bg-purple-950/80 border border-purple-800/60 px-2 py-0.5 rounded text-purple-300">
+                                <span className="bg-[#0A0C13] border border-[#D4AF37]/40 px-2 py-0.5 rounded text-[#E5C158]">
                                     {String(countdown.hours).padStart(2, "0")}h
                                 </span>
-                                <span className="text-purple-400 font-black">:</span>
-                                <span className="bg-purple-950/80 border border-purple-800/60 px-2 py-0.5 rounded text-purple-300">
+                                <span className="text-[#D4AF37] font-bold">:</span>
+                                <span className="bg-[#0A0C13] border border-[#D4AF37]/40 px-2 py-0.5 rounded text-[#E5C158]">
                                     {String(countdown.minutes).padStart(2, "0")}m
                                 </span>
-                                <span className="text-purple-400 font-black">:</span>
-                                <span className="bg-purple-600 px-2 py-0.5 rounded text-white shadow-[0_0_10px_rgba(168,85,247,0.5)]">
+                                <span className="text-[#D4AF37] font-bold">:</span>
+                                <span className="bg-gradient-to-r from-[#C5A059] to-[#D4AF37] px-2 py-0.5 rounded text-black font-extrabold shadow-[0_0_10px_rgba(212,175,55,0.4)]">
                                     {String(countdown.seconds).padStart(2, "0")}s
                                 </span>
                             </div>
@@ -326,7 +320,7 @@ export default function Home() {
             </section>
 
             {/* ================= CATEGORY PILLS BAR ================= */}
-            <section className="py-4 bg-[#08070E]/95 border-b border-[#1E1736]/80 sticky top-16 sm:top-20 z-30 backdrop-blur-md shadow-lg shadow-black/40">
+            <section className="py-4 bg-[#040406]/95 border-b border-[#151722] sticky top-16 sm:top-20 z-30 backdrop-blur-md shadow-lg shadow-black/60">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
                         {CATEGORIES.map((cat) => {
@@ -342,13 +336,13 @@ export default function Home() {
                                     onClick={() => handleCategorySelect(cat.name)}
                                     className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border shrink-0 ${
                                         isActive
-                                            ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.4)]"
-                                            : "bg-[#131024] text-slate-300 border-[#241D3F] hover:border-purple-500/50 hover:text-white hover:bg-[#1A1532]"
+                                            ? "bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] text-black border-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+                                            : "bg-[#07080D] text-slate-300 border-[#151722] hover:border-[#D4AF37]/50 hover:text-white hover:bg-[#0A0C13]"
                                     }`}
                                 >
-                                    <Icon className="w-3.5 h-3.5 text-purple-400" />
+                                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-black" : "text-[#D4AF37]"}`} />
                                     <span>{cat.name}</span>
-                                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${isActive ? "bg-purple-400/20 text-purple-200" : "bg-[#1F193B] text-slate-400"}`}>
+                                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${isActive ? "bg-black/20 text-black" : "bg-[#0E1018] text-[#E5C158]"}`}>
                                         {count}
                                     </span>
                                 </button>
@@ -359,16 +353,16 @@ export default function Home() {
             </section>
 
             {/* ================= MAIN CATALOG SECTION ================= */}
-            <section id="products-section" className="py-12 lg:py-16 bg-[#08070E]">
+            <section id="products-section" className="py-12 lg:py-16 bg-[#040406]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Catalog Header & Filters Bar */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1E1736]">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#151722]">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                                {currentCategory === "All" ? "Featured Tech Catalog" : `${currentCategory} Collection`}
+                            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif">
+                                {currentCategory === "All" ? "Complete Horological Catalog (100)" : `${currentCategory} Collection`}
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                                Showing {filteredProducts.length} devices available with pan-India fast shipping
+                                Showing {filteredProducts.length} certified timepieces ready for insured armored courier delivery
                             </p>
                         </div>
 
@@ -379,38 +373,38 @@ export default function Home() {
                                 onClick={() => setInStockOnly(!inStockOnly)}
                                 className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition flex items-center gap-1.5 ${
                                     inStockOnly
-                                        ? "bg-purple-950/80 text-purple-300 border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.25)]"
-                                        : "bg-[#131024] text-slate-300 border-[#241D3F] hover:bg-[#1A162F] hover:border-purple-500/40"
+                                        ? "bg-[#0E1018] text-[#E5C158] border-[#D4AF37]/70 shadow-[0_0_15px_rgba(212,175,55,0.25)]"
+                                        : "bg-[#07080D] text-slate-300 border-[#151722] hover:bg-[#0A0C13] hover:border-[#D4AF37]/40"
                                 }`}
                             >
-                                <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
-                                <span>In Stock Only</span>
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                <span>In Vault Only</span>
                             </button>
 
                             {/* Sort Selector */}
-                            <div className="flex items-center gap-2 bg-[#131024] px-3.5 py-2 rounded-xl border border-[#241D3F] text-xs text-slate-300 shadow-sm">
+                            <div className="flex items-center gap-2 bg-[#07080D] px-3.5 py-2 rounded-xl border border-[#151722] text-xs text-slate-300 shadow-sm">
                                 <span className="text-slate-400 font-medium">Sort:</span>
                                 <select
                                     value={selectedSort}
                                     onChange={(e) => setSelectedSort(e.target.value)}
-                                    className="bg-transparent text-purple-300 font-bold outline-none cursor-pointer"
+                                    className="bg-transparent text-[#E5C158] font-bold outline-none cursor-pointer"
                                 >
-                                    <option value="featured" className="bg-[#131024] text-white">Featured First</option>
-                                    <option value="price_asc" className="bg-[#131024] text-white">Price: Low to High</option>
-                                    <option value="price_desc" className="bg-[#131024] text-white">Price: High to Low</option>
-                                    <option value="rating" className="bg-[#131024] text-white">Highest Customer Rating</option>
+                                    <option value="featured" className="bg-[#07080D] text-white">Curated Selection</option>
+                                    <option value="price_asc" className="bg-[#07080D] text-white">Price: Low to High</option>
+                                    <option value="price_desc" className="bg-[#07080D] text-white">Price: High to Low</option>
+                                    <option value="rating" className="bg-[#07080D] text-white">Highest Connoisseur Rating</option>
                                 </select>
                             </div>
 
                             {/* Price Filter Inputs */}
-                            <div className="hidden sm:flex items-center gap-2 bg-[#131024] px-3 py-1.5 rounded-xl border border-[#241D3F] text-xs shadow-sm">
+                            <div className="hidden sm:flex items-center gap-2 bg-[#07080D] px-3 py-1.5 rounded-xl border border-[#151722] text-xs shadow-sm">
                                 <span className="text-slate-400 font-medium">₹ Price:</span>
                                 <input
                                     type="number"
                                     placeholder="Min"
                                     value={minPrice}
                                     onChange={(e) => setMinPrice(e.target.value)}
-                                    className="w-16 bg-[#0D0B18] text-white px-2 py-1 rounded text-center outline-none border border-[#2E2452] focus:border-purple-500"
+                                    className="w-20 bg-[#030406] text-white px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37]"
                                 />
                                 <span className="text-slate-500">-</span>
                                 <input
@@ -418,7 +412,7 @@ export default function Home() {
                                     placeholder="Max"
                                     value={maxPrice}
                                     onChange={(e) => setMaxPrice(e.target.value)}
-                                    className="w-16 bg-[#0D0B18] text-white px-2 py-1 rounded text-center outline-none border border-[#2E2452] focus:border-purple-500"
+                                    className="w-20 bg-[#030406] text-white px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37]"
                                 />
                                 {(minPrice || maxPrice) && (
                                     <button
@@ -426,7 +420,7 @@ export default function Home() {
                                             setMinPrice("");
                                             setMaxPrice("");
                                         }}
-                                        className="text-slate-400 hover:text-purple-400 transition"
+                                        className="text-slate-400 hover:text-[#D4AF37] transition"
                                         title="Clear price filter"
                                     >
                                         <X className="w-3.5 h-3.5" />
@@ -438,16 +432,16 @@ export default function Home() {
 
                     {/* Active search filter banner if searching */}
                     {currentSearch && (
-                        <div className="mt-4 p-3 bg-purple-950/50 rounded-xl border border-purple-500/40 flex items-center justify-between text-xs">
+                        <div className="mt-4 p-3 bg-[#0A0C13] rounded-xl border border-[#D4AF37]/40 flex items-center justify-between text-xs">
                             <div className="flex items-center gap-2">
-                                <Search className="w-4 h-4 text-purple-400" />
+                                <Search className="w-4 h-4 text-[#D4AF37]" />
                                 <span className="text-slate-300">
-                                    Showing search results for: <strong className="text-purple-300 font-black">"{currentSearch}"</strong>
+                                    Showing timepieces matching: <strong className="text-[#E5C158] font-bold">"{currentSearch}"</strong>
                                 </span>
                             </div>
                             <button
                                 onClick={handleClearSearch}
-                                className="text-purple-400 hover:text-purple-200 font-bold underline transition"
+                                className="text-[#D4AF37] hover:text-[#F9E7B9] font-bold underline transition"
                             >
                                 Clear Search ✕
                             </button>
@@ -457,17 +451,17 @@ export default function Home() {
                     {/* Product Cards Grid */}
                     <div className="mt-8">
                         {filteredProducts.length === 0 ? (
-                            <div className="bg-[#131024] rounded-3xl border border-[#241D3F] p-12 text-center max-w-md mx-auto space-y-4 shadow-xl">
-                                <div className="w-16 h-16 rounded-2xl bg-purple-950/60 border border-purple-500/40 flex items-center justify-center text-purple-400 mx-auto shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                            <div className="bg-[#07080D] rounded-3xl border border-[#151722] p-12 text-center max-w-md mx-auto space-y-4 shadow-xl">
+                                <div className="w-16 h-16 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] mx-auto shadow-[0_0_20px_rgba(212,175,55,0.2)]">
                                     <Search className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white">No products found</h3>
+                                <h3 className="text-xl font-bold text-white font-serif">No Timepieces Found</h3>
                                 <p className="text-xs text-slate-400">
-                                    No tech gadgets matched your selected filters. Try broadening your search or resetting filters.
+                                    No watches matched your criteria in this collection. Broaden your search or reset filters to view our full vault.
                                 </p>
                                 <button
                                     onClick={handleResetAllFilters}
-                                    className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl text-xs font-black transition shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+                                    className="px-6 py-2.5 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold rounded-xl text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(212,175,55,0.3)]"
                                 >
                                     Reset All Filters
                                 </button>
@@ -488,46 +482,46 @@ export default function Home() {
             </section>
 
             {/* ================= BRAND GUARANTEES & TRUST ================= */}
-            <section className="py-14 bg-[#0B0916] border-y border-[#1E1736]">
+            <section className="py-14 bg-[#05060A] border-y border-[#151722]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center sm:text-left">
-                        <div className="flex items-center gap-4 bg-[#131024] p-5 rounded-2xl border border-[#241D3F] hover:border-purple-500/40 transition">
-                            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <div className="flex items-center gap-4 bg-[#07080D] p-5 rounded-2xl border border-[#151722] hover:border-[#D4AF37]/40 transition">
+                            <div className="w-12 h-12 rounded-xl bg-[#0A0C13] border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
                                 <Truck className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="font-extrabold text-white text-sm">Pan-India Express</h4>
-                                <p className="text-xs text-slate-400 mt-0.5">Free shipping on all orders over ₹999</p>
+                                <h4 className="font-bold text-white text-sm font-serif">Armored White-Glove Courier</h4>
+                                <p className="text-xs text-slate-400 mt-0.5">Fully insured high-security pan-India transit</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 bg-[#131024] p-5 rounded-2xl border border-[#241D3F] hover:border-purple-500/40 transition">
-                            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <div className="flex items-center gap-4 bg-[#07080D] p-5 rounded-2xl border border-[#151722] hover:border-[#D4AF37]/40 transition">
+                            <div className="w-12 h-12 rounded-xl bg-[#0A0C13] border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
                                 <RefreshCw className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="font-extrabold text-white text-sm">7-Day Easy Returns</h4>
-                                <p className="text-xs text-slate-400 mt-0.5">Instant replacement or full refund</p>
+                                <h4 className="font-bold text-white text-sm font-serif">7-Day Vault Inspection</h4>
+                                <p className="text-xs text-slate-400 mt-0.5">Complimentary return or horological exchange</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 bg-[#131024] p-5 rounded-2xl border border-[#241D3F] hover:border-purple-500/40 transition">
-                            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <div className="flex items-center gap-4 bg-[#07080D] p-5 rounded-2xl border border-[#151722] hover:border-[#D4AF37]/40 transition">
+                            <div className="w-12 h-12 rounded-xl bg-[#0A0C13] border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
                                 <ShieldCheck className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="font-extrabold text-white text-sm">100% Genuine Tech</h4>
-                                <p className="text-xs text-slate-400 mt-0.5">Official manufacturer warranty</p>
+                                <h4 className="font-bold text-white text-sm font-serif">100% Certified Authentic</h4>
+                                <p className="text-xs text-slate-400 mt-0.5">COSC Certificate & 5-Year Global Warranty</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4 bg-[#131024] p-5 rounded-2xl border border-[#241D3F] hover:border-purple-500/40 transition">
-                            <div className="w-12 h-12 rounded-xl bg-purple-950/60 border border-purple-500/30 text-purple-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                        <div className="flex items-center gap-4 bg-[#07080D] p-5 rounded-2xl border border-[#151722] hover:border-[#D4AF37]/40 transition">
+                            <div className="w-12 h-12 rounded-xl bg-[#0A0C13] border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
                                 <Sparkles className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="font-extrabold text-white text-sm">24/7 Dedicated Support</h4>
-                                <p className="text-xs text-slate-400 mt-0.5">Live technical assistance anytime</p>
+                                <h4 className="font-bold text-white text-sm font-serif">Private Horologist Concierge</h4>
+                                <p className="text-xs text-slate-400 mt-0.5">Direct consultation with master watchmakers</p>
                             </div>
                         </div>
                     </div>
@@ -535,74 +529,74 @@ export default function Home() {
             </section>
 
             {/* ================= CUSTOMER REVIEWS & TESTIMONIALS ================= */}
-            <section className="py-16 bg-[#08070E]">
+            <section className="py-16 bg-[#040406]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-xl mx-auto mb-12 space-y-2">
-                        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 uppercase tracking-widest">
-                            <Star className="w-3.5 h-3.5 fill-purple-400 text-purple-400" />
-                            <span>VERIFIED CUSTOMER LOVE</span>
+                        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#E5C158] uppercase tracking-widest">
+                            <Crown className="w-3.5 h-3.5 text-[#D4AF37]" />
+                            <span>CONNOISSEUR TESTIMONIALS</span>
                         </div>
-                        <h2 className="text-3xl font-black text-white">What Tech Enthusiasts Say</h2>
-                        <p className="text-xs sm:text-sm text-slate-400">Over 25,000 satisfied shoppers across Delhi, Mumbai, Bengaluru and all over India</p>
+                        <h2 className="text-3xl font-bold text-white font-serif">Voices of Discerning Collectors</h2>
+                        <p className="text-xs sm:text-sm text-slate-400">Trusted by over 15,000 passionate horology enthusiasts across India and the Emirates</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-[#131024] p-6 rounded-2xl border border-[#241D3F] space-y-4 shadow-lg hover:border-purple-500/40 transition">
-                            <div className="flex items-center text-purple-400">
+                        <div className="bg-[#07080D] p-6 rounded-2xl border border-[#151722] space-y-4 shadow-lg hover:border-[#D4AF37]/40 transition">
+                            <div className="flex items-center text-[#D4AF37]">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-purple-400 text-purple-400" />
+                                    <span key={i} className="text-sm">★</span>
                                 ))}
                             </div>
                             <p className="text-xs text-slate-300 leading-relaxed italic">
-                                "The Shopnix Quantum Ultra Smart Watch is mindblowing. Delivery to Haryana took just 2 days. The ECG and AMOLED screen are crystal clear!"
+                                "The Chrononix Celestial Flying Tourbillon is an absolute masterwork. Delivered via secured courier with COSC paperwork and wooden presentation chest. Impeccable finish!"
                             </p>
-                            <div className="flex items-center gap-3 pt-3 border-t border-[#1E1736]">
-                                <div className="w-9 h-9 rounded-full bg-purple-950 text-purple-300 border border-purple-700/50 flex items-center justify-center font-bold text-xs">
-                                    RK
+                            <div className="flex items-center gap-3 pt-3 border-t border-[#151722]">
+                                <div className="w-9 h-9 rounded-full bg-[#0A0C13] text-[#D4AF37] border border-[#D4AF37]/40 flex items-center justify-center font-bold text-xs">
+                                    VS
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-white text-xs">Rohit Kumar</h5>
-                                    <p className="text-[10px] text-purple-400 font-semibold">Verified Buyer • Gurugram</p>
+                                    <h5 className="font-bold text-white text-xs">Vikramaditya Singhania</h5>
+                                    <p className="text-[10px] text-[#E5C158] font-semibold">Horology Collector • Mumbai</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[#131024] p-6 rounded-2xl border border-[#241D3F] space-y-4 shadow-lg hover:border-purple-500/40 transition">
-                            <div className="flex items-center text-purple-400">
+                        <div className="bg-[#07080D] p-6 rounded-2xl border border-[#151722] space-y-4 shadow-lg hover:border-[#D4AF37]/40 transition">
+                            <div className="flex items-center text-[#D4AF37]">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-purple-400 text-purple-400" />
+                                    <span key={i} className="text-sm">★</span>
                                 ))}
                             </div>
                             <p className="text-xs text-slate-300 leading-relaxed italic">
-                                "The ANC on Pulse Wireless Earbuds rival headphones twice the price. Noise cancellation in metro trains is completely silent. 10/10 recommend Shopnix!"
+                                "Acquired the Apex Diver 300m with code CHRONO10. The ceramic bezel and high-beat Swiss automatic movement are breathtaking. Chrononix is the gold standard."
                             </p>
-                            <div className="flex items-center gap-3 pt-3 border-t border-[#1E1736]">
-                                <div className="w-9 h-9 rounded-full bg-purple-950 text-purple-300 border border-purple-700/50 flex items-center justify-center font-bold text-xs">
-                                    SM
+                            <div className="flex items-center gap-3 pt-3 border-t border-[#151722]">
+                                <div className="w-9 h-9 rounded-full bg-[#0A0C13] text-[#D4AF37] border border-[#D4AF37]/40 flex items-center justify-center font-bold text-xs">
+                                    RM
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-white text-xs">Sneha Mukherjee</h5>
-                                    <p className="text-[10px] text-purple-400 font-semibold">Verified Buyer • Bengaluru</p>
+                                    <h5 className="font-bold text-white text-xs">Dr. Rajesh Menon</h5>
+                                    <p className="text-[10px] text-[#E5C158] font-semibold">Verified Collector • Bengaluru</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[#131024] p-6 rounded-2xl border border-[#241D3F] space-y-4 shadow-lg hover:border-purple-500/40 transition">
-                            <div className="flex items-center text-purple-400">
+                        <div className="bg-[#07080D] p-6 rounded-2xl border border-[#151722] space-y-4 shadow-lg hover:border-[#D4AF37]/40 transition">
+                            <div className="flex items-center text-[#D4AF37]">
                                 {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-purple-400 text-purple-400" />
+                                    <span key={i} className="text-sm">★</span>
                                 ))}
                             </div>
                             <p className="text-xs text-slate-300 leading-relaxed italic">
-                                "Bought the Vortex Mechanical Keyboard with code SHOPNIX20 and saved ₹1,700! The typing sound and RGB feel extremely premium."
+                                "The open-worked skeleton calibre allows you to admire every gear and balance spring. Customer concierge answered all my technical queries promptly. 10/10."
                             </p>
-                            <div className="flex items-center gap-3 pt-3 border-t border-[#1E1736]">
-                                <div className="w-9 h-9 rounded-full bg-purple-950 text-purple-300 border border-purple-700/50 flex items-center justify-center font-bold text-xs">
-                                    AS
+                            <div className="flex items-center gap-3 pt-3 border-t border-[#151722]">
+                                <div className="w-9 h-9 rounded-full bg-[#0A0C13] text-[#D4AF37] border border-[#D4AF37]/40 flex items-center justify-center font-bold text-xs">
+                                    AK
                                 </div>
                                 <div>
-                                    <h5 className="font-bold text-white text-xs">Ankit Sharma</h5>
-                                    <p className="text-[10px] text-purple-400 font-semibold">Verified Buyer • Delhi NCR</p>
+                                    <h5 className="font-bold text-white text-xs">Aman Kapoor</h5>
+                                    <p className="text-[10px] text-[#E5C158] font-semibold">Private Collector • New Delhi</p>
                                 </div>
                             </div>
                         </div>
@@ -610,17 +604,17 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= NEWSLETTER SUBSCRIPTION ================= */}
-            <section className="py-16 bg-gradient-to-b from-[#0B0916] to-[#06050C] text-white border-t border-[#1E1736]">
+            {/* ================= NEWSLETTER SUBSCRIPTION / PRIVATE SALON ================= */}
+            <section className="py-16 bg-gradient-to-b from-[#05060A] to-[#020203] text-white border-t border-[#151722]">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-[0_0_25px_rgba(168,85,247,0.35)] mx-auto">
-                        <Sparkles className="w-7 h-7" />
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#C5A059] to-[#AA7C1E] flex items-center justify-center text-black shadow-[0_0_25px_rgba(212,175,55,0.3)] mx-auto">
+                        <Crown className="w-7 h-7 text-black" />
                     </div>
 
                     <div>
-                        <h2 className="text-3xl sm:text-4xl font-black text-white">Join the Shopnix VIP Circle</h2>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif">Enter The Chrononix Private Salon</h2>
                         <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-lg mx-auto">
-                            Subscribe for insider drops, 20% discount coupons, secret flash sales, and early access to futuristic hardware releases.
+                            Receive private allocation invites, numbered limited edition premieres, and VIP invitations to private horological exhibitions.
                         </p>
                     </div>
 
@@ -631,16 +625,16 @@ export default function Home() {
                             value={newsletterEmail}
                             onChange={(e) => setNewsletterEmail(e.target.value)}
                             placeholder="Enter your personal email..."
-                            className="flex-1 px-4 py-3 bg-[#131024] text-white rounded-xl border border-[#2E2452] outline-none focus:border-purple-500 text-xs sm:text-sm placeholder-slate-500 shadow-inner"
+                            className="flex-1 px-4 py-3 bg-[#07080D] text-white rounded-xl border border-[#151722] outline-none focus:border-[#D4AF37] text-xs sm:text-sm placeholder-slate-500 shadow-inner"
                         />
                         <button
                             type="submit"
-                            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm rounded-xl transition shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                            className="px-6 py-3 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(212,175,55,0.35)]"
                         >
-                            Subscribe
+                            Request Access
                         </button>
                     </form>
-                    <p className="text-[11px] text-slate-500">No spam. Only high-voltage gadget updates. Unsubscribe anytime.</p>
+                    <p className="text-[11px] text-slate-500">Exclusively for fine horology patrons. Unsubscribe at any time.</p>
                 </div>
             </section>
 
