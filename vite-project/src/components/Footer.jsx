@@ -1,88 +1,106 @@
 import React from "react";
-import { ShoppingBag, Heart, Mail, Phone, MapPin, Sparkles } from "lucide-react";
+import { ShoppingBag, Heart, Mail, Phone, MapPin, Sparkles, ShieldCheck, Truck, CreditCard } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-[#06050C] text-slate-400 text-sm mt-auto border-t border-purple-950/60">
+        <footer id="footer-section" className="bg-[#090D1A] text-slate-400 text-xs sm:text-sm mt-auto border-t border-slate-800/80">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                     {/* Brand column */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-2.5">
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-700 via-purple-600 to-indigo-500 flex items-center justify-center text-white shadow-[0_0_20px_rgba(168,85,247,0.4)]">
-                                <ShoppingBag className="w-5 h-5" />
+                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-600 flex items-center justify-center text-slate-950 font-black shadow-md shadow-amber-500/20">
+                                <ShoppingBag className="w-5 h-5 text-slate-950" />
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xl font-black text-white tracking-tight leading-none">
-                                    Shop<span className="text-purple-400">nix</span>
+                                    Shop<span className="text-amber-500">nix</span>
                                 </span>
-                                <span className="text-[9px] font-semibold text-purple-400/80 tracking-widest uppercase">
+                                <span className="text-[9px] font-bold text-amber-400 tracking-widest uppercase mt-0.5">
                                     Future Is Shopping
                                 </span>
                             </div>
                         </div>
-                        <p className="text-slate-400 leading-relaxed text-xs sm:text-sm">
-                            Next-generation store for futuristic technology, smart wearables, immersive audio, and premium cyberpunk gear in India.
+                        <p className="text-slate-400 leading-relaxed text-xs">
+                            India's premier trusted destination for authentic electronics, smart wearables, spatial audio hardware, VR gear, and computer peripherals with express delivery across India.
                         </p>
+                        <div className="flex items-center gap-2 pt-1 text-[11px] text-emerald-400 font-medium">
+                            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                            <span>100% Certified Authentic Hardware</span>
+                        </div>
                     </div>
 
-                    {/* Quick links */}
+                    {/* Shop Categories */}
                     <div>
-                        <h3 className="text-white font-bold text-sm mb-4 tracking-wider uppercase flex items-center gap-1.5">
-                            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-                            Shop Categories
+                        <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-4 flex items-center gap-1.5">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                            <span>Shop Categories</span>
                         </h3>
-                        <ul className="space-y-2 text-xs sm:text-sm">
-                            <li><Link to="/?category=Electronics" className="hover:text-purple-400 transition">Electronics</Link></li>
-                            <li><Link to="/?category=Smart Devices" className="hover:text-purple-400 transition">Smart Devices</Link></li>
-                            <li><Link to="/?category=Accessories" className="hover:text-purple-400 transition">Audio & Accessories</Link></li>
-                            <li><Link to="/?category=Gaming" className="hover:text-purple-400 transition">Gaming & VR</Link></li>
-                            <li><Link to="/?category=Drones" className="hover:text-purple-400 transition">Drones & Cameras</Link></li>
-                            <li><Link to="/?category=AI Devices" className="hover:text-purple-400 transition">AI Devices</Link></li>
+                        <ul className="space-y-2 text-xs">
+                            <li><Link to="/?category=Smart Devices#products-section" className="hover:text-amber-400 transition text-slate-400">Smart Watches &amp; Rings</Link></li>
+                            <li><Link to="/?category=Audio#products-section" className="hover:text-amber-400 transition text-slate-400">ANC Earbuds &amp; Headphones</Link></li>
+                            <li><Link to="/?category=Gaming#products-section" className="hover:text-amber-400 transition text-slate-400">VR Headsets &amp; Keyboards</Link></li>
+                            <li><Link to="/?category=Cameras#products-section" className="hover:text-amber-400 transition text-slate-400">4K Drones &amp; Action Cams</Link></li>
+                            <li><Link to="/?category=Electronics#products-section" className="hover:text-amber-400 transition text-slate-400">Curved Monitors &amp; PC Gear</Link></li>
+                            <li><Link to="/?category=AI Devices#products-section" className="hover:text-amber-400 transition text-slate-400">AI Displays &amp; Smart Devices</Link></li>
                         </ul>
                     </div>
 
                     {/* Customer Support */}
                     <div>
-                        <h3 className="text-white font-bold text-sm mb-4 tracking-wider uppercase">Customer Support</h3>
-                        <ul className="space-y-2 text-xs sm:text-sm">
-                            <li><Link to="/profile" className="hover:text-purple-400 transition">My Account</Link></li>
-                            <li><Link to="/orders" className="hover:text-purple-400 transition">Track Order</Link></li>
-                            <li><Link to="/cart" className="hover:text-purple-400 transition">Shopping Cart</Link></li>
-                            <li><span className="hover:text-purple-400 transition cursor-pointer">Shipping & Returns (Pan-India)</span></li>
-                            <li><span className="hover:text-purple-400 transition cursor-pointer">Warranty & Authenticity</span></li>
+                        <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-4">Customer Care</h3>
+                        <ul className="space-y-2 text-xs">
+                            <li><Link to="/orders" className="hover:text-amber-400 transition text-slate-400">Track Package Live</Link></li>
+                            <li><Link to="/cart" className="hover:text-amber-400 transition text-slate-400">Shopping Bag &amp; Checkout</Link></li>
+                            <li><Link to="/profile" className="hover:text-amber-400 transition text-slate-400">Manage Addresses &amp; Account</Link></li>
+                            <li><span className="text-slate-500 cursor-default">Pan-India Delivery (2-4 Days)</span></li>
+                            <li><span className="text-slate-500 cursor-default">7-Day Hassle-Free Replacement</span></li>
                         </ul>
                     </div>
 
-                    {/* Contact & Help */}
+                    {/* Contact Info */}
                     <div>
-                        <h3 className="text-white font-bold text-sm mb-4 tracking-wider uppercase">Contact Us</h3>
-                        <ul className="space-y-2.5 text-xs sm:text-sm">
-                            <li className="flex items-center gap-2.5">
-                                <Mail className="w-4 h-4 text-purple-400 shrink-0" />
+                        <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-4">Corporate Office</h3>
+                        <ul className="space-y-2.5 text-xs">
+                            <li className="flex items-center gap-2.5 text-slate-300">
+                                <Mail className="w-4 h-4 text-amber-400 shrink-0" />
                                 <span>support@shopnix.in</span>
                             </li>
-                            <li className="flex items-center gap-2.5">
-                                <Phone className="w-4 h-4 text-purple-400 shrink-0" />
-                                <span>+91 8607603050</span>
+                            <li className="flex items-center gap-2.5 text-slate-300">
+                                <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+                                <span>+91 8607603050 (Mon-Sat 9AM-8PM)</span>
                             </li>
-                            <li className="flex items-center gap-2.5">
-                                <MapPin className="w-4 h-4 text-purple-400 shrink-0" />
-                                <span>Kaithal, Haryana, India</span>
+                            <li className="flex items-center gap-2.5 text-slate-300">
+                                <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
+                                <span>Shopnix Tech Hub, Kaithal, Haryana 136027, India</span>
                             </li>
                         </ul>
+
+                        {/* Supported Payment Logos */}
+                        <div className="mt-4 pt-3 border-t border-slate-800">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Accepted Payment Modes</span>
+                            <div className="flex flex-wrap gap-1.5 text-[10px] font-bold text-slate-200">
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">UPI</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">GPay</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">PhonePe</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">Paytm</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">Visa</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">Mastercard</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">RuPay</span>
+                                <span className="px-2 py-0.5 rounded bg-slate-800/90 border border-slate-700">COD</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="border-t border-purple-950/60 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-                    <p>© {new Date().getFullYear()} Shopnix Inc. All prices in INR (₹). All rights reserved.</p>
+                <div className="border-t border-slate-800 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+                    <p>© {new Date().getFullYear()} Shopnix Inc. All prices in Indian Rupee (₹). All rights reserved.</p>
                     <p className="flex items-center gap-1.5">
-                        Designed with <Heart className="w-3.5 h-3.5 text-purple-500 fill-purple-500 inline" /> for tech lovers.
+                        Designed with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline" /> for electronics &amp; gadget lovers across India.
                     </p>
                 </div>
             </div>
         </footer>
     );
 }
-

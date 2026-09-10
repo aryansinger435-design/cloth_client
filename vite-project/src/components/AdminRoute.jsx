@@ -9,7 +9,7 @@ const AdminRoute = ({ children }) => {
     if (loading) {
         return (
             <div className="min-h-[60vh] flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
             </div>
         );
     }
@@ -32,7 +32,7 @@ const AdminRoute = ({ children }) => {
                 </p>
                 <a
                     href="/"
-                    className="px-6 py-2.5 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition"
+                    className="px-6 py-2.5 bg-slate-950 hover:bg-amber-500 hover:text-slate-950 text-white rounded-xl font-bold border border-slate-900 transition shadow-sm"
                 >
                     Return to Store
                 </a>

@@ -10,135 +10,227 @@ import {
     CreditCard,
     MapPin,
     AlertCircle,
-    Sparkles
+    Sparkles,
+    Tag,
+    QrCode,
+    FileText,
+    Check,
+    Plus,
+    X
 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
-import api from "../api/axios";
+import { useToast } from "../context/ToastContext";
+import { createLocalOrder } from "../api/shopnixStore";
+import UPIModal from "../components/UPIModal";
+import InvoiceModal from "../components/InvoiceModal";
 
 export default function Cart() {
-    const { cart, subtotal, totalItems, updateQuantity, removeFromCart, clearCart } = useCart();
-    const { user } = useAuth();
+    const {
+        cart,
+        subtotal,
+        totalItems,
+        discountAmount,
+        shippingFee,
+        finalTotal,
+        appliedCoupon,
+        updateQuantity,
+        removeFromCart,
+        clearCart,
+        applyCoupon,
+        removeCoupon
+    } = useCart();
+
+    const { user, updateAddress } = useAuth();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
-    const [paymentMethod, setPaymentMethod] = useState("COD");
-    const [placingOrder, setPlacingOrder] = useState(false);
+    const [couponInput, setCouponInput] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("UPI");
+    const [cardDetails, setCardDetails] = useState({ number: "", expiry: "", cvv: "", name: "" });
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
     const [orderSuccess, setOrderSuccess] = useState(null);
-    const [error, setError] = useState("");
+    const [isUpiModalOpen, setIsUpiModalOpen] = useState(false);
+    const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
 
-    // Selected shipping address
+    // Address management
     const defaultAddress = user?.address_list?.find((a) => a.is_default) || user?.address_list?.[0] || {
-        street: "123 Tech Park, Cyber City",
+        street: "Flat 402, Cyber Tower, Sector 14",
         city: "Kaithal",
         state: "Haryana",
         country: "India",
-        pincode: user?.pincode || "136027",
-        phone: user?.phone || "8607603050"
+        pincode: "136027",
+        phone: "+91 8607603050"
     };
 
     const [shippingAddress, setShippingAddress] = useState(defaultAddress);
+    const [showAddressModal, setShowAddressModal] = useState(false);
+    const [newAddressForm, setNewAddressForm] = useState({
+        street: "",
+        city: "",
+        state: "Haryana",
+        country: "India",
+        pincode: "",
+        phone: ""
+    });
 
-    const shippingFee = subtotal > 999 || subtotal === 0 ? 0 : 99;
-    const finalTotal = subtotal + shippingFee;
+    const handleApplyCoupon = (e) => {
+        e.preventDefault();
+        if (!couponInput.trim()) return;
+        applyCoupon(couponInput.trim());
+        setCouponInput("");
+    };
 
-    const handleCheckout = async () => {
+    const handlePlaceOrderProcess = () => {
         if (!cart.items || cart.items.length === 0) return;
-        setError("");
 
-        try {
-            setPlacingOrder(true);
+        if (paymentMethod === "UPI") {
+            setIsUpiModalOpen(true);
+        } else {
+            completeOrderCreation();
+        }
+    };
+
+    const completeOrderCreation = () => {
+        setIsPlacingOrder(true);
+
+        setTimeout(() => {
             const orderPayload = {
-                items: cart.items.map((item) => ({
-                    product: item.product?._id,
-                    name: item.product?.name || "Tech Device",
-                    price: item.product?.discount_price > 0 ? item.product.discount_price : item.product?.price || 0,
-                    quantity: item.quantity,
-                    size: item.size,
-                    color: item.color,
-                    image: item.product?.images?.[0]?.url || ""
-                })),
+                items: cart.items.map((item) => {
+                    const p = item.product || {};
+                    const price = (p.discount_price > 0 && p.discount_price < p.price) ? p.discount_price : (p.price || 0);
+                    return {
+                        product: p._id || "prod-snx-001",
+                        name: p.name || "Cyber Tech Device",
+                        price: price,
+                        quantity: item.quantity,
+                        size: item.size || "Standard",
+                        color: item.color || "Standard",
+                        image: p.images?.[0]?.url || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400"
+                    };
+                }),
                 shipping_address: shippingAddress,
                 payment_method: paymentMethod,
                 total_amount: finalTotal
             };
 
-            const res = await api.post("/orders", orderPayload);
-            if (res.data?.success && res.data?.data) {
-                setOrderSuccess(res.data.data);
-                clearCart();
-            } else {
-                setError(res.data?.message || "Failed to place order");
-            }
-        } catch (err) {
-            const msg = err.response?.data?.message || err.message || "Failed to place order";
-            setError(msg);
-        } finally {
-            setPlacingOrder(false);
-        }
+            const createdOrder = createLocalOrder(orderPayload);
+            clearCart();
+            setOrderSuccess(createdOrder);
+            setIsPlacingOrder(false);
+            showToast("Order placed successfully! Delivery tracking activated.", "success");
+        }, 800);
     };
 
+    const handleSaveNewAddress = async (e) => {
+        e.preventDefault();
+        if (!newAddressForm.street || !newAddressForm.city || !newAddressForm.pincode) {
+            showToast("Please fill in required address fields", "warning");
+            return;
+        }
+
+        const added = { ...newAddressForm, is_default: true };
+        setShippingAddress(added);
+        await updateAddress(added);
+        setShowAddressModal(false);
+        setNewAddressForm({ street: "", city: "", state: "Haryana", country: "India", pincode: "", phone: "" });
+    };
+
+    // ================= ORDER SUCCESS VIEW =================
     if (orderSuccess) {
         return (
-            <div className="min-h-[75vh] flex items-center justify-center p-4 bg-[#08070E] text-slate-100">
-                <div className="max-w-md w-full bg-[#120F24] rounded-3xl p-8 border border-purple-900/50 shadow-[0_0_50px_rgba(168,85,247,0.25)] text-center space-y-5 animate-in zoom-in-95">
-                    <div className="w-16 h-16 bg-purple-950/80 border border-purple-500/50 text-purple-400 rounded-2xl flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(168,85,247,0.4)]">
-                        <CheckCircle2 className="w-10 h-10 text-purple-400" />
+            <div className="min-h-[80vh] flex items-center justify-center p-4 bg-[#F8FAFC] text-slate-900 py-12">
+                <div className="max-w-lg w-full bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 shadow-xl text-center space-y-6 animate-in zoom-in-95">
+                    <div className="w-20 h-20 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
+                        <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                     </div>
-                    <h2 className="text-2xl font-extrabold text-white">Order Placed Successfully!</h2>
-                    <p className="text-sm text-slate-400">
-                        Thank you for shopping with Shopnix. We have received your order #{orderSuccess._id.slice(-6).toUpperCase()} and are preparing it for shipment.
-                    </p>
-                    <div className="p-4 bg-[#1A162F] rounded-2xl text-left text-xs space-y-2 border border-purple-900/40">
-                        <div className="flex justify-between font-semibold text-slate-200">
-                            <span>Total Amount:</span>
-                            <span className="text-purple-400 font-bold">₹{orderSuccess.total_amount?.toLocaleString("en-IN")}</span>
+
+                    <div>
+                        <span className="px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold rounded-full uppercase tracking-wider">
+                            Order Confirmed &amp; Dispatched
+                        </span>
+                        <h2 className="text-3xl font-black text-slate-900 mt-3">Order Placed Successfully!</h2>
+                        <p className="text-xs sm:text-sm text-slate-500 mt-2">
+                            Thank you for shopping with <span className="text-amber-600 font-bold">Shopnix</span>. Your order #{orderSuccess._id} has been received and booked for express air delivery.
+                        </p>
+                    </div>
+
+                    {/* Order Details Card */}
+                    <div className="p-5 bg-slate-50 rounded-xl text-left text-xs space-y-2.5 border border-slate-200">
+                        <div className="flex justify-between text-slate-500">
+                            <span>Order Number:</span>
+                            <span className="font-mono font-bold text-slate-900">{orderSuccess._id}</span>
                         </div>
-                        <div className="flex justify-between text-slate-400">
-                            <span>Payment Method:</span>
-                            <span className="text-slate-200 font-medium">{orderSuccess.payment_method}</span>
+                        <div className="flex justify-between text-slate-500">
+                            <span>Airway Bill / Tracking:</span>
+                            <span className="text-slate-900 font-mono font-bold">{orderSuccess.tracking_number}</span>
                         </div>
-                        <div className="flex justify-between text-slate-400">
-                            <span>Status:</span>
-                            <span className="text-emerald-400 font-semibold">{orderSuccess.order_status}</span>
+                        <div className="flex justify-between text-slate-500">
+                            <span>Courier Partner:</span>
+                            <span className="text-slate-800 font-medium">{orderSuccess.shipping_partner}</span>
+                        </div>
+                        <div className="flex justify-between text-slate-500">
+                            <span>Payment Mode:</span>
+                            <span className="text-slate-800 font-medium">{orderSuccess.payment_method} ({orderSuccess.payment_status})</span>
+                        </div>
+                        <div className="border-t border-slate-200 pt-2 flex justify-between font-extrabold text-sm text-slate-900">
+                            <span>Amount Paid:</span>
+                            <span className="text-slate-950 font-black text-base">₹{orderSuccess.total_amount?.toLocaleString("en-IN")}</span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 pt-2">
+
+                    {/* Actions */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                        <button
+                            onClick={() => setIsInvoiceModalOpen(true)}
+                            className="flex-1 py-3 bg-white hover:bg-slate-50 text-slate-700 rounded-xl font-bold text-xs border border-slate-300 flex items-center justify-center gap-2 transition shadow-xs"
+                        >
+                            <FileText className="w-4 h-4 text-slate-700" />
+                            <span>View Tax Invoice</span>
+                        </button>
+
                         <Link
                             to="/orders"
-                            className="w-full py-3.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold text-sm transition shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                            className="flex-1 py-3 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white rounded-xl font-black text-xs shadow-md transition flex items-center justify-center gap-2"
                         >
-                            View My Orders
-                        </Link>
-                        <Link
-                            to="/"
-                            className="w-full py-2.5 text-slate-400 hover:text-white rounded-xl font-medium text-xs transition"
-                        >
-                            Continue Shopping
+                            <span>Track in My Orders</span>
+                            <ArrowRight className="w-4 h-4" />
                         </Link>
                     </div>
+
+                    <Link to="/" className="inline-block text-xs text-amber-700 hover:text-amber-900 font-bold transition">
+                        Continue Shopping More Devices →
+                    </Link>
+
+                    <InvoiceModal
+                        order={orderSuccess}
+                        isOpen={isInvoiceModalOpen}
+                        onClose={() => setIsInvoiceModalOpen(false)}
+                    />
                 </div>
             </div>
         );
     }
 
+    // ================= EMPTY CART VIEW =================
     if (!cart.items || cart.items.length === 0) {
         return (
-            <div className="min-h-[75vh] flex items-center justify-center p-4 bg-[#08070E] text-slate-100">
-                <div className="max-w-md w-full bg-[#120F24] rounded-3xl p-10 border border-[#241D3F] shadow-[0_4px_30px_rgba(0,0,0,0.5)] text-center space-y-6">
-                    <div className="w-20 h-20 bg-purple-950/70 border border-purple-500/40 text-purple-400 rounded-3xl flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(168,85,247,0.3)]">
+            <div className="min-h-[75vh] flex items-center justify-center p-4 bg-[#F8FAFC] text-slate-900">
+                <div className="max-w-md w-full bg-white rounded-2xl p-10 border border-slate-200 shadow-sm text-center space-y-6">
+                    <div className="w-20 h-20 bg-amber-500/10 border border-amber-500/20 text-amber-600 rounded-2xl flex items-center justify-center mx-auto shadow-xs">
                         <ShoppingBag className="w-10 h-10" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-extrabold text-white">Your Cart is Empty</h2>
-                        <p className="text-sm text-slate-400 mt-2">
-                            Explore next-gen tech gadgets, smart wearables, and gaming devices to add to your bag.
+                        <h2 className="text-2xl font-black text-slate-900">Your Cart is Empty</h2>
+                        <p className="text-xs sm:text-sm text-slate-500 mt-2">
+                            Explore next-gen smart devices, audio headphones, and gaming gear to add to your cart.
                         </p>
                     </div>
                     <Link
                         to="/"
-                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-purple-600 hover:bg-purple-500 text-white rounded-full font-bold text-sm transition shadow-[0_0_25px_rgba(168,85,247,0.5)]"
+                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white rounded-xl font-black text-sm transition shadow-md"
                     >
-                        <span>Explore Futuristic Store</span>
+                        <span>Start Shopping</span>
                         <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
@@ -147,220 +239,425 @@ export default function Cart() {
     }
 
     return (
-        <div className="min-h-screen bg-[#08070E] text-slate-100 py-10">
+        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 py-8 sm:py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-extrabold text-white tracking-tight">
-                        Shopping Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
-                    </h1>
-                    <p className="text-sm text-slate-400 mt-1">
-                        Review your selected gadgets and complete your order with prices in ₹ INR
-                    </p>
+                {/* Header */}
+                <div className="flex items-center justify-between pb-6 mb-8 border-b border-slate-200">
+                    <div>
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                            Shopping Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
+                        </h1>
+                        <p className="text-xs text-slate-500 mt-1">Review your items, apply coupon codes, and select your delivery address</p>
+                    </div>
+                    <button
+                        onClick={clearCart}
+                        className="text-xs text-slate-500 hover:text-rose-600 font-semibold px-3 py-1.5 rounded-lg hover:bg-rose-50 transition"
+                    >
+                        Clear Cart
+                    </button>
                 </div>
 
-                {error && (
-                    <div className="mb-6 p-4 bg-red-950/60 border border-red-800/50 text-red-300 text-sm rounded-2xl flex items-start gap-2.5">
-                        <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                        <span>{error}</span>
-                    </div>
-                )}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+                    {/* Left: Cart Items & Shipping Address */}
+                    <div className="lg:col-span-8 space-y-6">
+                        {/* Items List */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 divide-y divide-slate-100 shadow-sm">
+                            {cart.items.map((item) => {
+                                const p = item.product || {};
+                                const price = (p.discount_price > 0 && p.discount_price < p.price) ? p.discount_price : (p.price || 0);
+                                const img = p.images?.[0]?.url || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300";
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    {/* Cart Items List */}
-                    <div className="lg:col-span-8 space-y-4">
-                        {cart.items.map((item) => {
-                            const product = item.product || {};
-                            const imgUrl = product.images?.[0]?.url || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=300";
-                            const itemPrice = product.discount_price > 0 ? product.discount_price : product.price || 0;
-
-                            return (
-                                <div
-                                    key={item._id}
-                                    className="bg-[#120F24] p-4 sm:p-5 rounded-3xl border border-[#241D3F] shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
-                                >
-                                    {/* Thumbnail */}
-                                    <div className="w-24 h-28 sm:w-28 sm:h-32 bg-[#0A0815] rounded-2xl overflow-hidden shrink-0 border border-purple-900/40 flex items-center justify-center p-2">
-                                        <img
-                                            src={imgUrl}
-                                            alt={product.name}
-                                            className="w-full h-full object-contain"
-                                        />
-                                    </div>
-
-                                    {/* Details */}
-                                    <div className="flex-1 w-full flex flex-col justify-between">
-                                        <div>
-                                            <div className="flex items-start justify-between gap-2">
-                                                <h3 className="font-bold text-white text-base">
-                                                    {product.name}
-                                                </h3>
-                                                <button
-                                                    onClick={() => removeFromCart(item._id)}
-                                                    className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-red-950/40 transition"
-                                                    title="Remove item"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </button>
+                                return (
+                                    <div key={item._id} className="py-4 sm:py-5 first:pt-0 last:pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div
+                                                onClick={() => navigate(`/product/${p._id}`)}
+                                                className="w-20 h-20 sm:w-24 sm:h-24 bg-slate-50 rounded-xl p-2 shrink-0 border border-slate-200 flex items-center justify-center cursor-pointer hover:border-amber-400 transition"
+                                            >
+                                                <img src={img} alt={p.name} className="w-full h-full object-contain" />
                                             </div>
 
-                                            {/* Size & Color attributes */}
-                                            <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
-                                                <span className="bg-[#1A162F] border border-purple-900/40 px-2 py-0.5 rounded-md font-medium text-purple-300">
-                                                    Spec: {item.size || "Standard"}
+                                            <div>
+                                                <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">
+                                                    {p.category}
                                                 </span>
-                                                <span className="bg-[#1A162F] border border-purple-900/40 px-2 py-0.5 rounded-md font-medium text-slate-300">
-                                                    Color: {item.color || "Standard"}
-                                                </span>
+                                                <h3
+                                                    onClick={() => navigate(`/product/${p._id}`)}
+                                                    className="font-bold text-slate-900 text-sm sm:text-base hover:text-amber-600 transition cursor-pointer line-clamp-1"
+                                                >
+                                                    {p.name}
+                                                </h3>
+                                                <p className="text-xs text-slate-500 mt-0.5">
+                                                    Edition: <span className="text-slate-800 font-semibold">{item.size}</span>
+                                                    {item.color && item.color !== "Standard" && (
+                                                        <span> • Color: <span className="text-slate-800 font-semibold">{item.color}</span></span>
+                                                    )}
+                                                </p>
+                                                <p className="text-sm font-black text-slate-900 sm:hidden mt-2">
+                                                    ₹{price.toLocaleString("en-IN")}
+                                                </p>
                                             </div>
                                         </div>
 
-                                        {/* Price and Quantity Modifier */}
-                                        <div className="flex items-center justify-between mt-4 pt-3 border-t border-purple-950/40">
-                                            <div className="flex items-center border border-purple-900/50 rounded-xl overflow-hidden bg-[#16132A]">
+                                        <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+                                            {/* Quantity Incrementer */}
+                                            <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
                                                 <button
                                                     onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                                                    className="px-3 py-1.5 text-slate-400 hover:text-white hover:bg-purple-950 text-xs font-bold"
+                                                    className="px-3 py-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-200 text-xs font-bold"
                                                 >
                                                     -
                                                 </button>
-                                                <span className="px-3 py-1.5 text-xs font-semibold text-white">
+                                                <span className="px-3 py-1.5 text-xs font-bold text-slate-900">
                                                     {item.quantity}
                                                 </span>
                                                 <button
                                                     onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                                                    className="px-3 py-1.5 text-slate-400 hover:text-white hover:bg-purple-950 text-xs font-bold"
+                                                    className="px-3 py-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-200 text-xs font-bold"
                                                 >
                                                     +
                                                 </button>
                                             </div>
 
-                                            <div className="text-right">
-                                                <span className="text-base font-black text-white">
-                                                    ₹{(itemPrice * item.quantity).toLocaleString("en-IN")}
+                                            {/* Total Item Price */}
+                                            <div className="hidden sm:block text-right">
+                                                <span className="text-base font-extrabold text-slate-900">
+                                                    ₹{(price * item.quantity).toLocaleString("en-IN")}
                                                 </span>
-                                                <p className="text-[11px] text-slate-500">
-                                                    ₹{itemPrice.toLocaleString("en-IN")} each
-                                                </p>
+                                                {item.quantity > 1 && (
+                                                    <span className="block text-[11px] text-slate-400">
+                                                        ₹{price.toLocaleString("en-IN")} each
+                                                    </span>
+                                                )}
                                             </div>
+
+                                            {/* Remove Button */}
+                                            <button
+                                                onClick={() => removeFromCart(item._id)}
+                                                className="p-2 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition"
+                                                title="Remove item"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
+
+                        {/* Shipping Address Selector */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-4 shadow-sm">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                    <MapPin className="w-4 h-4 text-amber-600" />
+                                    <span>Delivery Address</span>
+                                </h3>
+                                <button
+                                    onClick={() => setShowAddressModal(true)}
+                                    className="text-xs font-semibold text-amber-700 hover:text-amber-900 underline"
+                                >
+                                    Change / Add Address
+                                </button>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+                                <p className="font-bold text-slate-900 text-sm">{user?.first_name} {user?.last_name}</p>
+                                <p className="text-slate-600">{shippingAddress.street}</p>
+                                <p className="text-slate-600">{shippingAddress.city}, {shippingAddress.state} - {shippingAddress.pincode}</p>
+                                <p className="text-slate-900 font-medium">Contact: {shippingAddress.phone || user?.phone || "+91 8607603050"}</p>
+                            </div>
+                        </div>
+
+                        {/* Payment Method Selector */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-4 shadow-sm">
+                            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <CreditCard className="w-4 h-4 text-amber-600" />
+                                <span>Select Payment Method</span>
+                            </h3>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label
+                                    className={`p-4 rounded-xl border cursor-pointer flex flex-col justify-between transition ${
+                                        paymentMethod === "UPI"
+                                            ? "border-slate-950 bg-amber-500/10 ring-1 ring-amber-400 shadow-xs"
+                                            : "border-slate-200 bg-slate-50 hover:bg-slate-100"
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <QrCode className="w-5 h-5 text-amber-600" />
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            checked={paymentMethod === "UPI"}
+                                            onChange={() => setPaymentMethod("UPI")}
+                                            className="text-slate-950 focus:ring-0"
+                                        />
+                                    </div>
+                                    <div className="mt-3">
+                                        <p className="font-bold text-slate-900 text-xs">UPI / QR Code</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Instant Scan &amp; Pay</p>
+                                    </div>
+                                </label>
+
+                                <label
+                                    className={`p-4 rounded-xl border cursor-pointer flex flex-col justify-between transition ${
+                                        paymentMethod === "Card"
+                                            ? "border-slate-950 bg-amber-500/10 ring-1 ring-amber-400 shadow-xs"
+                                            : "border-slate-200 bg-slate-50 hover:bg-slate-100"
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <CreditCard className="w-5 h-5 text-amber-600" />
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            checked={paymentMethod === "Card"}
+                                            onChange={() => setPaymentMethod("Card")}
+                                            className="text-slate-950 focus:ring-0"
+                                        />
+                                    </div>
+                                    <div className="mt-3">
+                                        <p className="font-bold text-slate-900 text-xs">Debit / Credit Card</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Visa, Mastercard, RuPay</p>
+                                    </div>
+                                </label>
+
+                                <label
+                                    className={`p-4 rounded-xl border cursor-pointer flex flex-col justify-between transition ${
+                                        paymentMethod === "COD"
+                                            ? "border-slate-950 bg-amber-500/10 ring-1 ring-amber-400 shadow-xs"
+                                            : "border-slate-200 bg-slate-50 hover:bg-slate-100"
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <Truck className="w-5 h-5 text-amber-600" />
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            checked={paymentMethod === "COD"}
+                                            onChange={() => setPaymentMethod("COD")}
+                                            className="text-slate-950 focus:ring-0"
+                                        />
+                                    </div>
+                                    <div className="mt-3">
+                                        <p className="font-bold text-slate-900 text-xs">Cash on Delivery</p>
+                                        <p className="text-[10px] text-slate-500 mt-0.5">Pay at Doorstep</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Order Summary & Checkout Section */}
+                    {/* Right: Coupon & Order Summary */}
                     <div className="lg:col-span-4 space-y-6">
-                        <div className="bg-[#120F24] p-6 rounded-3xl border border-[#241D3F] shadow-sm space-y-6 sticky top-28">
-                            <h2 className="text-lg font-bold text-white border-b border-purple-950/40 pb-3">
-                                Order Summary
-                            </h2>
+                        {/* Coupon Code Section */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-4 shadow-sm">
+                            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                <Tag className="w-4 h-4 text-amber-600" />
+                                <span>Have a Promo Coupon?</span>
+                            </h3>
 
-                            {/* Shipping Address Summary */}
-                            <div className="space-y-2">
-                                <label className="flex items-center justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                                    <span>Delivery Address</span>
-                                    <Link to="/profile" className="text-purple-400 lowercase font-medium hover:underline">
-                                        change
-                                    </Link>
-                                </label>
-                                <div className="p-3 bg-[#1A162F] border border-purple-900/40 rounded-xl text-xs text-slate-400 flex items-start gap-2">
-                                    <MapPin className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                            {appliedCoupon ? (
+                                <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between">
                                     <div>
-                                        <p className="font-bold text-white">
-                                            {user?.first_name} {user?.last_name}
-                                        </p>
-                                        <p>{shippingAddress.street || "Kaithal, Haryana"}</p>
-                                        <p>{shippingAddress.city} {shippingAddress.pincode}</p>
+                                        <span className="font-mono font-bold text-emerald-800 text-xs">{appliedCoupon.code}</span>
+                                        <p className="text-[10px] text-emerald-600">{appliedCoupon.description}</p>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Payment Method Selector */}
-                            <div className="space-y-2">
-                                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                                    Payment Method
-                                </label>
-                                <div className="grid grid-cols-2 gap-2">
                                     <button
-                                        type="button"
-                                        onClick={() => setPaymentMethod("COD")}
-                                        className={`p-3 rounded-xl border text-xs font-semibold flex flex-col items-center gap-1 transition ${
-                                            paymentMethod === "COD"
-                                                ? "border-purple-500 bg-purple-950/80 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.3)]"
-                                                : "border-purple-900/40 bg-[#16132A] text-slate-400 hover:border-purple-500/50 hover:text-white"
-                                        }`}
+                                        onClick={removeCoupon}
+                                        className="text-xs text-rose-600 hover:text-rose-700 font-semibold underline"
                                     >
-                                        <Truck className="w-4 h-4" />
-                                        Cash on Delivery
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setPaymentMethod("UPI")}
-                                        className={`p-3 rounded-xl border text-xs font-semibold flex flex-col items-center gap-1 transition ${
-                                            paymentMethod === "UPI"
-                                                ? "border-purple-500 bg-purple-950/80 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.3)]"
-                                                : "border-purple-900/40 bg-[#16132A] text-slate-400 hover:border-purple-500/50 hover:text-white"
-                                        }`}
-                                    >
-                                        <CreditCard className="w-4 h-4" />
-                                        UPI / Online
+                                        Remove
                                     </button>
                                 </div>
-                            </div>
+                            ) : (
+                                <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Code (e.g. SHOPNIX20)"
+                                        value={couponInput}
+                                        onChange={(e) => setCouponInput(e.target.value)}
+                                        className="flex-1 px-3 py-2 bg-slate-50 text-slate-900 rounded-xl border border-slate-200 outline-none text-xs uppercase font-mono focus:border-amber-400"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white font-bold text-xs rounded-xl transition shadow-xs"
+                                    >
+                                        Apply
+                                    </button>
+                                </form>
+                            )}
 
-                            {/* Price Breakdown */}
-                            <div className="space-y-2.5 text-xs text-slate-400 pt-3 border-t border-purple-950/40">
-                                <div className="flex justify-between">
-                                    <span>Items Subtotal:</span>
-                                    <span className="font-semibold text-white">₹{subtotal.toLocaleString("en-IN")}</span>
+                            {/* Quick Coupon Suggestions */}
+                            <div className="flex flex-wrap gap-2 pt-1">
+                                <button
+                                    onClick={() => applyCoupon("SHOPNIX20")}
+                                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 text-[11px] font-mono text-slate-800 hover:text-amber-800 border border-slate-200 transition"
+                                >
+                                    SHOPNIX20 (20% OFF)
+                                </button>
+                                <button
+                                    onClick={() => applyCoupon("WELCOME10")}
+                                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 text-[11px] font-mono text-slate-800 hover:text-amber-800 border border-slate-200 transition"
+                                >
+                                    WELCOME10 (10% OFF)
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Order Summary Card */}
+                        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-4 shadow-sm">
+                            <h3 className="text-base font-bold text-slate-900">Order Summary</h3>
+
+                            <div className="space-y-2.5 text-xs">
+                                <div className="flex justify-between text-slate-600">
+                                    <span>Subtotal ({totalItems} items):</span>
+                                    <span className="font-semibold text-slate-900">₹{subtotal.toLocaleString("en-IN")}</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span>Estimated Shipping:</span>
-                                    <span>
-                                        {shippingFee === 0 ? (
-                                            <span className="text-emerald-400 font-semibold">FREE</span>
-                                        ) : (
-                                            `₹${shippingFee}`
-                                        )}
+
+                                {discountAmount > 0 && (
+                                    <div className="flex justify-between text-rose-600 font-semibold">
+                                        <span>Coupon Discount ({appliedCoupon?.percent}%):</span>
+                                        <span>- ₹{discountAmount.toLocaleString("en-IN")}</span>
+                                    </div>
+                                )}
+
+                                <div className="flex justify-between text-slate-600">
+                                    <span>Pan-India Express Shipping:</span>
+                                    <span className="text-emerald-700 font-bold">
+                                        {shippingFee === 0 ? "FREE" : `₹${shippingFee}`}
                                     </span>
                                 </div>
-                                {subtotal < 999 && subtotal > 0 && (
-                                    <p className="text-[11px] text-purple-400 bg-purple-950/60 border border-purple-900/40 p-2 rounded-xl">
-                                        💡 Add ₹{(999 - subtotal).toLocaleString("en-IN")} more to get FREE shipping!
-                                    </p>
-                                )}
-                                <div className="flex justify-between text-base font-black text-white pt-3 border-t border-purple-950/40">
-                                    <span>Order Total:</span>
-                                    <span className="text-purple-400 font-extrabold">₹{finalTotal.toLocaleString("en-IN")}</span>
+
+                                <div className="flex justify-between text-slate-500 text-[11px]">
+                                    <span>GST (Included):</span>
+                                    <span>₹{Math.round(finalTotal * 0.18).toLocaleString("en-IN")}</span>
+                                </div>
+
+                                <div className="border-t border-slate-200 pt-3 flex justify-between items-baseline">
+                                    <span className="font-bold text-slate-900 text-base">Grand Total:</span>
+                                    <span className="font-black text-slate-950 text-xl">
+                                        ₹{finalTotal.toLocaleString("en-IN")}
+                                    </span>
                                 </div>
                             </div>
 
-                            {/* Checkout Action Button */}
                             <button
-                                onClick={handleCheckout}
-                                disabled={placingOrder || cart.items.length === 0}
-                                className="w-full py-3.5 px-6 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold text-sm transition shadow-[0_0_25px_rgba(168,85,247,0.5)] flex items-center justify-center gap-2 group disabled:opacity-60"
+                                onClick={handlePlaceOrderProcess}
+                                disabled={isPlacingOrder}
+                                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm transition-all shadow-md shadow-amber-500/25 flex items-center justify-center gap-2 disabled:opacity-70"
                             >
-                                {placingOrder ? (
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                {isPlacingOrder ? (
+                                    <div className="w-5 h-5 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <>
-                                        <span>Confirm Order (₹{finalTotal.toLocaleString("en-IN")})</span>
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                                        <span>Proceed to Checkout</span>
+                                        <ArrowRight className="w-4 h-4 text-slate-950" />
                                     </>
                                 )}
                             </button>
 
-                            <div className="flex items-center justify-center gap-2 text-[11px] text-slate-500">
-                                <ShieldCheck className="w-4 h-4 text-purple-400" />
-                                <span>Safe and encrypted checkout guarantee</span>
+                            <div className="pt-2 text-center text-[11px] text-slate-500 flex items-center justify-center gap-1.5">
+                                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                                <span>256-Bit SSL Encrypted &amp; Verified Checkout</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* UPI QR Payment Modal */}
+            {isUpiModalOpen && (
+                <UPIModal
+                    amount={finalTotal}
+                    isOpen={isUpiModalOpen}
+                    onClose={() => setIsUpiModalOpen(false)}
+                    onPaymentSuccess={() => {
+                        setIsUpiModalOpen(false);
+                        completeOrderCreation();
+                    }}
+                />
+            )}
+
+            {/* Add Address Modal */}
+            {showAddressModal && (
+                <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
+                    <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-slate-200 space-y-4 shadow-xl">
+                        <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+                            <h3 className="font-bold text-slate-900 text-sm">Add New Delivery Address</h3>
+                            <button onClick={() => setShowAddressModal(false)} className="text-slate-400 hover:text-slate-700">
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveNewAddress} className="space-y-3 text-xs">
+                            <div>
+                                <label className="block text-slate-600 mb-1">Street / House / Building</label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={newAddressForm.street}
+                                    onChange={(e) => setNewAddressForm({ ...newAddressForm, street: e.target.value })}
+                                    placeholder="House 12, Cyber Valley"
+                                    className="w-full px-3 py-2 bg-slate-50 text-slate-900 rounded-xl border border-slate-200 outline-none focus:border-amber-400"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-slate-600 mb-1">City</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={newAddressForm.city}
+                                        onChange={(e) => setNewAddressForm({ ...newAddressForm, city: e.target.value })}
+                                        placeholder="Kaithal"
+                                        className="w-full px-3 py-2 bg-slate-50 text-slate-900 rounded-xl border border-slate-200 outline-none focus:border-amber-400"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-slate-600 mb-1">Pincode</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={newAddressForm.pincode}
+                                        onChange={(e) => setNewAddressForm({ ...newAddressForm, pincode: e.target.value })}
+                                        placeholder="136027"
+                                        className="w-full px-3 py-2 bg-slate-50 text-slate-900 rounded-xl border border-slate-200 outline-none focus:border-amber-400"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-slate-600 mb-1">Phone Number</label>
+                                <input
+                                    type="text"
+                                    value={newAddressForm.phone}
+                                    onChange={(e) => setNewAddressForm({ ...newAddressForm, phone: e.target.value })}
+                                    placeholder="+91 8607603050"
+                                    className="w-full px-3 py-2 bg-slate-50 text-slate-900 rounded-xl border border-slate-200 outline-none focus:border-amber-400"
+                                />
+                            </div>
+
+                            <div className="flex gap-2 pt-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowAddressModal(false)}
+                                    className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white font-bold transition"
+                                >
+                                    Save Address
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
-

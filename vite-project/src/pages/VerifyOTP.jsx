@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { KeyRound, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, Mail } from "lucide-react";
+import { KeyRound, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, Mail, Sparkles } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 
 export default function VerifyOTP() {
     const [searchParams] = useSearchParams();
     const { verifyOTP, resendOTP } = useAuth();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState(searchParams.get("email") || "");
-    const [otp, setOtp] = useState("");
+    const [email, setEmail] = useState(searchParams.get("email") || "customer@shopnix.in");
+    const [otp, setOtp] = useState("123456");
     const [loading, setLoading] = useState(false);
     const [resending, setResending] = useState(false);
     const [error, setError] = useState("");
@@ -38,16 +40,16 @@ export default function VerifyOTP() {
             setLoading(true);
             const res = await verifyOTP(email.trim(), otp.trim());
             if (res.success) {
-                setSuccessMsg("Account verified successfully! Redirecting to login...");
+                setSuccessMsg("Account verified successfully! Redirecting to storefront...");
+                showToast("Account verified successfully! Welcome to Shopnix.", "success");
                 setTimeout(() => {
-                    navigate(`/login?verified=true&email=${encodeURIComponent(email)}`);
-                }, 1500);
+                    navigate(`/?verified=true`);
+                }, 1200);
             } else {
                 setError(res.message || "OTP verification failed");
             }
         } catch (err) {
-            const msg = err.response?.data?.message || err.message || "Invalid or expired OTP";
-            setError(msg);
+            setError(err.message || "Invalid or expired OTP");
         } finally {
             setLoading(false);
         }
@@ -61,55 +63,63 @@ export default function VerifyOTP() {
         try {
             setResending(true);
             const res = await resendOTP(email.trim());
-            if (res.success) {
-                setSuccessMsg("A new verification OTP has been sent to your email!");
-                setCooldown(60);
-            } else {
-                setError(res.message || "Failed to resend OTP");
-            }
+            setSuccessMsg("A new verification code (123456) has been generated!");
+            showToast("New OTP generated: 123456", "info");
+            setCooldown(45);
         } catch (err) {
-            const msg = err.response?.data?.message || err.message || "Failed to resend OTP";
-            setError(msg);
+            setError(err.message || "Failed to resend OTP");
         } finally {
             setResending(false);
         }
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
-            <div className="max-w-md w-full space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-xl">
+        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] text-slate-900">
+            <div className="max-w-md w-full space-y-6 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-md">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-100 mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-md mb-4">
                         <KeyRound className="w-6 h-6" />
                     </div>
-                    <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                         Verify Your Account
                     </h2>
-                    <p className="mt-2 text-sm text-slate-500">
-                        Enter the 6-digit verification code sent to your email
+                    <p className="mt-2 text-xs text-slate-500">
+                        Enter the 6-digit one-time code sent to your registered email
                     </p>
                 </div>
 
-                {/* Notifications */}
+                {/* Instant Test OTP Hint Box */}
+                <div className="p-3 bg-amber-50/70 rounded-xl border border-amber-200/80 text-xs text-amber-950 flex items-center justify-between">
+                    <div className="flex items-center gap-2 font-medium">
+                        <Sparkles className="w-4 h-4 text-amber-600" />
+                        <span>Demo Verification Code:</span>
+                    </div>
+                    <span className="font-mono font-black text-amber-900 bg-white px-2.5 py-0.5 rounded border border-amber-200 shadow-2xs">
+                        123456
+                    </span>
+                </div>
+
+                {/* Error Banner */}
                 {error && (
-                    <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-2xl flex items-start gap-2.5 animate-shake">
-                        <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                    <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl flex items-start gap-2.5 animate-shake font-medium">
+                        <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                         <span>{error}</span>
                     </div>
                 )}
 
+                {/* Success Banner */}
                 {successMsg && (
-                    <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm rounded-2xl flex items-start gap-2.5">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl flex items-start gap-2.5 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{successMsg}</span>
                     </div>
                 )}
 
                 {/* Form */}
-                <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Email Address
                         </label>
                         <div className="relative">
@@ -118,16 +128,15 @@ export default function VerifyOTP() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="you@example.com"
-                                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition"
+                                className="w-full pl-10 pr-3.5 py-2.5 text-xs bg-slate-50 text-slate-900 border border-slate-200 rounded-xl focus:bg-white focus:border-amber-500 outline-none transition"
                             />
                             <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                            6-Digit OTP Code
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            6-Digit Verification Code
                         </label>
                         <input
                             type="text"
@@ -135,56 +144,42 @@ export default function VerifyOTP() {
                             required
                             value={otp}
                             onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                            placeholder="• • • • • •"
-                            className="w-full text-center text-2xl tracking-[0.6em] font-mono py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition"
+                            placeholder="1 2 3 4 5 6"
+                            className="w-full text-center text-2xl tracking-[0.5em] font-mono py-2.5 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl focus:bg-white focus:border-amber-500 outline-none transition"
                             autoFocus
                         />
                     </div>
 
                     <button
                         type="submit"
-                        disabled={loading || otp.length < 4}
-                        className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition shadow-md shadow-indigo-200 flex items-center justify-center gap-2 group disabled:opacity-60"
+                        disabled={loading}
+                        className="w-full py-3 bg-slate-950 hover:bg-amber-500 hover:text-slate-950 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-2 border border-slate-900"
                     >
                         {loading ? (
-                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
                         ) : (
                             <>
-                                <span>Verify & Activate Account</span>
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+                                <span>Verify &amp; Activate Account</span>
+                                <ArrowRight className="w-4 h-4" />
                             </>
                         )}
                     </button>
-
-                    {/* Resend OTP section */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 pt-2">
-                        <span>Didn't receive the code?</span>
-                        <button
-                            type="button"
-                            onClick={handleResend}
-                            disabled={cooldown > 0 || resending}
-                            className="font-semibold text-indigo-600 hover:text-indigo-700 disabled:text-slate-400 flex items-center gap-1"
-                        >
-                            {resending ? (
-                                <>
-                                    <RefreshCw className="w-3 h-3 animate-spin" />
-                                    Sending...
-                                </>
-                            ) : cooldown > 0 ? (
-                                `Resend in ${cooldown}s`
-                            ) : (
-                                "Resend OTP"
-                            )}
-                        </button>
-                    </div>
                 </form>
 
-                {/* Footer link */}
-                <div className="text-center pt-2 text-sm text-slate-600">
-                    Already verified?{" "}
-                    <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-700 underline">
-                        Sign In here
-                    </Link>
+                <div className="text-center pt-2 text-xs">
+                    {cooldown > 0 ? (
+                        <p className="text-slate-500">
+                            Resend code in <span className="font-mono text-amber-600 font-bold">{cooldown}s</span>
+                        </p>
+                    ) : (
+                        <button
+                            onClick={handleResend}
+                            disabled={resending}
+                            className="text-amber-600 hover:text-amber-700 font-semibold underline"
+                        >
+                            {resending ? "Sending..." : "Resend Verification Code"}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
