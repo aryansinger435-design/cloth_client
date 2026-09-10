@@ -90,14 +90,14 @@ export default function AdminUsers() {
     );
 
     return (
-        <div className="space-y-6 text-slate-900">
+        <div className="space-y-6 text-slate-100">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#241D3F]">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                         User Accounts &amp; Permissions
                     </h1>
-                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    <p className="text-xs sm:text-sm text-purple-300/70 mt-1">
                         Control customer access, assign administrative roles, and manage credentials
                     </p>
                 </div>
@@ -110,16 +110,16 @@ export default function AdminUsers() {
                     placeholder="Search users by name or email..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-white text-slate-900 rounded-xl border border-slate-200 text-xs outline-none focus:border-amber-500 shadow-2xs"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#131024] text-white rounded-xl border border-[#241D3F] text-xs outline-none focus:border-purple-500 shadow-sm placeholder:text-slate-500"
                 />
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-purple-400/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
 
             {/* Users Table */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-[#131024] rounded-2xl border border-[#241D3F] shadow-[0_4px_25px_rgba(0,0,0,0.5)] overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                        <thead className="bg-slate-50 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200">
+                        <thead className="bg-[#0D0A1C] text-purple-300 uppercase tracking-wider font-bold border-b border-[#241D3F]">
                             <tr>
                                 <th className="py-3.5 px-4">User Details</th>
                                 <th className="py-3.5 px-3">Role</th>
@@ -128,17 +128,17 @@ export default function AdminUsers() {
                                 <th className="py-3.5 px-4 text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 text-slate-800">
+                        <tbody className="divide-y divide-[#201838] text-slate-200">
                             {filtered.map((u) => (
-                                <tr key={u._id} className="hover:bg-slate-50/80 transition">
+                                <tr key={u._id} className="hover:bg-[#1C1733]/50 transition">
                                     <td className="py-3.5 px-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-9 h-9 rounded-full bg-slate-900 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-xs shadow-xs">
+                                            <div className="w-9 h-9 rounded-full bg-purple-950 border border-purple-500/50 flex items-center justify-center text-purple-300 font-bold text-xs shadow-sm">
                                                 {u.first_name[0]}
                                             </div>
                                             <div>
-                                                <p className="font-bold text-slate-900">{u.first_name} {u.last_name}</p>
-                                                <p className="text-[10px] text-slate-500">{u.email}</p>
+                                                <p className="font-bold text-white">{u.first_name} {u.last_name}</p>
+                                                <p className="text-[10px] text-purple-300/60">{u.email}</p>
                                             </div>
                                         </div>
                                     </td>
@@ -147,8 +147,8 @@ export default function AdminUsers() {
                                             onClick={() => handleToggleRole(u._id)}
                                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition ${
                                                 u.role === "admin"
-                                                    ? "bg-amber-50 text-amber-800 border-amber-200/80 shadow-xs"
-                                                    : "bg-slate-100 text-slate-600 border-slate-200 hover:text-slate-900"
+                                                    ? "bg-purple-900/60 text-purple-200 border-purple-500/60 shadow-[0_0_10px_rgba(168,85,247,0.3)]"
+                                                    : "bg-[#1C1733] text-slate-400 border-[#2E2452] hover:text-white"
                                             }`}
                                             title="Click to toggle between Admin and Customer"
                                         >
@@ -160,21 +160,21 @@ export default function AdminUsers() {
                                             onClick={() => handleToggleStatus(u._id)}
                                             className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border transition ${
                                                 u.is_active
-                                                    ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                                    : "bg-rose-50 text-rose-700 border-rose-200"
+                                                    ? "bg-emerald-950/60 text-emerald-300 border-emerald-800/60"
+                                                    : "bg-rose-950/60 text-rose-300 border-rose-800/60"
                                             }`}
                                         >
-                                            <span className={`w-1.5 h-1.5 rounded-full ${u.is_active ? "bg-emerald-500" : "bg-rose-500"}`}></span>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${u.is_active ? "bg-emerald-400" : "bg-rose-400"}`}></span>
                                             <span>{u.is_active ? "Active" : "Disabled"}</span>
                                         </button>
                                     </td>
-                                    <td className="py-3.5 px-3 text-slate-600 font-medium">
+                                    <td className="py-3.5 px-3 text-slate-400 font-medium">
                                         {u.phone || "—"}
                                     </td>
                                     <td className="py-3.5 px-4 text-right">
                                         <button
                                             onClick={() => handleDelete(u._id)}
-                                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition"
+                                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/50 transition"
                                             title="Delete User"
                                         >
                                             <Trash2 className="w-4 h-4" />

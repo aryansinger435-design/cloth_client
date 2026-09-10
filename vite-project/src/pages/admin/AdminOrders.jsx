@@ -36,26 +36,28 @@ export default function AdminOrders() {
     });
 
     return (
-        <div className="space-y-6 text-slate-900">
+        <div className="space-y-6 text-slate-100">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#241D3F]">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                         Customer Orders &amp; Fulfillment
                     </h1>
-                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    <p className="text-xs sm:text-sm text-purple-300/70 mt-1">
                         Review customer shipments, update delivery stages, and generate invoices
                     </p>
                 </div>
 
                 {/* Filter */}
-                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-slate-100 border border-slate-200 text-xs">
+                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#131024] border border-[#241D3F] text-xs">
                     {["All", "Processing", "Shipped", "Delivered", "Cancelled"].map((s) => (
                         <button
                             key={s}
                             onClick={() => setFilterStatus(s)}
                             className={`px-3 py-1.5 rounded-xl font-bold transition ${
-                                filterStatus === s ? "bg-slate-950 text-amber-400 shadow-xs" : "text-slate-600 hover:text-slate-900"
+                                filterStatus === s
+                                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] border border-purple-400/40"
+                                    : "text-slate-400 hover:text-white"
                             }`}
                         >
                             {s}
@@ -65,10 +67,10 @@ export default function AdminOrders() {
             </div>
 
             {/* Orders Table */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-[#131024] rounded-2xl border border-[#241D3F] shadow-[0_4px_25px_rgba(0,0,0,0.5)] overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
-                        <thead className="bg-slate-50 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200">
+                        <thead className="bg-[#0D0A1C] text-purple-300 uppercase tracking-wider font-bold border-b border-[#241D3F]">
                             <tr>
                                 <th className="py-3.5 px-4">Order ID &amp; Date</th>
                                 <th className="py-3.5 px-3">Destination</th>
@@ -79,30 +81,30 @@ export default function AdminOrders() {
                                 <th className="py-3.5 px-4 text-right">Invoice</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 text-slate-800">
+                        <tbody className="divide-y divide-[#201838] text-slate-200">
                             {filtered.map((ord) => (
-                                <tr key={ord._id} className="hover:bg-slate-50/80 transition">
+                                <tr key={ord._id} className="hover:bg-[#1C1733]/50 transition">
                                     <td className="py-3.5 px-4">
-                                        <p className="font-mono font-bold text-slate-900">{ord._id}</p>
-                                        <p className="text-[10px] text-slate-500">
+                                        <p className="font-mono font-bold text-white">{ord._id}</p>
+                                        <p className="text-[10px] text-purple-300/60">
                                             {new Date(ord.created_at).toLocaleDateString("en-IN", { dateStyle: "medium" })}
                                         </p>
                                     </td>
                                     <td className="py-3.5 px-3">
-                                        <p className="font-medium text-slate-700">{ord.shipping_address?.city}, {ord.shipping_address?.state}</p>
+                                        <p className="font-medium text-slate-300">{ord.shipping_address?.city}, {ord.shipping_address?.state}</p>
                                         <p className="text-[10px] text-slate-500">PIN: {ord.shipping_address?.pincode}</p>
                                     </td>
                                     <td className="py-3.5 px-3">
-                                        <span className="font-bold text-slate-900">{ord.items?.length || 1} devices</span>
+                                        <span className="font-bold text-white">{ord.items?.length || 1} devices</span>
                                     </td>
-                                    <td className="py-3.5 px-3 font-black text-slate-900">
+                                    <td className="py-3.5 px-3 font-black text-purple-300">
                                         ₹{ord.total_amount?.toLocaleString("en-IN")}
                                     </td>
                                     <td className="py-3.5 px-3">
                                         <select
                                             value={ord.payment_status || "Pending"}
                                             onChange={(e) => handlePaymentChange(ord._id, e.target.value)}
-                                            className="bg-slate-50 text-xs font-bold text-slate-700 rounded-lg px-2 py-1 border border-slate-200 outline-none focus:border-amber-500 transition"
+                                            className="bg-[#0D0B18] text-xs font-bold text-purple-200 rounded-lg px-2 py-1 border border-[#2E2452] outline-none focus:border-purple-500 transition"
                                         >
                                             <option value="Paid">Paid</option>
                                             <option value="Pending">Pending</option>
@@ -113,7 +115,7 @@ export default function AdminOrders() {
                                         <select
                                             value={ord.order_status || "Processing"}
                                             onChange={(e) => handleStatusChange(ord._id, e.target.value)}
-                                            className="bg-amber-50 text-xs font-bold text-amber-800 rounded-lg px-2.5 py-1 border border-amber-200/80 outline-none focus:border-amber-500 transition"
+                                            className="bg-purple-950/70 text-xs font-bold text-purple-300 rounded-lg px-2.5 py-1 border border-purple-500/40 outline-none focus:border-purple-400 transition"
                                         >
                                             <option value="Processing">Processing</option>
                                             <option value="Shipped">Shipped</option>
@@ -124,7 +126,7 @@ export default function AdminOrders() {
                                     <td className="py-3.5 px-4 text-right">
                                         <button
                                             onClick={() => setSelectedInvoice(ord)}
-                                            className="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:text-amber-600 hover:bg-amber-50 border border-slate-200 transition"
+                                            className="p-1.5 rounded-lg bg-purple-950/60 text-purple-300 hover:text-white hover:bg-purple-900 border border-purple-500/40 transition"
                                             title="View / Print Tax Invoice"
                                         >
                                             <FileText className="w-4 h-4" />

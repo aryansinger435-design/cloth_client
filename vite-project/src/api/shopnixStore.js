@@ -3,7 +3,7 @@
 // work smoothly with persistence across browser refreshes.
 
 const STORAGE_KEYS = {
-    PRODUCTS: "shopnix_catalog_v2",
+    PRODUCTS: "shopnix_catalog_v3",
     CART: "shopnix_cart_v2",
     WISHLIST: "shopnix_wishlist_v2",
     ORDERS: "shopnix_orders_v2",
@@ -441,6 +441,434 @@ export const INITIAL_PRODUCTS = [
             "Control": "Wi-Fi + BLE mobile app, touch surface, desktop app",
             "Mounting": "Tool-free damage-free 3M mounting tape included",
             "Compatibility": "Razer Chroma, Corsair iCUE, Alexa & Google Home"
+        }
+    },
+    {
+        _id: "prod-snx-017",
+        name: "Shopnix Vision Pro AR Smart Glasses",
+        tagline: "Micro-OLED Heads-Up HUD with Real-time AI Audio Translation",
+        description: "Featherweight everyday smart eyewear featuring dual Micro-OLED 120Hz displays projecting a virtual 130-inch workspace. Features instantaneous voice translation in 40+ languages, open-ear directional stereo audio, and gesture controls.",
+        price: 44999,
+        discount_price: 36999,
+        category: "Smart Devices",
+        stock: 18,
+        is_featured: true,
+        badge: "AI Powered",
+        sizes: ["Standard Fit", "Prescription Clip Edition"],
+        colors: ["Matte Cyber Black", "Titanium Silver"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&auto=format&fit=crop&q=80" },
+            { url: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 91 },
+        specs: {
+            "Display": "Dual Sony Micro-OLED 1080p per eye, 120Hz, 1800 nits",
+            "Virtual Canvas": "Simulated 130-inch private high-definition cinema screen",
+            "Audio": "Directional dual micro-speakers with privacy beamforming",
+            "Weight": "76g ultra-light aero-magnesium alloy frame",
+            "Battery": "5 hours continuous AR display, 48h standby",
+            "Connectivity": "USB-C DisplayPort, Bluetooth 5.3 low energy"
+        }
+    },
+    {
+        _id: "prod-snx-018",
+        name: "NeuroBand Sleep & Focus EEG Smart Headband",
+        tagline: "Clinical-grade EEG Brainwave Tracking with Binaural Somno-Audio",
+        description: "Breakthrough non-invasive neurofeedback smart headband engineered with gold-plated dry EEG electrodes. Analyzes real-time Delta, Theta, and Alpha brainwave patterns to induce restorative sleep and track deep REM cycles with adaptive soundscapes.",
+        price: 19999,
+        discount_price: 15499,
+        category: "Smart Devices",
+        stock: 22,
+        is_featured: false,
+        badge: "Biohacking",
+        sizes: ["Flexible Adjustable Headband"],
+        colors: ["Midnight Blue", "Stealth Carbon"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 64 },
+        specs: {
+            "Sensors": "4x Dry EEG frontal sensors, PPG heart rate, 3D accelerometer",
+            "Sound Engine": "Bone-conduction binaural acoustic beat induction",
+            "Material": "Hypoallergenic breathable bamboo-silk fabric",
+            "Battery": "14 hours continuous all-night sleep monitoring",
+            "App": "NeuroSync iOS & Android dashboard with circadian insights"
+        }
+    },
+    {
+        _id: "prod-snx-019",
+        name: "BioGlow Continuous Health & Fitness Band 2",
+        tagline: "14-Day Battery Life with Non-Invasive Optical Biomarkers",
+        description: "Sleek screenless minimalist fitness tracker encased in bead-blasted aerospace titanium. Continuously samples skin temperature, strain, HRV, sleep quality, and respiratory rate with medical-grade precision without annoying notifications.",
+        price: 7999,
+        discount_price: 5499,
+        category: "Smart Devices",
+        stock: 40,
+        is_featured: false,
+        badge: "Athlete Choice",
+        sizes: ["S/M (130-175mm)", "M/L (165-210mm)"],
+        colors: ["Cyber Black", "Solar Orange", "Neon Purple"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.7, count: 118 },
+        specs: {
+            "Battery Life": "Up to 14 days on a single fast wireless slide-on charge",
+            "Waterproofing": "10 ATM (100 meters dive & swim proof)",
+            "Sensors": "Multi-wavelength 5-LED optical sensor array",
+            "Strap": "Water-repellent ultra-stretch woven nylon with titanium clasp",
+            "Sync": "Instant automatic sync with Apple Health & Google Health Connect"
+        }
+    },
+    {
+        _id: "prod-snx-020",
+        name: "Apex Planar Magnetic Audiophile In-Ear Monitors",
+        tagline: "14.5mm Ultra-thin Planar Diaphragm with OCC Silver-plated Cable",
+        description: "Audiophile-certified in-ear monitors equipped with a 14.5mm sub-nanometer planar magnetic driver delivering electrostatic-like lightning treble, laser-tight sub-bass, and a massive holographic soundstage. CNC resin acoustic housing.",
+        price: 17999,
+        discount_price: 13499,
+        category: "Audio",
+        stock: 19,
+        is_featured: false,
+        badge: "Audiophile",
+        sizes: ["0.78mm 2-Pin (3.5mm & 4.4mm Balanced Plugs)"],
+        colors: ["Cosmic Nebula", "Smoked Obsidian"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 5.0, count: 83 },
+        specs: {
+            "Driver": "14.5mm Custom Planar Magnetic Transducer (N52 Neodymium)",
+            "Frequency Response": "7Hz - 42,000Hz",
+            "Impedance": "16 Ohms @ 1kHz (Easy to drive from phones & DACs)",
+            "Cable": "High-purity monocrystalline silver-plated copper 8-core",
+            "Tips": "Includes 6 pairs silicone + 3 pairs memory foam tips"
+        }
+    },
+    {
+        _id: "prod-snx-021",
+        name: "Shopnix SonicBar Cyber 240W Dolby Atmos Soundbar",
+        tagline: "5.1.2 Surround with Wireless Subwoofer & RGB Underglow",
+        description: "Transform your living room into an IMAX theater. Features 9 high-output drivers with dedicated up-firing spatial height channels, wireless 8-inch deep bass subwoofer, 4K HDMI eARC pass-through, and customizable cyberpunk ambient LED underglow.",
+        price: 31999,
+        discount_price: 24999,
+        category: "Audio",
+        stock: 12,
+        is_featured: true,
+        badge: "Home Cinema",
+        sizes: ["Soundbar + Wireless Sub Combo"],
+        colors: ["Stealth Matte Black"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 97 },
+        specs: {
+            "Total Power": "240W RMS / 480W Peak Output",
+            "Audio Tech": "Dolby Atmos, DTS:X, Spatial Sound Expansion",
+            "Subwoofer": "8-inch down-firing wireless subwoofer (down to 28Hz)",
+            "Ports": "HDMI eARC 2.1, Optical Audio, AUX 3.5mm, USB audio",
+            "Wireless": "Bluetooth 5.3, Apple AirPlay 2, Spotify Connect"
+        }
+    },
+    {
+        _id: "prod-snx-022",
+        name: "SoundSphere Levitating 360 Magnetic Speaker",
+        tagline: "True Magnetic Levitation with 360° Omnidirectional Sound",
+        description: "Futuristic magnetic levitation orb speaker that floats in mid-air above its glowing induction pedestal while spinning smoothly. Emits crystal-clear 360-degree spatial audio and features wireless charging directly through the magnetic field.",
+        price: 15999,
+        discount_price: 10999,
+        category: "Audio",
+        stock: 25,
+        is_featured: false,
+        badge: "Futuristic",
+        sizes: ["Levitating Sphere + Base"],
+        colors: ["Cyber Black / Neon Blue", "Arctic White / Purple Glow"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 129 },
+        specs: {
+            "Levitation Height": "18mm stable magnetic floating clearance",
+            "Acoustic Driver": "52mm neodymium dynamic driver with passive radiator",
+            "Playtime": "Up to 12 hours playback (infinite on charging base)",
+            "Lighting": "Breathing neon LED ring with 7 selectable glow moods",
+            "Base Features": "Subwoofer base + 15W Qi phone fast charger on top"
+        }
+    },
+    {
+        _id: "prod-snx-023",
+        name: "Shopnix NeoGrip Hall Effect Wireless Controller",
+        tagline: "Zero-Drift Magnetic Hall Effect Sticks with Mechanical Triggers",
+        description: "Pro esports gamepad equipped with electromagnetic Hall effect analog joysticks and triggers guaranteed for zero stick drift forever. Features microswitch mechanical ABXY buttons, 1000Hz wireless polling rate, and 4 programmable rear remappable paddles.",
+        price: 5999,
+        discount_price: 4199,
+        category: "Gaming",
+        stock: 35,
+        is_featured: false,
+        badge: "Zero Drift",
+        sizes: ["Standard Pro Layout"],
+        colors: ["Cyber Translucent Purple", "Stealth Black", "Frost White"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 154 },
+        specs: {
+            "Sticks & Triggers": "Electromagnetic Hall Effect Sensors (Zero drift)",
+            "Face Buttons": "Kailh mechanical switches with 0.3mm quick actuation",
+            "Polling Rate": "1000Hz hyper-polling rate on 2.4GHz wireless & wired",
+            "Vibration": "Dual asymmetric HD linear resonant haptic motors",
+            "Compatibility": "PC, Steam Deck, Nintendo Switch, Android, iOS"
+        }
+    },
+    {
+        _id: "prod-snx-024",
+        name: "CyberChair Ergonomic Lumbar Battle Throne",
+        tagline: "Dynamic 4D Lumbar Spine Support with Breathable Carbon Mesh",
+        description: "Heavy-duty ergonomic gaming & workstation chair crafted with dual-zone breathable carbon-fiber weave mesh, 4-directional self-adjusting lumbar spine tracker, magnetic memory foam neck pillow with cooling gel, and Class-4 explosion-proof pneumatic cylinder.",
+        price: 26999,
+        discount_price: 21999,
+        category: "Gaming",
+        stock: 10,
+        is_featured: true,
+        badge: "Ergonomic King",
+        sizes: ["Standard (Up to 135kg)", "XL (Up to 160kg)"],
+        colors: ["Obsidian Black / Cyber Violet", "Stealth Grey"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 88 },
+        specs: {
+            "Frame": "Seamless 2mm robot-welded steel skeleton",
+            "Mechanism": "Heavy-duty multi-tilt frog mechanism with 165° recline",
+            "Armrests": "Full 4D metal-core armrests with magnetic swappable tops",
+            "Mesh": "Kevlar-reinforced high-tensile breathable elastomeric mesh",
+            "Warranty": "5 Years Structural Frame & Hydraulics Warranty"
+        }
+    },
+    {
+        _id: "prod-snx-025",
+        name: "SkyScout Mini 4K Pocket Drone Combo",
+        tagline: "Sub-249g Ultralight with 3-Axis 4K HDR True Vertical Camera",
+        description: "Palm-sized folding camera drone under 249g requiring no DGCA permit registration for recreational flying. Features true 90-degree vertical camera rotation for Instagram & TikTok reels, 31-min flight time, and 10km HD video transmission.",
+        price: 39999,
+        discount_price: 32999,
+        category: "Cameras",
+        stock: 14,
+        is_featured: false,
+        badge: "Sub-249g",
+        sizes: ["Pocket Combo (2 Batteries + Case)", "Standard Single Kit"],
+        colors: ["Space White", "Cyber Titanium"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 119 },
+        specs: {
+            "Weight": "246 grams (Regulation compliant without permit)",
+            "Camera": "1/1.3-inch 48MP CMOS sensor with f/1.7 large aperture",
+            "Video": "4K HDR @ 60fps, 1080p @ 120fps Slow-mo, Vertical mode",
+            "Flight Time": "Up to 31 minutes per intelligent flight battery",
+            "Transmission": "10km stable anti-interference FHD video feed"
+        }
+    },
+    {
+        _id: "prod-snx-026",
+        name: "Shopnix CineGimbal 3-Axis AI Smartphone Stabilizer",
+        tagline: "Built-in AI Vision Tracker with Magnetic Bi-Color Fill Light",
+        description: "Professional handheld smartphone gimbal equipped with standalone AI visual tracking sensor—tracks your face and body without needing an app or Bluetooth connection. Features 3-axis anti-shake motors, built-in extension selfie rod, and tripod legs.",
+        price: 12999,
+        discount_price: 8999,
+        category: "Cameras",
+        stock: 28,
+        is_featured: false,
+        badge: "Creator Essential",
+        sizes: ["Stabilizer Pro Kit"],
+        colors: ["Midnight Grey", "Cyber Violet"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.7, count: 142 },
+        specs: {
+            "AI Tracking": "Autonomous vision hardware tracking chip (gesture activated)",
+            "Lighting": "Magnetic bi-color RGB fill light with 3 brightness modes",
+            "Extension": "215mm built-in aluminum alloy extension selfie stick",
+            "Battery Life": "Up to 10 hours continuous shooting with phone charging",
+            "Modes": "Inception 360, Dolly Zoom, Hitchcock effect, Timelapse"
+        }
+    },
+    {
+        _id: "prod-snx-027",
+        name: "CyberNight NVG Infrared Tactical 4K Monocular",
+        tagline: "850nm Starlight Night Vision with 1000m Detection & 4K Recording",
+        description: "Military-inspired tactical digital night vision monocular equipped with ultra-sensitive starlight CMOS sensor, 850nm adjustable 7-level infrared illuminator, 8x digital zoom, and built-in 4K video recording with 1.5-inch IPS viewfinder.",
+        price: 29999,
+        discount_price: 22999,
+        category: "Cameras",
+        stock: 8,
+        is_featured: true,
+        badge: "Tactical Tech",
+        sizes: ["Tactical Monocular Kit"],
+        colors: ["Matte Armor Black"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 47 },
+        specs: {
+            "Sensor": "Ultra-low illumination Starlight CMOS sensor",
+            "IR Illuminator": "3W 850nm infrared LED with 7 adjustment intensities",
+            "Range": "Full pitch-black observation distance up to 1000 meters",
+            "Recording": "4K Ultra-HD video with audio recording + 40MP photos",
+            "Waterproofing": "IP66 weatherproof rubberized non-slip armor housing"
+        }
+    },
+    {
+        _id: "prod-snx-028",
+        name: "HoloDesk 3D Holographic LED Fan Display",
+        tagline: "High-Speed POV 3D Floating Holographic Video Projector",
+        description: "Cast stunning 3D holographic animations floating mid-air with zero glasses required. Features a 52cm 4-blade high-speed rotating LED fan with 1024x1024 pixel resolution. Upload 3D logos, animations, and custom videos directly from your smartphone app.",
+        price: 17999,
+        discount_price: 12499,
+        category: "AI Devices",
+        stock: 16,
+        is_featured: false,
+        badge: "Showstopper",
+        sizes: ["52cm Standard", "65cm Ultra"],
+        colors: ["Cyber Black"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 68 },
+        specs: {
+            "Diameter": "52cm high-velocity 4-blade rotor (POV display)",
+            "Resolution": "1024 x 1024 pixels with 2000cd/m² high brightness",
+            "Content Support": "MP4, AVI, RMVB, GIF, JPG, PNG 3D animation files",
+            "Control": "Wi-Fi mobile app (iOS & Android) + infrared remote control",
+            "Safety": "Includes clear acrylic protective display cover & wall mount"
+        }
+    },
+    {
+        _id: "prod-snx-029",
+        name: "PureAir Cyber Ionizing Smart Air Purifier",
+        tagline: "Medical-Grade H13 HEPA with UV-C Sterilizer & OLED PM2.5 Monitor",
+        description: "Industrial-grade air filtration in a cyberpunk monolith tower. Cleans up to 800 sq ft in 12 minutes using 5-stage medical HEPA H13, coconut shell activated carbon, UV-C germicidal light, and negative ion plasma generator. Real-time air quality OLED display.",
+        price: 21999,
+        discount_price: 15999,
+        category: "AI Devices",
+        stock: 20,
+        is_featured: false,
+        badge: "Health Tech",
+        sizes: ["500 CADR Room Unit"],
+        colors: ["Obsidian Black", "Cyber Grey"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 104 },
+        specs: {
+            "CADR Rating": "500 m³/h (Cleans 800 sq ft room in under 12 minutes)",
+            "Filtration": "5-Stage: Pre-filter, H13 HEPA, Active Carbon, UV-C, Ionizer",
+            "Sensors": "Laser PM2.5 optical sensor + TVOC odor sensor + humidity",
+            "Noise Level": "Ultra-silent 22dB sleep whisper mode with display dimming",
+            "Smart Control": "Google Home, Amazon Alexa & Shopnix AI home app"
+        }
+    },
+    {
+        _id: "prod-snx-030",
+        name: "MagPower Cyber 20000mAh Transparent Power Bank",
+        tagline: "100W Dual-Directional PD Fast Charging with Smart IPS Screen",
+        description: "Iconic cyberpunk transparent power bank showcasing internal gold capacitors, heatsinks, and circuit traces through scratch-proof crystal-clear casing. Delivers up to 100W PD charging to fast-charge laptops, phones, and tablets with real-time wattmeter.",
+        price: 6499,
+        discount_price: 4299,
+        category: "Accessories",
+        stock: 45,
+        is_featured: true,
+        badge: "Cyber Essential",
+        sizes: ["20000mAh 100W Edition"],
+        colors: ["Cyber Translucent Purple", "Smoked Transparent Gold"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1609592807963-8a39ec867c42?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 265 },
+        specs: {
+            "Capacity": "20,000mAh (74Wh airline cabin approved)",
+            "Max Output": "100W Single Port PD 3.0 / PPS (Charges MacBook 0-50% in 30m)",
+            "Display": "Full-color IPS screen showing volts, amps, watts & battery temp",
+            "Ports": "2x USB-C (100W IN/OUT), 1x USB-A (22.5W Fast Charge)",
+            "Safety": "Dual thermal sensors with 12-layer hardware safety protection"
+        }
+    },
+    {
+        _id: "prod-snx-031",
+        name: "NexaDock Thunderbolt 4 14-in-1 Dual 4K Docking Station",
+        tagline: "40Gbps Intel Goshen Ridge Chip with 100W Laptop Power Delivery",
+        description: "Ultimate all-in-one desktop expansion hub powered by official Intel Thunderbolt 4 controller. Connects dual 4K@60Hz or single 8K displays, gigabit Ethernet, UHS-II SD card readers, and 4 high-speed USB ports through a single braided cable to your laptop.",
+        price: 18999,
+        discount_price: 14499,
+        category: "Accessories",
+        stock: 15,
+        is_featured: false,
+        badge: "Workstation Pro",
+        sizes: ["14-in-1 Desktop Hub"],
+        colors: ["Space Anodized Aluminium"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 74 },
+        specs: {
+            "Bandwidth": "40Gbps bidirectional Thunderbolt 4 speed",
+            "Video Output": "Dual 4K @ 60Hz or Single 8K @ 30Hz via DP 1.4 & TB4",
+            "Host Charging": "100W Upstream Power Delivery (charges MacBook / ThinkPad)",
+            "Ports": "3x TB4, 4x USB-A 3.2 (10Gbps), Gigabit RJ45, SD/microSD 4.0, 3.5mm",
+            "Enclosure": "Passive-cooling solid CNC aluminum heatsink chassis"
+        }
+    },
+    {
+        _id: "prod-snx-032",
+        name: "CyberTek Waterproof Techwear Utility Trenchcoat",
+        tagline: "3-Layer Waterproof eVent Fabric with Fidlock Magnetic Straps",
+        description: "Futuristic dystopian cyberpunk techwear trenchcoat tailored from waterproof, windproof, and breathable 3-layer laminated fabric. Features 12 concealed pockets, Fidlock magnetic modular cross-body straps, storm hood, and reflective cyberpunk accents.",
+        price: 15999,
+        discount_price: 11499,
+        category: "Apparel",
+        stock: 20,
+        is_featured: true,
+        badge: "Techwear",
+        sizes: ["M", "L", "XL", "XXL"],
+        colors: ["Stealth Matte Black", "Cyber Shadow Grey"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=800&auto=format&fit=crop&q=80" },
+            { url: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.9, count: 96 },
+        specs: {
+            "Fabric": "3-Layer Technical eVent Laminated Membrane (20,000mm waterproof)",
+            "Zippers": "YKK AquaGuard waterproof seam-sealed zippers throughout",
+            "Hardware": "German Fidlock V-buckle magnetic quick-release chest harness",
+            "Pockets": "12 multi-functional pockets with RFID-shielded gadget pouch",
+            "Care": "Machine washable on gentle cold cycle"
+        }
+    },
+    {
+        _id: "prod-snx-033",
+        name: "NeonMatrix Programmable LED Cyber Hoodie",
+        tagline: "Integrated 16x16 RGB LED Pixel Matrix with Bluetooth App Control",
+        description: "Heavyweight 420 GSM fleece cyberpunk streetwear hoodie featuring a flexible, water-sealed front 16x16 RGB LED matrix panel. Draw pixel art, text animations, equalizers, and scrolling messages live directly from the companion smartphone app.",
+        price: 9499,
+        discount_price: 6999,
+        category: "Apparel",
+        stock: 28,
+        is_featured: true,
+        badge: "Viral Edition",
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        colors: ["Cyber Black", "Deep Violet"],
+        images: [
+            { url: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=800&auto=format&fit=crop&q=80" }
+        ],
+        ratings: { average: 4.8, count: 135 },
+        specs: {
+            "LED Display": "Flexible 16x16 full-color RGB LED matrix (256 pixels)",
+            "Power": "Runs on any standard 5V USB power bank in the interior pocket",
+            "Control": "Bluetooth iOS & Android app with custom drawing & music visualizer",
+            "Fabric": "420 GSM ultra-heavyweight combed organic cotton fleece",
+            "Washing": "Detachable LED panel allows 100% standard machine washing"
         }
     }
 ];

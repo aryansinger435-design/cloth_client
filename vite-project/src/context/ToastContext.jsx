@@ -24,26 +24,26 @@ export const ToastProvider = ({ children }) => {
     const getIcon = (type) => {
         switch (type) {
             case "success":
-                return <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />;
+                return <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />;
             case "error":
-                return <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />;
+                return <AlertCircle className="w-5 h-5 text-rose-400 shrink-0" />;
             case "warning":
-                return <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />;
+                return <AlertTriangle className="w-5 h-5 text-purple-400 shrink-0" />;
             default:
-                return <Info className="w-5 h-5 text-amber-500 shrink-0" />;
+                return <Info className="w-5 h-5 text-purple-400 shrink-0" />;
         }
     };
 
     const getStyles = (type) => {
         switch (type) {
             case "success":
-                return "border-emerald-200 bg-white text-slate-800 shadow-lg shadow-emerald-500/10";
+                return "border-emerald-500/40 bg-[#131024]/95 text-emerald-200 shadow-[0_4px_25px_rgba(0,0,0,0.7)]";
             case "error":
-                return "border-rose-200 bg-white text-slate-800 shadow-lg shadow-rose-500/10";
+                return "border-rose-500/40 bg-[#131024]/95 text-rose-200 shadow-[0_4px_25px_rgba(0,0,0,0.7)]";
             case "warning":
-                return "border-amber-200 bg-white text-slate-800 shadow-lg shadow-amber-500/10";
+                return "border-amber-500/40 bg-[#131024]/95 text-amber-200 shadow-[0_4px_25px_rgba(0,0,0,0.7)]";
             default:
-                return "border-amber-200 bg-white text-slate-800 shadow-lg shadow-amber-500/10";
+                return "border-purple-500/40 bg-[#131024]/95 text-purple-200 shadow-[0_4px_25px_rgba(0,0,0,0.7)]";
         }
     };
 
@@ -63,7 +63,7 @@ export const ToastProvider = ({ children }) => {
                         </div>
                         <button
                             onClick={() => removeToast(toast.id)}
-                            className="text-slate-400 hover:text-slate-700 p-1 rounded-lg transition"
+                            className="text-purple-300/60 hover:text-white p-1 rounded-lg transition"
                         >
                             <X className="w-4 h-4" />
                         </button>

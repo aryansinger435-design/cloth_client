@@ -74,44 +74,48 @@ export default function VerifyOTP() {
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F8FAFC] text-slate-900">
-            <div className="max-w-md w-full space-y-6 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-md">
+        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#08070E] text-slate-100 selection:bg-purple-600 selection:text-white relative overflow-hidden">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-md w-full space-y-6 bg-[#131024] p-8 sm:p-10 rounded-2xl border border-purple-500/30 shadow-[0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl relative z-10">
                 {/* Header */}
                 <div className="text-center">
-                    <div className="mx-auto w-12 h-12 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-md mb-4">
+                    <div className="mx-auto w-12 h-12 rounded-2xl bg-purple-950/80 border border-purple-500/50 flex items-center justify-center text-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.35)] mb-4">
                         <KeyRound className="w-6 h-6" />
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                         Verify Your Account
                     </h2>
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-purple-300/70">
                         Enter the 6-digit one-time code sent to your registered email
                     </p>
                 </div>
 
                 {/* Instant Test OTP Hint Box */}
-                <div className="p-3 bg-amber-50/70 rounded-xl border border-amber-200/80 text-xs text-amber-950 flex items-center justify-between">
+                <div className="p-3 bg-purple-950/50 rounded-xl border border-purple-800/40 text-xs text-purple-300 flex items-center justify-between">
                     <div className="flex items-center gap-2 font-medium">
-                        <Sparkles className="w-4 h-4 text-amber-600" />
+                        <Sparkles className="w-4 h-4 text-purple-400" />
                         <span>Demo Verification Code:</span>
                     </div>
-                    <span className="font-mono font-black text-amber-900 bg-white px-2.5 py-0.5 rounded border border-amber-200 shadow-2xs">
+                    <span className="font-mono font-black text-purple-200 bg-purple-900/60 px-2.5 py-0.5 rounded border border-purple-500/40 shadow-sm">
                         123456
                     </span>
                 </div>
 
                 {/* Error Banner */}
                 {error && (
-                    <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-800 text-xs rounded-xl flex items-start gap-2.5 animate-shake font-medium">
-                        <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    <div className="p-3.5 bg-rose-950/50 border border-rose-800/50 text-rose-300 text-xs rounded-xl flex items-start gap-2.5 animate-shake font-medium">
+                        <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <span>{error}</span>
                     </div>
                 )}
 
                 {/* Success Banner */}
                 {successMsg && (
-                    <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs rounded-xl flex items-start gap-2.5 font-medium">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div className="p-3.5 bg-emerald-950/50 border border-emerald-800/50 text-emerald-300 text-xs rounded-xl flex items-start gap-2.5 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{successMsg}</span>
                     </div>
                 )}
@@ -119,7 +123,7 @@ export default function VerifyOTP() {
                 {/* Form */}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        <label className="block text-[11px] font-bold text-purple-300/80 uppercase tracking-wider mb-1.5">
                             Email Address
                         </label>
                         <div className="relative">
@@ -128,14 +132,14 @@ export default function VerifyOTP() {
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-3.5 py-2.5 text-xs bg-slate-50 text-slate-900 border border-slate-200 rounded-xl focus:bg-white focus:border-amber-500 outline-none transition"
+                                className="w-full pl-10 pr-3.5 py-2.5 text-xs bg-[#0D0B18] text-white border border-[#2E2452] rounded-xl focus:border-purple-500 focus:ring-1 focus:ring-purple-500/40 outline-none transition"
                             />
-                            <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                            <Mail className="w-4 h-4 text-purple-400/60 absolute left-3.5 top-1/2 -translate-y-1/2" />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                        <label className="block text-[11px] font-bold text-purple-300/80 uppercase tracking-wider mb-1.5">
                             6-Digit Verification Code
                         </label>
                         <input
@@ -145,7 +149,7 @@ export default function VerifyOTP() {
                             value={otp}
                             onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                             placeholder="1 2 3 4 5 6"
-                            className="w-full text-center text-2xl tracking-[0.5em] font-mono py-2.5 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl focus:bg-white focus:border-amber-500 outline-none transition"
+                            className="w-full text-center text-2xl tracking-[0.5em] font-mono py-2.5 bg-[#0D0B18] text-purple-300 border border-[#2E2452] rounded-xl focus:border-purple-500 focus:shadow-[0_0_20px_rgba(168,85,247,0.25)] outline-none transition"
                             autoFocus
                         />
                     </div>
@@ -153,10 +157,10 @@ export default function VerifyOTP() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full py-3 bg-slate-950 hover:bg-amber-500 hover:text-slate-950 text-white font-bold text-xs rounded-xl transition shadow-sm flex items-center justify-center gap-2 border border-slate-900"
+                        className="w-full py-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition flex items-center justify-center gap-2 border border-purple-400/40"
                     >
                         {loading ? (
-                            <div className="w-4 h-4 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         ) : (
                             <>
                                 <span>Verify &amp; Activate Account</span>
@@ -168,14 +172,14 @@ export default function VerifyOTP() {
 
                 <div className="text-center pt-2 text-xs">
                     {cooldown > 0 ? (
-                        <p className="text-slate-500">
-                            Resend code in <span className="font-mono text-amber-600 font-bold">{cooldown}s</span>
+                        <p className="text-slate-400">
+                            Resend code in <span className="font-mono text-purple-400 font-bold">{cooldown}s</span>
                         </p>
                     ) : (
                         <button
                             onClick={handleResend}
                             disabled={resending}
-                            className="text-amber-600 hover:text-amber-700 font-semibold underline"
+                            className="text-purple-400 hover:text-purple-300 font-semibold underline"
                         >
                             {resending ? "Sending..." : "Resend Verification Code"}
                         </button>

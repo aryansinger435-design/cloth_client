@@ -34,16 +34,16 @@ export default function WishlistDrawer() {
             />
 
             <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-                <div className="w-screen max-w-md bg-white border-l border-slate-200 text-slate-900 flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+                <div className="w-screen max-w-md bg-[#0D0A1C] border-l border-purple-900/40 text-slate-100 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300">
                     {/* Header */}
-                    <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-white">
+                    <div className="p-5 border-b border-purple-950/80 flex items-center justify-between bg-[#0B0916]">
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500">
+                            <div className="w-9 h-9 rounded-xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-rose-400">
                                 <Heart className="w-5 h-5 fill-rose-500 text-rose-500" />
                             </div>
                             <div>
-                                <h2 className="text-base font-bold text-slate-900 tracking-tight">Your Saved Wishlist</h2>
-                                <p className="text-xs text-rose-600 font-semibold">{wishlistCount} saved {wishlistCount === 1 ? "item" : "items"}</p>
+                                <h2 className="text-base font-bold text-white tracking-tight">Your Saved Wishlist</h2>
+                                <p className="text-xs text-purple-400 font-semibold">{wishlistCount} saved {wishlistCount === 1 ? "item" : "items"}</p>
                             </div>
                         </div>
 
@@ -51,14 +51,14 @@ export default function WishlistDrawer() {
                             {wishlistCount > 0 && (
                                 <button
                                     onClick={clearWishlist}
-                                    className="text-xs text-slate-400 hover:text-rose-600 px-2 py-1 rounded-lg hover:bg-rose-50 transition"
+                                    className="text-xs text-slate-400 hover:text-rose-400 px-2 py-1 rounded-lg hover:bg-rose-950/30 transition"
                                 >
                                     Clear all
                                 </button>
                             )}
                             <button
                                 onClick={() => setIsDrawerOpen(false)}
-                                className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition"
+                                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-purple-950/50 transition"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -66,15 +66,15 @@ export default function WishlistDrawer() {
                     </div>
 
                     {/* Content List */}
-                    <div className="flex-1 overflow-y-auto p-5 divide-y divide-slate-100">
+                    <div className="flex-1 overflow-y-auto p-5 divide-y divide-purple-950/60 scrollbar-none">
                         {wishlistCount === 0 ? (
                             <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4">
-                                <div className="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500">
+                                <div className="w-16 h-16 rounded-2xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.3)]">
                                     <Heart className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-base font-bold text-slate-900">Your wishlist is empty</h3>
-                                <p className="text-xs text-slate-500 max-w-xs leading-relaxed">
-                                    Browse our products catalog and click the heart icon on any device to save it for later.
+                                <h3 className="text-base font-bold text-white">Your wishlist is empty</h3>
+                                <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
+                                    Browse our futuristic catalog and click the heart icon on any device to save it for later.
                                 </p>
                                 <button
                                     onClick={() => {
@@ -83,7 +83,7 @@ export default function WishlistDrawer() {
                                         if (el) el.scrollIntoView({ behavior: "smooth" });
                                         else navigate("/");
                                     }}
-                                    className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white text-xs font-black shadow-sm transition"
+                                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white text-xs font-black shadow-[0_0_15px_rgba(168,85,247,0.4)] transition"
                                 >
                                     Explore Products
                                 </button>
@@ -101,17 +101,17 @@ export default function WishlistDrawer() {
                                                 setIsDrawerOpen(false);
                                                 navigate(`/product/${item._id}`);
                                             }}
-                                            className="w-18 h-18 sm:w-20 sm:h-20 bg-slate-50 rounded-xl overflow-hidden p-2 shrink-0 border border-slate-200 flex items-center justify-center cursor-pointer hover:border-amber-400 transition"
+                                            className="w-18 h-18 sm:w-20 sm:h-20 bg-[#131024] rounded-xl overflow-hidden p-2 shrink-0 border border-purple-900/40 flex items-center justify-center cursor-pointer hover:border-purple-500/60 transition"
                                         >
                                             <img
                                                 src={img}
                                                 alt={item.name}
-                                                className="w-full h-full object-contain group-hover:scale-105 transition"
+                                                className="w-full h-full object-contain group-hover:scale-105 transition drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]"
                                             />
                                         </div>
 
                                         <div className="flex-1 min-w-0">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 block">
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 block">
                                                 {item.category}
                                             </span>
                                             <h4
@@ -119,17 +119,17 @@ export default function WishlistDrawer() {
                                                     setIsDrawerOpen(false);
                                                     navigate(`/product/${item._id}`);
                                                 }}
-                                                className="text-sm font-bold text-slate-800 hover:text-amber-600 transition truncate cursor-pointer"
+                                                className="text-sm font-bold text-white hover:text-purple-300 transition truncate cursor-pointer"
                                             >
                                                 {item.name}
                                             </h4>
 
                                             <div className="flex items-baseline gap-2 mt-1">
-                                                <span className="text-sm font-extrabold text-slate-900">
+                                                <span className="text-sm font-extrabold text-white">
                                                     ₹{finalPrice.toLocaleString("en-IN")}
                                                 </span>
                                                 {hasDiscount && (
-                                                    <span className="text-[11px] text-slate-400 line-through">
+                                                    <span className="text-[11px] text-slate-500 line-through">
                                                         ₹{item.price.toLocaleString("en-IN")}
                                                     </span>
                                                 )}
@@ -138,7 +138,7 @@ export default function WishlistDrawer() {
                                             <div className="flex items-center gap-2 mt-2">
                                                 <button
                                                     onClick={() => handleMoveToCart(item)}
-                                                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-white rounded-lg text-xs font-bold shadow-xs transition"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white rounded-lg text-xs font-bold shadow-[0_0_10px_rgba(168,85,247,0.4)] transition"
                                                 >
                                                     <ShoppingBag className="w-3.5 h-3.5" />
                                                     <span>Move to Cart</span>
@@ -146,7 +146,7 @@ export default function WishlistDrawer() {
 
                                                 <button
                                                     onClick={() => removeFromWishlist(item._id)}
-                                                    className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition"
+                                                    className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-rose-950/30 transition"
                                                     title="Remove from Wishlist"
                                                 >
                                                     <Trash2 className="w-3.5 h-3.5" />
@@ -161,7 +161,7 @@ export default function WishlistDrawer() {
 
                     {/* Footer actions */}
                     {wishlistCount > 0 && (
-                        <div className="p-5 border-t border-slate-200 bg-slate-50 space-y-3">
+                        <div className="p-5 border-t border-purple-950/80 bg-[#0B0916] space-y-3">
                             <button
                                 onClick={async () => {
                                     for (const item of wishlist) {
@@ -170,9 +170,9 @@ export default function WishlistDrawer() {
                                     setIsDrawerOpen(false);
                                     navigate("/cart");
                                 }}
-                                className="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm rounded-xl transition shadow-md shadow-amber-500/20 flex items-center justify-center gap-2"
+                                className="w-full py-3 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white font-black text-sm rounded-xl transition shadow-[0_0_20px_rgba(168,85,247,0.5)] flex items-center justify-center gap-2"
                             >
-                                <ShoppingBag className="w-4 h-4 text-slate-950" />
+                                <ShoppingBag className="w-4 h-4 text-white" />
                                 <span>Move All Items to Cart</span>
                             </button>
                         </div>

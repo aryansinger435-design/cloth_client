@@ -12,31 +12,31 @@ export default function InvoiceModal({ order, isOpen, onClose }) {
     const shipping = order.total_amount > subtotal ? order.total_amount - subtotal : 0;
 
     return (
-        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
             <div
-                className="relative bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 flex flex-col text-slate-800 animate-in zoom-in-95 duration-200"
+                className="relative bg-[#120F24] rounded-2xl max-w-2xl w-full overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-purple-500/40 flex flex-col text-slate-200 animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header Action Bar */}
-                <div className="p-4 sm:px-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <div className="p-4 sm:px-6 border-b border-purple-950/80 flex items-center justify-between bg-[#0B0916]">
                     <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-slate-950 flex items-center justify-center text-amber-400 shadow-xs">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-violet-500 flex items-center justify-center text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]">
                             <ShoppingBag className="w-4 h-4" />
                         </div>
-                        <span className="font-extrabold text-slate-900 text-base tracking-tight">Shopnix Official Tax Invoice</span>
+                        <span className="font-extrabold text-white text-base tracking-tight">Shopnix Official Tax Invoice</span>
                     </div>
 
                     <div className="flex items-center gap-2">
                         <button
                             onClick={handlePrint}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold border border-slate-300 transition shadow-xs"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-purple-950/70 hover:bg-purple-900/70 text-purple-300 rounded-lg text-xs font-semibold border border-purple-800/40 transition shadow-xs"
                         >
                             <Printer className="w-3.5 h-3.5" />
                             <span>Print / PDF</span>
                         </button>
                         <button
                             onClick={onClose}
-                            className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-200 transition"
+                            className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-purple-950/60 transition"
                         >
                             <X className="w-5 h-5" />
                         </button>
