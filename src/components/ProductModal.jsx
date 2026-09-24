@@ -46,26 +46,26 @@ export default function ProductModal({ product, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
             <div
-                className="relative bg-[#07080D] rounded-2xl max-w-3xl w-full overflow-hidden shadow-[0_0_60px_rgba(0,0,0,0.9)] border border-[#C5A059]/40 grid grid-cols-1 md:grid-cols-12 animate-in zoom-in-95 duration-200 text-slate-200"
+                className="relative bg-[#07080D] rounded-2xl max-w-3xl w-full overflow-y-auto max-h-[92vh] sm:overflow-hidden sm:max-h-[88vh] shadow-[0_0_60px_rgba(0,0,0,0.9)] border border-[#C5A059]/40 grid grid-cols-1 md:grid-cols-12 animate-in zoom-in-95 duration-200 text-slate-200 my-auto touch-scroll"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-20 p-2 text-slate-400 hover:text-white bg-[#1A1F30]/80 hover:bg-[#252C42] border border-[#2A314A] rounded-full transition shadow-sm"
+                    className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 text-slate-400 hover:text-white bg-[#1A1F30]/80 hover:bg-[#252C42] border border-[#2A314A] rounded-full transition shadow-sm"
                 >
                     <X className="w-5 h-5" />
                 </button>
 
                 {/* Left: Product Images (Gallery) */}
-                <div className="md:col-span-6 bg-[#090B12] p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#202538]">
-                    <div className="relative aspect-square rounded-xl overflow-hidden bg-[#07080D] p-6 flex items-center justify-center border border-[#202538] shadow-inner">
+                <div className="md:col-span-6 bg-[#090B12] p-4 sm:p-6 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#202538]">
+                    <div className="relative aspect-square rounded-xl overflow-hidden bg-[#07080D] p-3 sm:p-6 flex items-center justify-center border border-[#202538] shadow-inner max-h-[260px] sm:max-h-[300px]">
                         <img
                             src={currentImg}
                             alt={product.name}
-                            className="w-full h-full object-contain max-h-[300px] transition-all duration-300 drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
+                            className="w-full h-full object-contain transition-all duration-300 drop-shadow-[0_15px_25px_rgba(0,0,0,0.7)]"
                         />
                         {hasDiscount && (
                             <div className="absolute top-3 left-3 px-2.5 py-1 bg-gradient-to-r from-[#AA771C] to-[#C5A059] text-slate-950 text-xs font-bold rounded-md shadow-sm">
@@ -86,12 +86,12 @@ export default function ProductModal({ product, onClose }) {
 
                     {/* Thumbnail Switcher if multi-image */}
                     {images.length > 1 && (
-                        <div className="flex items-center gap-2 mt-4 overflow-x-auto pb-1 scrollbar-none">
+                        <div className="flex items-center gap-2 mt-3 sm:mt-4 overflow-x-auto pb-1 scrollbar-none touch-scroll">
                             {images.map((img, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveImgIndex(idx)}
-                                    className={`w-14 h-14 rounded-lg p-1 bg-[#07080D] border shrink-0 transition ${
+                                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg p-1 bg-[#07080D] border shrink-0 transition ${
                                         activeImgIndex === idx
                                             ? "border-[#C5A059] ring-2 ring-[#C5A059]/40"
                                             : "border-[#202538] opacity-60 hover:opacity-100"
@@ -105,7 +105,7 @@ export default function ProductModal({ product, onClose }) {
                 </div>
 
                 {/* Right: Product Details & Actions */}
-                <div className="md:col-span-6 p-6 sm:p-7 flex flex-col justify-between overflow-y-auto max-h-[82vh] bg-[#07080D]">
+                <div className="md:col-span-6 p-4 sm:p-7 flex flex-col justify-between overflow-y-auto sm:max-h-[82vh] bg-[#07080D]">
                     <div>
                         {/* Category & Rating */}
                         <div className="flex items-center justify-between mb-2">

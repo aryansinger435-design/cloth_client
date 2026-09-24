@@ -102,12 +102,12 @@ export default function Orders() {
                     </div>
 
                     {/* Filter Tabs */}
-                    <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#07080D] border border-[#151722] text-xs shadow-sm">
+                    <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#07080D] border border-[#151722] text-xs shadow-sm overflow-x-auto scrollbar-none touch-scroll max-w-full">
                         {["All", "Processing", "Shipped", "Delivered", "Cancelled"].map((f) => (
                             <button
                                 key={f}
                                 onClick={() => setSelectedFilter(f)}
-                                className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                                className={`px-3 py-1.5 rounded-lg font-bold transition whitespace-nowrap shrink-0 ${
                                     selectedFilter === f
                                         ? "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black shadow-[0_0_12px_rgba(212,175,55,0.3)]"
                                         : "text-slate-400 hover:text-white"
@@ -183,13 +183,13 @@ export default function Orders() {
 
                                     {/* Shipment Tracker Stepper */}
                                     {!isCancelled && (
-                                        <div className="p-5 sm:px-6 border-b border-[#151722] bg-[#030406]/60">
+                                        <div className="p-4 sm:px-6 border-b border-[#151722] bg-[#030406]/60">
                                             <div className="max-w-2xl mx-auto">
-                                                <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-2">
-                                                    <span className={step >= 1 ? "text-[#E5C158]" : ""}>Acquisition Verified</span>
-                                                    <span className={step >= 2 ? "text-[#E5C158]" : ""}>Horologist Calibration</span>
-                                                    <span className={step >= 3 ? "text-[#E5C158]" : ""}>Armored Air Transit</span>
-                                                    <span className={step >= 4 ? "text-emerald-400" : ""}>Delivered</span>
+                                                <div className="grid grid-cols-4 text-[9px] sm:text-[11px] font-bold text-slate-400 mb-2 gap-1 text-center">
+                                                    <span className={`truncate ${step >= 1 ? "text-[#E5C158]" : ""}`}>Verified</span>
+                                                    <span className={`truncate ${step >= 2 ? "text-[#E5C158]" : ""}`}>Calibration</span>
+                                                    <span className={`truncate ${step >= 3 ? "text-[#E5C158]" : ""}`}>Air Transit</span>
+                                                    <span className={`truncate ${step >= 4 ? "text-emerald-400" : ""}`}>Delivered</span>
                                                 </div>
 
                                                 {/* Stepper bar */}
@@ -200,7 +200,7 @@ export default function Orders() {
                                                     ></div>
                                                 </div>
 
-                                                <div className="flex items-center justify-between mt-2 text-[10px] text-slate-400">
+                                                <div className="flex flex-col xs:flex-row xs:items-center justify-between mt-2 text-[10px] text-slate-400 gap-1">
                                                     <span>Courier: <strong className="text-[#E5C158]">{order.shipping_partner || "Chrononix Armored Logistics"}</strong></span>
                                                     <span>Waybill: <strong className="text-white font-mono font-bold">{order.tracking_number}</strong></span>
                                                 </div>
@@ -209,11 +209,11 @@ export default function Orders() {
                                     )}
 
                                     {/* Items List */}
-                                    <div className="p-5 sm:p-6 divide-y divide-[#23293D]">
+                                    <div className="p-4 sm:p-6 divide-y divide-[#23293D]">
                                         {order.items?.map((item, idx) => (
-                                            <div key={idx} className="py-3.5 first:pt-0 last:pb-0 flex items-center justify-between gap-4">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-16 h-16 bg-[#030406] rounded-2xl overflow-hidden shrink-0 border border-[#151722] flex items-center justify-center p-1">
+                                            <div key={idx} className="py-3.5 first:pt-0 last:pb-0 flex items-start sm:items-center justify-between gap-3">
+                                                <div className="flex items-center gap-3 sm:gap-4">
+                                                    <div className="w-14 h-14 sm:w-16 sm:h-16 bg-[#030406] rounded-2xl overflow-hidden shrink-0 border border-[#151722] flex items-center justify-center p-1">
                                                         <img
                                                             src={item.image || "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=200"}
                                                             alt={item.name}
@@ -221,8 +221,8 @@ export default function Orders() {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-bold text-white text-sm font-serif">{item.name}</h4>
-                                                        <p className="text-xs text-slate-400 mt-0.5">
+                                                        <h4 className="font-bold text-white text-xs sm:text-sm font-serif line-clamp-1">{item.name}</h4>
+                                                        <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
                                                             Case: <span className="text-slate-200 font-semibold">{item.size}</span>
                                                             {item.color && item.color !== "Standard" && <span> • Finish: {item.color}</span>}
                                                             <span> • Qty: {item.quantity}</span>
@@ -230,8 +230,8 @@ export default function Orders() {
                                                     </div>
                                                 </div>
 
-                                                <div className="text-right">
-                                                    <span className="font-extrabold text-white text-sm">
+                                                <div className="text-right shrink-0">
+                                                    <span className="font-extrabold text-white text-xs sm:text-sm">
                                                         ₹{(item.price * item.quantity).toLocaleString("en-IN")}
                                                     </span>
                                                 </div>
@@ -240,12 +240,12 @@ export default function Orders() {
                                     </div>
 
                                     {/* Action Buttons Bar */}
-                                    <div className="p-4 sm:px-6 bg-[#030406] border-t border-[#151722] flex flex-wrap items-center justify-between gap-3 text-xs">
+                                    <div className="p-4 sm:px-6 bg-[#030406] border-t border-[#151722] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                                         <div className="text-slate-400">
                                             Destination: <strong className="text-white">{order.shipping_address?.city}, {order.shipping_address?.state}</strong>
                                         </div>
 
-                                        <div className="flex items-center gap-2.5">
+                                        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                                             {/* Track Package Modal */}
                                             <button
                                                 onClick={() => setTrackingModalOrder(order)}

@@ -104,8 +104,8 @@ export default function AdminUsers() {
 
             {/* Users Table */}
             <div className="bg-[#07080D] rounded-2xl border border-[#151722] overflow-hidden shadow-xl">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
+                <div className="overflow-x-auto touch-scroll">
+                    <table className="w-full text-left text-xs min-w-[580px]">
                         <thead className="bg-[#030406] text-slate-400 font-bold uppercase tracking-wider border-b border-[#151722]">
                             <tr>
                                 <th className="py-3.5 px-4">Connoisseur Name</th>

@@ -12,39 +12,40 @@ export default function InvoiceModal({ order, isOpen, onClose }) {
     const shipping = order.total_amount > subtotal ? order.total_amount - subtotal : 0;
 
     return (
-        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-6 animate-in fade-in duration-200">
             <div
                 className="relative bg-[#07080D] rounded-2xl max-w-2xl w-full overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-[#D4AF37]/50 flex flex-col text-slate-200 animate-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header Action Bar */}
-                <div className="p-4 sm:px-6 border-b border-[#151722] flex items-center justify-between bg-[#030406]">
-                    <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#C5A059] to-[#D4AF37] flex items-center justify-center text-black shadow-[0_0_12px_rgba(212,175,55,0.4)]">
-                            <Crown className="w-4 h-4 text-black" />
+                <div className="p-3.5 sm:px-6 border-b border-[#151722] flex items-center justify-between bg-[#030406] gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-tr from-[#C5A059] to-[#D4AF37] flex items-center justify-center text-black shrink-0 shadow-[0_0_12px_rgba(212,175,55,0.4)]">
+                            <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-black" />
                         </div>
-                        <span className="font-bold text-white text-base tracking-tight font-serif">Chrononix Official Horological Invoice</span>
+                        <span className="font-bold text-white text-xs sm:text-base tracking-tight font-serif truncate">Chrononix Official Horological Invoice</span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                         <button
                             onClick={handlePrint}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] rounded-lg text-xs font-semibold border border-[#D4AF37]/40 transition shadow-xs"
+                            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] rounded-lg text-[11px] sm:text-xs font-semibold border border-[#D4AF37]/40 transition shadow-xs"
                         >
-                            <Printer className="w-3.5 h-3.5 text-[#D4AF37]" />
-                            <span>Print / PDF</span>
+                            <Printer className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#D4AF37]" />
+                            <span className="hidden xs:inline sm:inline">Print / PDF</span>
+                            <span className="xs:hidden sm:hidden">PDF</span>
                         </button>
                         <button
                             onClick={onClose}
-                            className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-[#0A0C13] transition"
+                            className="p-1.5 sm:p-2 text-slate-400 hover:text-white rounded-lg hover:bg-[#0A0C13] transition"
                         >
-                            <X className="w-5 h-5" />
+                            <X className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                     </div>
                 </div>
 
                 {/* Printable Invoice Body */}
-                <div id="printable-invoice" className="p-6 sm:p-8 space-y-6 overflow-y-auto max-h-[78vh] bg-[#FAF8F5] text-slate-900">
+                <div id="printable-invoice" className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto max-h-[80vh] bg-[#FAF8F5] text-slate-900 touch-scroll">
                     {/* Invoice Meta */}
                     <div className="flex flex-col sm:flex-row justify-between gap-4 pb-6 border-b border-[#D4AF37]/30">
                         <div>
@@ -98,8 +99,8 @@ export default function InvoiceModal({ order, isOpen, onClose }) {
                     </div>
 
                     {/* Ordered Items Table */}
-                    <div className="border border-[#E8DFC8] rounded-xl overflow-hidden">
-                        <table className="w-full text-left text-xs">
+                    <div className="border border-[#E8DFC8] rounded-xl overflow-x-auto touch-scroll">
+                        <table className="w-full text-left text-xs min-w-[480px]">
                             <thead className="bg-[#F3EFE6] text-slate-800 font-bold uppercase tracking-wider border-b border-[#E8DFC8]">
                                 <tr>
                                     <th className="py-3 px-4">Timepiece Description</th>
@@ -156,12 +157,12 @@ export default function InvoiceModal({ order, isOpen, onClose }) {
                     </div>
 
                     {/* Guarantee note */}
-                    <div className="pt-4 border-t border-[#E8DFC8] flex items-center justify-between text-[11px] text-slate-500">
+                    <div className="pt-4 border-t border-[#E8DFC8] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-500">
                         <div className="flex items-center gap-1.5 text-emerald-700">
-                            <ShieldCheck className="w-4 h-4" />
+                            <ShieldCheck className="w-4 h-4 shrink-0" />
                             <span>COSC Certified Chronometer • 5-Year Global Heritage Warranty Included</span>
                         </div>
-                        <span>Computer Generated Provenance Document</span>
+                        <span className="text-[10px] text-slate-400">Computer Generated Provenance Document</span>
                     </div>
                 </div>
             </div>

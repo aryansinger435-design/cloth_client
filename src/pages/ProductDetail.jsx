@@ -173,41 +173,41 @@ export default function ProductDetail() {
                 </div>
 
                 {/* Product Detail Top Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 bg-[#07080D] p-6 sm:p-10 rounded-3xl border border-[#151722] shadow-2xl shadow-black/80 mb-14">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 bg-[#07080D] p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border border-[#151722] shadow-2xl shadow-black/80 mb-10 sm:mb-14">
                     {/* Left: Gallery & Zoom Preview */}
                     <div className="lg:col-span-6 space-y-4">
-                        <div className="relative aspect-square rounded-2xl overflow-hidden bg-[#030406] border border-[#151722] flex items-center justify-center p-8">
+                        <div className="relative aspect-square rounded-2xl overflow-hidden bg-[#030406] border border-[#151722] flex items-center justify-center p-4 sm:p-8">
                             <img
                                 src={currentImg}
                                 alt={product.name}
                                 className="w-full h-full object-cover rounded-xl transition-transform duration-500 hover:scale-105 drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)]"
                             />
                             {hasDiscount && (
-                                <div className="absolute top-4 left-4 px-3 py-1 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black text-xs font-black uppercase tracking-wider rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                                <div className="absolute top-3 sm:top-4 left-3 sm:left-4 px-2.5 sm:px-3 py-1 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black text-[10px] sm:text-xs font-black uppercase tracking-wider rounded-lg shadow-[0_0_15px_rgba(212,175,55,0.4)]">
                                     {discountPercent}% ALLOCATION PRIVILEGE
                                 </div>
                             )}
                             <button
                                 onClick={() => toggleWishlist(product)}
-                                className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md border transition ${
+                                className={`absolute top-3 sm:top-4 right-3 sm:right-4 p-2.5 sm:p-3 rounded-full backdrop-blur-md border transition ${
                                     isWishlisted
                                         ? "bg-[#0A0C13] text-[#D4AF37] border-[#D4AF37]/80 shadow-[0_0_15px_rgba(212,175,55,0.3)]"
                                         : "bg-[#07080D]/80 text-slate-400 hover:text-[#D4AF37] border-[#151722]"
                                 }`}
                                 title={isWishlisted ? "Remove from Collector's Vault" : "Store in Collector's Vault"}
                             >
-                                <Heart className={`w-5 h-5 ${isWishlisted ? "fill-[#D4AF37] text-[#D4AF37]" : ""}`} />
+                                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isWishlisted ? "fill-[#D4AF37] text-[#D4AF37]" : ""}`} />
                             </button>
                         </div>
 
                         {/* Thumbnail Selectors */}
                         {images.length > 1 && (
-                            <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-2 touch-scroll scrollbar-none">
                                 {images.map((img, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => setActiveImgIndex(idx)}
-                                        className={`w-20 h-20 rounded-xl p-1 bg-[#030406] border shrink-0 transition overflow-hidden ${
+                                        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl p-1 bg-[#030406] border shrink-0 transition overflow-hidden ${
                                             activeImgIndex === idx
                                                 ? "border-[#D4AF37] ring-2 ring-[#D4AF37]/50 bg-[#0A0C13] scale-105 shadow-[0_0_12px_rgba(212,175,55,0.3)]"
                                                 : "border-[#151722] opacity-70 hover:opacity-100"
@@ -321,55 +321,57 @@ export default function ProductDetail() {
 
                         {/* Action Buttons Box */}
                         <div className="pt-6 border-t border-[#151722] space-y-4">
-                            <div className="flex items-center gap-3">
-                                {/* Quantity Incrementer */}
-                                <div className="flex items-center border border-[#151722] rounded-xl overflow-hidden bg-[#030406]">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                                <div className="flex items-center gap-2.5 sm:gap-3">
+                                    {/* Quantity Incrementer */}
+                                    <div className="flex items-center border border-[#151722] rounded-xl overflow-hidden bg-[#030406] shrink-0">
+                                        <button
+                                            onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                            className="px-3.5 sm:px-4 py-3 text-slate-400 hover:text-white hover:bg-[#0A0C13] font-bold text-xs"
+                                        >
+                                            -
+                                        </button>
+                                        <span className="px-3 sm:px-4 py-3 text-sm font-black text-white min-w-[28px] text-center">
+                                            {quantity}
+                                        </span>
+                                        <button
+                                            onClick={() => setQuantity(quantity + 1)}
+                                            className="px-3.5 sm:px-4 py-3 text-slate-400 hover:text-white hover:bg-[#0A0C13] font-bold text-xs"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+
+                                    {/* Add to Cart */}
                                     <button
-                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        className="px-4 py-3 text-slate-400 hover:text-white hover:bg-[#0A0C13] font-bold"
+                                        onClick={handleAddToCart}
+                                        disabled={adding}
+                                        className={`flex-1 py-3.5 px-4 sm:px-6 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all border shadow-lg ${
+                                            added
+                                                ? "bg-emerald-600 text-white border-emerald-600"
+                                                : "bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black border-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+                                        }`}
                                     >
-                                        -
-                                    </button>
-                                    <span className="px-4 py-3 text-sm font-black text-white">
-                                        {quantity}
-                                    </span>
-                                    <button
-                                        onClick={() => setQuantity(quantity + 1)}
-                                        className="px-4 py-3 text-slate-400 hover:text-white hover:bg-[#0A0C13] font-bold"
-                                    >
-                                        +
+                                        {added ? (
+                                            <>
+                                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+                                                <span>Reserved</span>
+                                            </>
+                                        ) : adding ? (
+                                            <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                                        ) : (
+                                            <>
+                                                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
+                                                <span>Acquire Timepiece</span>
+                                            </>
+                                        )}
                                     </button>
                                 </div>
-
-                                {/* Add to Cart */}
-                                <button
-                                    onClick={handleAddToCart}
-                                    disabled={adding}
-                                    className={`flex-1 py-3.5 px-6 rounded-xl font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all border shadow-lg ${
-                                        added
-                                            ? "bg-emerald-600 text-white border-emerald-600"
-                                            : "bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black border-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.35)]"
-                                    }`}
-                                >
-                                    {added ? (
-                                        <>
-                                            <Check className="w-5 h-5 text-black" />
-                                            <span>Reserved in Vault</span>
-                                        </>
-                                    ) : adding ? (
-                                        <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                                    ) : (
-                                        <>
-                                            <ShoppingBag className="w-5 h-5 text-black" />
-                                            <span>Acquire Timepiece</span>
-                                        </>
-                                    )}
-                                </button>
 
                                 {/* Buy Now Instant Checkout */}
                                 <button
                                     onClick={handleBuyNow}
-                                    className="flex-1 py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] hover:text-white border border-[#D4AF37]/50 transition-all flex items-center justify-center gap-2 shadow-sm hover:border-[#D4AF37]"
+                                    className="w-full sm:flex-1 py-3.5 px-4 sm:px-6 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#0A0C13] hover:bg-[#20273D] text-[#E5C158] hover:text-white border border-[#D4AF37]/50 transition-all flex items-center justify-center gap-2 shadow-sm hover:border-[#D4AF37]"
                                 >
                                     <Crown className="w-4 h-4 text-[#D4AF37]" />
                                     <span>Instant Acquisition</span>
@@ -380,15 +382,15 @@ export default function ProductDetail() {
                             <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#151722] text-center text-xs text-slate-400">
                                 <div className="flex flex-col items-center gap-1">
                                     <Truck className="w-4 h-4 text-[#D4AF37]" />
-                                    <span>Armored Courier</span>
+                                    <span className="text-[10px] sm:text-xs">Armored Courier</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-1">
                                     <RefreshCw className="w-4 h-4 text-[#D4AF37]" />
-                                    <span>7-Day Inspection</span>
+                                    <span className="text-[10px] sm:text-xs">7-Day Return</span>
                                 </div>
                                 <div className="flex flex-col items-center gap-1">
                                     <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-                                    <span>COSC & 5-Yr Warranty</span>
+                                    <span className="text-[10px] sm:text-xs">5-Yr Warranty</span>
                                 </div>
                             </div>
                         </div>
@@ -396,11 +398,11 @@ export default function ProductDetail() {
                 </div>
 
                 {/* ================= INTERACTIVE TABS ================= */}
-                <div className="bg-[#07080D] rounded-3xl border border-[#151722] p-6 sm:p-8 mb-16 shadow-xl">
-                    <div className="flex items-center gap-3 border-b border-[#151722] pb-4 overflow-x-auto scrollbar-none">
+                <div className="bg-[#07080D] rounded-2xl sm:rounded-3xl border border-[#151722] p-4 sm:p-8 mb-12 sm:mb-16 shadow-xl">
+                    <div className="flex items-center gap-2 sm:gap-3 border-b border-[#151722] pb-3 sm:pb-4 overflow-x-auto scrollbar-none touch-scroll">
                         <button
                             onClick={() => setActiveTab("overview")}
-                            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap ${
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap ${
                                 activeTab === "overview"
                                     ? "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]"
                                     : "text-slate-400 hover:text-white hover:bg-[#0A0C13]"
@@ -410,13 +412,13 @@ export default function ProductDetail() {
                         </button>
                         <button
                             onClick={() => setActiveTab("specs")}
-                            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap ${
+                            className={`px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap ${
                                 activeTab === "specs"
                                     ? "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]"
                                     : "text-slate-400 hover:text-white hover:bg-[#0A0C13]"
                             }`}
                         >
-                            Calibre &amp; Technical Specs
+                            Calibre &amp; Specs
                         </button>
                         <button
                             onClick={() => setActiveTab("reviews")}
@@ -471,16 +473,16 @@ export default function ProductDetail() {
                         {/* Tab 2: Technical Specifications */}
                         {activeTab === "specs" && (
                             <div className="max-w-2xl">
-                                <div className="rounded-xl border border-[#151722] overflow-hidden">
-                                    <table className="w-full text-xs sm:text-sm text-left">
+                                <div className="rounded-xl border border-[#151722] overflow-x-auto touch-scroll">
+                                    <table className="w-full text-xs text-left min-w-[300px]">
                                         <tbody className="divide-y divide-[#23293D]">
                                             {product.specs ? (
                                                 Object.entries(product.specs).map(([key, val]) => (
                                                     <tr key={key} className="hover:bg-[#0A0C13] transition">
-                                                        <td className="py-3 px-4 font-bold text-[#D4AF37] w-1/3 bg-[#030406]">
+                                                        <td className="py-2.5 sm:py-3 px-3 sm:px-4 font-bold text-[#D4AF37] w-1/3 bg-[#030406] text-[11px] sm:text-xs">
                                                             {key}
                                                         </td>
-                                                        <td className="py-3 px-4 text-slate-200 font-medium bg-[#07080D]">
+                                                        <td className="py-2.5 sm:py-3 px-3 sm:px-4 text-slate-200 font-medium bg-[#07080D] text-[11px] sm:text-xs break-words">
                                                             {val}
                                                         </td>
                                                     </tr>

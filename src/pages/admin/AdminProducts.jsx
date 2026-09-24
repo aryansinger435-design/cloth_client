@@ -172,8 +172,8 @@ export default function AdminProducts() {
 
             {/* Product Table */}
             <div className="bg-[#07080D] rounded-2xl border border-[#151722] overflow-hidden shadow-xl">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
+                <div className="overflow-x-auto touch-scroll">
+                    <table className="w-full text-left text-xs min-w-[550px]">
                         <thead className="bg-[#030406] text-slate-400 font-bold uppercase tracking-wider border-b border-[#151722]">
                             <tr>
                                 <th className="py-3.5 px-4">Timepiece</th>
@@ -239,8 +239,8 @@ export default function AdminProducts() {
 
             {/* Modal */}
             {modalOpen && (
-                <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-                    <div className="bg-[#07080D] rounded-2xl max-w-lg w-full p-6 sm:p-8 border border-[#D4AF37]/50 space-y-4 shadow-2xl text-slate-100">
+                <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+                    <div className="bg-[#07080D] rounded-2xl max-w-lg w-full p-4 sm:p-8 border border-[#D4AF37]/50 space-y-4 shadow-2xl text-slate-100 max-h-[90vh] overflow-y-auto touch-scroll">
                         <div className="flex items-center justify-between pb-3 border-b border-[#151722]">
                             <h3 className="font-bold text-white text-base font-serif">
                                 {editingProduct ? "Edit Timepiece Details" : "Add New Timepiece to Vault"}

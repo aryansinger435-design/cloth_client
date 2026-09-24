@@ -37,36 +37,36 @@ export default function UPIModal({ amount, isOpen, onClose, onPaymentSuccess }) 
     };
 
     return (
-        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-200">
             <div
-                className="relative bg-[#07080D] rounded-2xl max-w-md w-full overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-[#D4AF37]/50 p-6 sm:p-8 text-center text-slate-200 animate-in zoom-in-95 duration-200 space-y-6"
+                className="relative bg-[#07080D] rounded-2xl max-w-md w-full overflow-y-auto max-h-[92vh] shadow-[0_0_50px_rgba(0,0,0,0.9)] border border-[#D4AF37]/50 p-5 sm:p-8 text-center text-slate-200 animate-in zoom-in-95 duration-200 space-y-4 sm:space-y-6 my-auto touch-scroll"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-[#0A0C13] transition"
+                    className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 text-slate-400 hover:text-white rounded-lg hover:bg-[#0A0C13] transition"
                 >
                     <X className="w-5 h-5" />
                 </button>
 
                 {/* Header */}
                 <div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/40 text-[#D4AF37] flex items-center justify-center mx-auto mb-3 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
-                        <Crown className="w-6 h-6 text-[#D4AF37]" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/40 text-[#D4AF37] flex items-center justify-center mx-auto mb-2.5 sm:mb-3 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                        <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-[#D4AF37]" />
                     </div>
-                    <h3 className="text-xl font-bold text-white font-serif">Instant Vault Settlement (UPI)</h3>
-                    <p className="text-xs text-slate-400 mt-1">GPay, PhonePe, Paytm, BHIM, Cred, Banking Apps</p>
+                    <h3 className="text-lg sm:text-xl font-bold text-white font-serif">Instant Vault Settlement (UPI)</h3>
+                    <p className="text-xs text-slate-400 mt-1">GPay, PhonePe, Paytm, BHIM, Banking Apps</p>
                 </div>
 
                 {/* Amount to Pay */}
-                <div className="p-3.5 bg-[#030406] rounded-xl border border-[#151722] flex items-center justify-between px-5">
+                <div className="p-3 sm:p-3.5 bg-[#030406] rounded-xl border border-[#151722] flex items-center justify-between px-4 sm:px-5">
                     <span className="text-xs text-slate-400 font-medium">Allocation Payable:</span>
-                    <span className="text-xl font-black text-[#E5C158] font-serif">₹{amount?.toLocaleString("en-IN")}</span>
+                    <span className="text-lg sm:text-xl font-black text-[#E5C158] font-serif">₹{amount?.toLocaleString("en-IN")}</span>
                 </div>
 
                 {/* QR Code Container */}
-                <div className="relative mx-auto w-56 h-56 bg-white p-4 rounded-xl shadow-lg flex flex-col items-center justify-center border-2 border-[#D4AF37]/70 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+                <div className="relative mx-auto w-48 h-48 sm:w-56 sm:h-56 bg-white p-3 sm:p-4 rounded-xl shadow-lg flex flex-col items-center justify-center border-2 border-[#D4AF37]/70 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
                     <img
                         src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=chrononix.vault@hdfcbank%26pn=Chrononix%20Horology%26cu=INR"
                         alt="Chrononix Vault UPI QR Code"

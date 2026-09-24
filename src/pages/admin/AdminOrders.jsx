@@ -49,12 +49,12 @@ export default function AdminOrders() {
                 </div>
 
                 {/* Filter */}
-                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#07080D] border border-[#151722] text-xs">
+                <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#07080D] border border-[#151722] text-xs overflow-x-auto scrollbar-none touch-scroll max-w-full">
                     {["All", "Processing", "Shipped", "Delivered", "Cancelled"].map((s) => (
                         <button
                             key={s}
                             onClick={() => setFilterStatus(s)}
-                            className={`px-3 py-1.5 rounded-xl font-bold transition ${
+                            className={`px-3 py-1.5 rounded-xl font-bold transition whitespace-nowrap shrink-0 ${
                                 filterStatus === s
                                     ? "bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-black shadow-[0_0_15px_rgba(212,175,55,0.3)] font-extrabold"
                                     : "text-slate-400 hover:text-white"
@@ -68,8 +68,8 @@ export default function AdminOrders() {
 
             {/* Orders Table */}
             <div className="bg-[#07080D] rounded-2xl border border-[#151722] overflow-hidden shadow-xl">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
+                <div className="overflow-x-auto touch-scroll">
+                    <table className="w-full text-left text-xs min-w-[640px]">
                         <thead className="bg-[#030406] text-slate-400 font-bold uppercase tracking-wider border-b border-[#151722]">
                             <tr>
                                 <th className="py-3.5 px-4">Acquisition Ref</th>

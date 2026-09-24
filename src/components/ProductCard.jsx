@@ -47,10 +47,10 @@ export default function ProductCard({ product, onQuickView }) {
     return (
         <div
             onClick={() => onQuickView && onQuickView(product)}
-            className="group relative bg-[#07080D] rounded-2xl border border-[#151722] hover:border-[#D4AF37]/70 p-4 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:-translate-y-1"
+            className="group relative bg-[#07080D] rounded-2xl border border-[#151722] hover:border-[#D4AF37]/70 p-3.5 sm:p-4 transition-all duration-300 flex flex-col justify-between cursor-pointer hover:shadow-[0_0_30px_rgba(212,175,55,0.18)] hover:-translate-y-1 touch-manipulation active:scale-[0.99]"
         >
             {/* Top Image Container */}
-            <div className="relative aspect-square w-full bg-[#030406] rounded-xl overflow-hidden mb-4 flex items-center justify-center p-3 border border-[#12141D]">
+            <div className="relative aspect-square w-full bg-[#030406] rounded-xl overflow-hidden mb-3 sm:mb-4 flex items-center justify-center p-2.5 sm:p-3 border border-[#12141D]">
                 <img
                     src={imgUrl}
                     alt={product.name}

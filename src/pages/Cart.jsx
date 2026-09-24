@@ -269,52 +269,52 @@ export default function Cart() {
                                 const img = p.images?.[0]?.url || "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300";
 
                                 return (
-                                    <div key={item._id} className="py-4 sm:py-5 first:pt-0 last:pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                                        <div className="flex items-center gap-4">
+                                    <div key={item._id} className="py-4 sm:py-5 first:pt-0 last:pb-0 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                                        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                                             <div
                                                 onClick={() => navigate(`/product/${p._id}`)}
-                                                className="w-20 h-20 sm:w-24 sm:h-24 bg-[#030406] rounded-2xl p-2 shrink-0 border border-[#151722] flex items-center justify-center cursor-pointer hover:border-[#D4AF37]/50 transition overflow-hidden"
+                                                className="w-16 h-16 sm:w-24 sm:h-24 bg-[#030406] rounded-xl sm:rounded-2xl p-1.5 sm:p-2 shrink-0 border border-[#151722] flex items-center justify-center cursor-pointer hover:border-[#D4AF37]/50 transition overflow-hidden"
                                             >
-                                                <img src={img} alt={p.name} className="w-full h-full object-cover rounded-xl drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]" />
+                                                <img src={img} alt={p.name} className="w-full h-full object-cover rounded-lg sm:rounded-xl drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]" />
                                             </div>
 
-                                            <div>
-                                                <span className="text-[10px] font-bold text-[#E5C158] uppercase tracking-wider">
+                                            <div className="min-w-0 flex-1">
+                                                <span className="text-[9px] sm:text-[10px] font-bold text-[#E5C158] uppercase tracking-wider block">
                                                     {p.category}
                                                 </span>
                                                 <h3
                                                     onClick={() => navigate(`/product/${p._id}`)}
-                                                    className="font-bold text-white text-sm sm:text-base hover:text-[#E5C158] transition cursor-pointer line-clamp-1 font-serif"
+                                                    className="font-bold text-white text-xs sm:text-base hover:text-[#E5C158] transition cursor-pointer line-clamp-1 font-serif"
                                                 >
                                                     {p.name}
                                                 </h3>
-                                                <p className="text-xs text-slate-400 mt-0.5">
+                                                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 truncate">
                                                     Case: <span className="text-slate-200 font-semibold">{item.size}</span>
                                                     {item.color && item.color !== "Standard" && (
                                                         <span> • Finish: <span className="text-slate-200 font-semibold">{item.color}</span></span>
                                                     )}
                                                 </p>
-                                                <p className="text-sm font-black text-white sm:hidden mt-2">
-                                                    ₹{price.toLocaleString("en-IN")}
+                                                <p className="text-xs sm:text-sm font-black text-[#E5C158] sm:hidden mt-1">
+                                                    ₹{(price * item.quantity).toLocaleString("en-IN")}
                                                 </p>
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto">
+                                        <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-6 w-full sm:w-auto pt-2 sm:pt-0 border-t border-[#12141D] sm:border-t-0">
                                             {/* Quantity Incrementer */}
                                             <div className="flex items-center border border-[#151722] rounded-xl overflow-hidden bg-[#030406]">
                                                 <button
                                                     onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                                                    className="px-3 py-1.5 text-slate-400 hover:text-white hover:bg-[#0A0C13] text-xs font-bold"
+                                                    className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-slate-400 hover:text-white hover:bg-[#0A0C13] text-xs font-bold"
                                                 >
                                                     -
                                                 </button>
-                                                <span className="px-3 py-1.5 text-xs font-bold text-white">
+                                                <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-bold text-white min-w-[24px] text-center">
                                                     {item.quantity}
                                                 </span>
                                                 <button
                                                     onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                                                    className="px-3 py-1.5 text-slate-400 hover:text-white hover:bg-[#0A0C13] text-xs font-bold"
+                                                    className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-slate-400 hover:text-white hover:bg-[#0A0C13] text-xs font-bold"
                                                 >
                                                     +
                                                 </button>
@@ -335,7 +335,7 @@ export default function Cart() {
                                             {/* Remove Button */}
                                             <button
                                                 onClick={() => removeFromCart(item._id)}
-                                                className="p-2 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-rose-950/30 transition"
+                                                className="p-1.5 sm:p-2 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-rose-950/30 transition"
                                                 title="Remove timepiece"
                                             >
                                                 <Trash2 className="w-4 h-4" />

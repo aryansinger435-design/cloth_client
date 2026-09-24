@@ -33,8 +33,8 @@ export default function WishlistDrawer() {
                 onClick={() => setIsDrawerOpen(false)}
             />
 
-            <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-                <div className="w-screen max-w-md bg-[#0D0F18] border-l border-[#252B3E] text-slate-100 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300">
+            <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+                <div className="w-screen max-w-full sm:max-w-md bg-[#0D0F18] border-l border-[#252B3E] text-slate-100 flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.9)] animate-in slide-in-from-right duration-300">
                     {/* Header */}
                     <div className="p-5 border-b border-[#202538] flex items-center justify-between bg-[#090B12]">
                         <div className="flex items-center gap-3">
@@ -101,7 +101,7 @@ export default function WishlistDrawer() {
                                                 setIsDrawerOpen(false);
                                                 navigate(`/product/${item._id}`);
                                             }}
-                                            className="w-18 h-18 sm:w-20 sm:h-20 bg-[#07080D] rounded-xl overflow-hidden p-2 shrink-0 border border-[#252B3E] flex items-center justify-center cursor-pointer hover:border-[#C5A059]/60 transition"
+                                            className="w-16 h-16 sm:w-20 sm:h-20 bg-[#07080D] rounded-xl overflow-hidden p-2 shrink-0 border border-[#252B3E] flex items-center justify-center cursor-pointer hover:border-[#C5A059]/60 transition"
                                         >
                                             <img
                                                 src={img}

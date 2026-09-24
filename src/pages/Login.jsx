@@ -44,8 +44,8 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
-            <div className="max-w-md w-full space-y-6 bg-[#07080D] p-8 sm:p-10 rounded-3xl border border-[#D4AF37]/40 shadow-2xl shadow-black">
+        <div className="min-h-[85vh] flex items-center justify-center py-8 sm:py-12 px-3.5 sm:px-6 lg:px-8 bg-[#040406] text-slate-100 selection:bg-[#D4AF37] selection:text-black">
+            <div className="max-w-md w-full space-y-6 bg-[#07080D] p-5 sm:p-10 rounded-3xl border border-[#D4AF37]/40 shadow-2xl shadow-black">
                 {/* Header */}
                 <div className="text-center">
                     <div className="mx-auto w-12 h-12 rounded-2xl bg-[#0A0C13] border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.25)] mb-4">
@@ -60,19 +60,19 @@ export default function Login() {
                 </div>
 
                 {/* 1-Click Demo Accounts Selector */}
-                <div className="p-3.5 bg-[#030406] rounded-2xl border border-[#151722] space-y-2">
+                <div className="p-3 sm:p-3.5 bg-[#030406] rounded-2xl border border-[#151722] space-y-2">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-[#E5C158] text-center flex items-center justify-center gap-1">
                         <Crown className="w-3 h-3 text-[#D4AF37]" />
                         <span>Instant 1-Click Access</span>
                     </p>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-2">
                         <button
                             type="button"
                             onClick={() => handleQuickDemo("customer")}
                             className="p-2.5 rounded-xl bg-[#07080D] hover:bg-[#0A0C13] border border-[#151722] hover:border-[#D4AF37]/50 text-left transition group shadow-sm"
                         >
                             <div className="flex items-center gap-1.5 text-white font-bold text-xs group-hover:text-[#E5C158]">
-                                <User className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                <User className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
                                 <span>VIP Collector</span>
                             </div>
                             <span className="text-[10px] text-slate-400 block mt-0.5 truncate">customer@chrononix.in</span>
@@ -84,7 +84,7 @@ export default function Login() {
                             className="p-2.5 rounded-xl bg-[#07080D] hover:bg-[#0A0C13] border border-[#151722] hover:border-[#D4AF37]/50 text-left transition group shadow-sm"
                         >
                             <div className="flex items-center gap-1.5 text-white font-bold text-xs group-hover:text-[#E5C158]">
-                                <Shield className="w-3.5 h-3.5 text-[#D4AF37]" />
+                                <Shield className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
                                 <span>Horology Admin</span>
                             </div>
                             <span className="text-[10px] text-slate-400 block mt-0.5 truncate">admin@chrononix.in</span>

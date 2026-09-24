@@ -167,21 +167,21 @@ export default function Home() {
                                 <span>HAUTE HORLOGERIE • 2026 MANUFACTURE COLLECTION</span>
                             </div>
 
-                            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-white font-serif">
+                            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.12] text-white font-serif">
                                 Mastering Time, <br className="hidden sm:inline" />
                                 <span className="bg-gradient-to-r from-[#F9E7B9] via-[#D4AF37] to-[#AA7C1E] bg-clip-text text-transparent">
                                     Defining Legacy
                                 </span>
                             </h1>
 
-                            <p className="text-slate-300 text-base sm:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
+                            <p className="text-slate-300 text-sm sm:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed font-normal">
                                 Explore India's most prestigious horological vault. Featuring 100 masterfully engineered Swiss automatics, celestial tourbillons, skeleton calibres, and limited edition sports chronographs.
                             </p>
 
-                            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
                                 <a
                                     href="#products-section"
-                                    className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-sm tracking-wider uppercase transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:scale-105 flex items-center gap-2 group"
+                                    className="px-6 sm:px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_0_25px_rgba(212,175,55,0.35)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:scale-105 flex items-center justify-center gap-2 group text-center"
                                 >
                                     <span>Explore The Vault (100)</span>
                                     <ArrowRight className="w-4 h-4 text-black group-hover:translate-x-1 transition" />
@@ -189,61 +189,61 @@ export default function Home() {
 
                                 <button
                                     onClick={() => setVideoModalOpen(true)}
-                                    className="px-6 py-3.5 rounded-xl bg-[#07080D] hover:bg-[#0A0C13] text-[#E5C158] hover:text-white font-bold text-sm tracking-wide transition border border-[#D4AF37]/30 flex items-center gap-2.5 shadow-lg shadow-black/50 hover:border-[#D4AF37]/60"
+                                    className="px-5 sm:px-6 py-3.5 rounded-xl bg-[#07080D] hover:bg-[#0A0C13] text-[#E5C158] hover:text-white font-bold text-xs sm:text-sm tracking-wide transition border border-[#D4AF37]/30 flex items-center justify-center gap-2.5 shadow-lg shadow-black/50 hover:border-[#D4AF37]/60"
                                 >
-                                    <div className="w-7 h-7 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
-                                        <Play className="w-3.5 h-3.5 fill-[#D4AF37] ml-0.5" />
+                                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37]">
+                                        <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-[#D4AF37] ml-0.5" />
                                     </div>
                                     <span>Watch Calibre Film</span>
                                 </button>
                             </div>
 
                             {/* Trust metrics bar */}
-                            <div className="pt-4 grid grid-cols-3 gap-4 border-t border-[#151722] max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                            <div className="pt-4 grid grid-cols-3 gap-2 sm:gap-4 border-t border-[#151722] max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                                 <div>
-                                    <p className="text-xl font-bold text-white font-serif">100</p>
-                                    <p className="text-xs text-slate-400">Exclusive Timepieces</p>
+                                    <p className="text-lg sm:text-xl font-bold text-white font-serif">100</p>
+                                    <p className="text-[10px] sm:text-xs text-slate-400">Exclusive Timepieces</p>
                                 </div>
                                 <div>
-                                    <p className="text-xl font-bold text-[#E5C158] font-serif">COSC</p>
-                                    <p className="text-xs text-slate-400">Certified Chronometer</p>
+                                    <p className="text-lg sm:text-xl font-bold text-[#E5C158] font-serif">COSC</p>
+                                    <p className="text-[10px] sm:text-xs text-slate-400">Certified Chronometer</p>
                                 </div>
                                 <div>
-                                    <p className="text-xl font-bold text-white font-serif">5-Year</p>
-                                    <p className="text-xs text-slate-400">Global Warranty</p>
+                                    <p className="text-lg sm:text-xl font-bold text-white font-serif">5-Year</p>
+                                    <p className="text-[10px] sm:text-xs text-slate-400">Global Warranty</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Right Hero Stage */}
-                        <div className="lg:col-span-6 relative flex items-center justify-center min-h-[440px]">
-                            <div className="relative w-full max-w-[460px] aspect-square flex items-center justify-center">
+                        <div className="lg:col-span-6 relative flex items-center justify-center min-h-[320px] sm:min-h-[440px] overflow-hidden sm:overflow-visible py-4 sm:py-0">
+                            <div className="relative w-full max-w-[320px] sm:max-w-[460px] aspect-square flex items-center justify-center">
                                 {/* Subtle pedestal glow */}
-                                <div className="absolute inset-6 rounded-full bg-[#D4AF37]/15 blur-3xl pointer-events-none"></div>
-                                <div className="absolute inset-10 rounded-full bg-[#07080D] border border-[#D4AF37]/30 flex items-center justify-center animate-pulse">
-                                    <div className="w-64 h-64 rounded-full border border-[#D4AF37]/20"></div>
+                                <div className="absolute inset-4 sm:inset-6 rounded-full bg-[#D4AF37]/15 blur-2xl sm:blur-3xl pointer-events-none"></div>
+                                <div className="absolute inset-6 sm:inset-10 rounded-full bg-[#07080D] border border-[#D4AF37]/30 flex items-center justify-center animate-pulse">
+                                    <div className="w-44 h-44 sm:w-64 sm:h-64 rounded-full border border-[#D4AF37]/20"></div>
                                 </div>
 
                                 {/* Centerpiece Product */}
                                 <img
                                     src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=800&auto=format&fit=crop&q=80"
                                     alt="Chrononix Royal Tourbillon"
-                                    className="relative z-20 w-80 h-80 object-cover rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-2 border-[#D4AF37]/50"
+                                    className="relative z-20 w-52 h-52 sm:w-72 sm:h-72 lg:w-80 lg:h-80 object-cover rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.8)] border-2 border-[#D4AF37]/50"
                                 />
 
                                 {/* Floating Card 1: Tourbillon Calibre */}
                                 <div
                                     onClick={() => setQuickViewProduct(allProducts[0] || null)}
-                                    className="absolute -top-2 left-2 z-30 bg-[#07080D]/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37]"
+                                    className="absolute -top-1 sm:-top-2 left-0 sm:left-2 z-30 bg-[#07080D]/95 backdrop-blur-md p-2 sm:p-3.5 rounded-xl sm:rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37] max-w-[170px] sm:max-w-none"
                                 >
-                                    <p className="text-[10px] text-[#D4AF37] font-bold tracking-wider uppercase mb-1">Flying Tourbillon</p>
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
-                                            <Award className="w-4 h-4" />
+                                    <p className="text-[8px] sm:text-[10px] text-[#D4AF37] font-bold tracking-wider uppercase mb-0.5 sm:mb-1">Flying Tourbillon</p>
+                                    <div className="flex items-center gap-1.5 sm:gap-2">
+                                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37] shrink-0">
+                                            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                         </div>
                                         <div>
-                                            <p className="text-xs font-bold text-white">Calibre CH-901</p>
-                                            <p className="text-[10px] text-[#E5C158] font-medium">28,800 vph • Quick View</p>
+                                            <p className="text-[11px] sm:text-xs font-bold text-white leading-tight">Calibre CH-901</p>
+                                            <p className="text-[9px] sm:text-[10px] text-[#E5C158] font-medium">28,800 vph</p>
                                         </div>
                                     </div>
                                 </div>
@@ -251,20 +251,20 @@ export default function Home() {
                                 {/* Floating Card 2: Titanium & Sapphire */}
                                 <div
                                     onClick={() => setQuickViewProduct(allProducts[1] || allProducts[0])}
-                                    className="absolute -bottom-3 left-4 z-30 bg-[#07080D]/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 flex items-center gap-3 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37]"
+                                    className="absolute -bottom-2 sm:-bottom-3 left-0 sm:left-4 z-30 bg-[#07080D]/95 backdrop-blur-md p-2 sm:p-3.5 rounded-xl sm:rounded-2xl border border-[#D4AF37]/40 shadow-2xl shadow-black/80 flex items-center gap-2 sm:gap-3 cursor-pointer hover:scale-105 transition hover:border-[#D4AF37] max-w-[190px] sm:max-w-none"
                                 >
-                                    <div className="w-9 h-9 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 p-1 flex items-center justify-center text-[#D4AF37]">
-                                        <Watch className="w-5 h-5" />
+                                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-[#0E1018] border border-[#D4AF37]/40 p-1 flex items-center justify-center text-[#D4AF37] shrink-0">
+                                        <Watch className="w-4 h-4 sm:w-5 sm:h-5" />
                                     </div>
                                     <div>
-                                        <p className="text-xs font-bold text-white">Grade 5 Titanium</p>
-                                        <p className="text-[10px] text-slate-300">Curved Sapphire • 300m WR</p>
+                                        <p className="text-[11px] sm:text-xs font-bold text-white leading-tight">Grade 5 Titanium</p>
+                                        <p className="text-[9px] sm:text-[10px] text-slate-300">Curved Sapphire • 300m</p>
                                     </div>
                                 </div>
 
                                 {/* Floating Card 3: Vault Allocation */}
-                                <div className="absolute top-1/3 -right-2 z-30 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] text-black px-4 py-1.5 rounded-full text-xs font-black shadow-[0_0_20px_rgba(212,175,55,0.4)] tracking-wider uppercase">
-                                    VAULT RESERVE DROP
+                                <div className="absolute top-1/4 sm:top-1/3 -right-1 sm:-right-2 z-30 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] text-black px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-xs font-black shadow-[0_0_20px_rgba(212,175,55,0.4)] tracking-wider uppercase">
+                                    VAULT DROP
                                 </div>
                             </div>
                         </div>
@@ -320,9 +320,9 @@ export default function Home() {
             </section>
 
             {/* ================= CATEGORY PILLS BAR ================= */}
-            <section className="py-4 bg-[#040406]/95 border-b border-[#151722] sticky top-16 sm:top-20 z-30 backdrop-blur-md shadow-lg shadow-black/60">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <section className="py-3 sm:py-4 bg-[#040406]/95 border-b border-[#151722] sticky top-16 sm:top-20 z-30 backdrop-blur-md shadow-lg shadow-black/60">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none touch-scroll">
                         {CATEGORIES.map((cat) => {
                             const Icon = cat.icon;
                             const isActive = currentCategory.toLowerCase() === cat.name.toLowerCase();
@@ -334,7 +334,7 @@ export default function Home() {
                                 <button
                                     key={cat.name}
                                     onClick={() => handleCategorySelect(cat.name)}
-                                    className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border shrink-0 ${
+                                    className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all border shrink-0 ${
                                         isActive
                                             ? "bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] text-black border-[#E5C158] shadow-[0_0_20px_rgba(212,175,55,0.35)]"
                                             : "bg-[#07080D] text-slate-300 border-[#151722] hover:border-[#D4AF37]/50 hover:text-white hover:bg-[#0A0C13]"
@@ -353,12 +353,12 @@ export default function Home() {
             </section>
 
             {/* ================= MAIN CATALOG SECTION ================= */}
-            <section id="products-section" className="py-12 lg:py-16 bg-[#040406]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="products-section" className="py-10 sm:py-12 lg:py-16 bg-[#040406]">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
                     {/* Catalog Header & Filters Bar */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#151722]">
                         <div>
-                            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-serif">
+                            <h2 className="text-xl sm:text-3xl font-bold text-white tracking-tight font-serif">
                                 {currentCategory === "All" ? "Complete Horological Catalog (100)" : `${currentCategory} Collection`}
                             </h2>
                             <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -367,11 +367,11 @@ export default function Home() {
                         </div>
 
                         {/* Sorting & Filter Controls */}
-                        <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                             {/* In Stock toggle */}
                             <button
                                 onClick={() => setInStockOnly(!inStockOnly)}
-                                className={`px-3.5 py-2 rounded-xl text-xs font-bold border transition flex items-center gap-1.5 ${
+                                className={`px-3 py-1.5 sm:py-2 rounded-xl text-xs font-bold border transition flex items-center gap-1.5 ${
                                     inStockOnly
                                         ? "bg-[#0E1018] text-[#E5C158] border-[#D4AF37]/70 shadow-[0_0_15px_rgba(212,175,55,0.25)]"
                                         : "bg-[#07080D] text-slate-300 border-[#151722] hover:bg-[#0A0C13] hover:border-[#D4AF37]/40"
@@ -382,7 +382,7 @@ export default function Home() {
                             </button>
 
                             {/* Sort Selector */}
-                            <div className="flex items-center gap-2 bg-[#07080D] px-3.5 py-2 rounded-xl border border-[#151722] text-xs text-slate-300 shadow-sm">
+                            <div className="flex items-center gap-2 bg-[#07080D] px-3 py-1.5 sm:py-2 rounded-xl border border-[#151722] text-xs text-slate-300 shadow-sm">
                                 <span className="text-slate-400 font-medium">Sort:</span>
                                 <select
                                     value={selectedSort}
@@ -396,15 +396,15 @@ export default function Home() {
                                 </select>
                             </div>
 
-                            {/* Price Filter Inputs */}
-                            <div className="hidden sm:flex items-center gap-2 bg-[#07080D] px-3 py-1.5 rounded-xl border border-[#151722] text-xs shadow-sm">
-                                <span className="text-slate-400 font-medium">₹ Price:</span>
+                            {/* Price Filter Inputs - Visible on mobile too */}
+                            <div className="flex items-center gap-1.5 sm:gap-2 bg-[#07080D] px-2.5 sm:px-3 py-1.5 rounded-xl border border-[#151722] text-xs shadow-sm">
+                                <span className="text-slate-400 font-medium text-[11px] sm:text-xs">₹ Price:</span>
                                 <input
                                     type="number"
                                     placeholder="Min"
                                     value={minPrice}
                                     onChange={(e) => setMinPrice(e.target.value)}
-                                    className="w-20 bg-[#030406] text-white px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37]"
+                                    className="w-16 sm:w-20 bg-[#030406] text-white px-1.5 sm:px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37] text-xs"
                                 />
                                 <span className="text-slate-500">-</span>
                                 <input
@@ -412,7 +412,7 @@ export default function Home() {
                                     placeholder="Max"
                                     value={maxPrice}
                                     onChange={(e) => setMaxPrice(e.target.value)}
-                                    className="w-20 bg-[#030406] text-white px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37]"
+                                    className="w-16 sm:w-20 bg-[#030406] text-white px-1.5 sm:px-2 py-1 rounded text-center outline-none border border-[#151722] focus:border-[#D4AF37] text-xs"
                                 />
                                 {(minPrice || maxPrice) && (
                                     <button
@@ -420,7 +420,7 @@ export default function Home() {
                                             setMinPrice("");
                                             setMaxPrice("");
                                         }}
-                                        className="text-slate-400 hover:text-[#D4AF37] transition"
+                                        className="text-slate-400 hover:text-[#D4AF37] transition p-0.5"
                                         title="Clear price filter"
                                     >
                                         <X className="w-3.5 h-3.5" />
@@ -618,7 +618,7 @@ export default function Home() {
                         </p>
                     </div>
 
-                    <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex gap-2">
+                    <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-2.5">
                         <input
                             type="email"
                             required
@@ -629,7 +629,7 @@ export default function Home() {
                         />
                         <button
                             type="submit"
-                            className="px-6 py-3 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+                            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#C5A059] via-[#D4AF37] to-[#AA7C1E] hover:from-[#D4AF37] hover:to-[#E5C158] text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-[0_0_20px_rgba(212,175,55,0.35)] shrink-0"
                         >
                             Request Access
                         </button>
